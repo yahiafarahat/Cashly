@@ -1,984 +1,114 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
-import "../styles/Analytics.css";
 import "../styles/Dashboard.css";
+import "../styles/AnalyticsSimple.css";
 
-import {
-  financialData,
-  formatCurrency,
-} from "../data/financialData";
+const Icon = ({ name, size = 20 }) => {
+  const paths = {
+    day: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></>,
+    transactions: <><path d="M7 7h11l-3-3M17 17H6l3 3"/><path d="M18 7l-3 3M6 17l3-3"/></>,
+    analytics: <path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/>,
+    challenges: <><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Z"/><path d="M7 6H3v2a4 4 0 0 0 4 4M17 6h4v2a4 4 0 0 1-4 4"/></>,
+    settings: <><circle cx="12" cy="12" r="3"/><path d="M19 15a2 2 0 0 0 .4 2l-2.8 2.8a2 2 0 0 0-2-.4 2 2 0 0 0-1.2 1.6h-4a2 2 0 0 0-1.2-1.6 2 2 0 0 0-2 .4L3.4 17a2 2 0 0 0 .4-2A2 2 0 0 0 2 13.8v-4A2 2 0 0 0 3.8 8a2 2 0 0 0-.4-2l2.8-2.8a2 2 0 0 0 2 .4A2 2 0 0 0 9.4 2h4a2 2 0 0 0 1.2 1.6 2 2 0 0 0 2-.4L19.4 6a2 2 0 0 0-.4 2 2 2 0 0 0 1.8 1.2v4A2 2 0 0 0 19 15Z"/></>,
+    logout: <><path d="M10 17l5-5-5-5M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></>,
+    spark: <path d="m12 3-1.2 4.2a5 5 0 0 1-3.6 3.6L3 12l4.2 1.2a5 5 0 0 1 3.6 3.6L12 21l1.2-4.2a5 5 0 0 1 3.6-3.6L21 12l-4.2-1.2a5 5 0 0 1-3.6-3.6L12 3Z"/>,
+    arrow: <path d="m9 18 6-6-6-6"/>,
+  };
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
+};
+
+const categories = [
+  { name: "Food", amount: 5200, percent: 35, color: "#e8c45b", icon: "🍔", change: "↑ 12%", tone: "up" },
+  { name: "Bills", amount: 3600, percent: 24, color: "#738bd7", icon: "⌂", change: "Stable", tone: "stable" },
+  { name: "Transport", amount: 2100, percent: 14, color: "#5eb9a0", icon: "🚕", change: "↓ 8%", tone: "down" },
+  { name: "Shopping", amount: 2300, percent: 15, color: "#cf7f83", icon: "◊", change: "↑ 4%", tone: "up" },
+  { name: "Entertainment", amount: 1800, percent: 12, color: "#9876c7", icon: "♪", change: "↓ 3%", tone: "down" },
+];
+
+const monthly = [13200, 12800, 12100, 13400, 11900, 11600, 10800, 11400, 10300, 9900, 9600, 9200];
+const monthLabels = ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+const habits = [
+  { icon: "✦", title: "Fridays cost you the most", text: "You spend 34% more on Fridays, mainly on food and rides.", tag: "Weekly pattern" },
+  { icon: "☕", title: "Coffee purchases increased 30%", text: "That is EGP 240 more than last month — about three extra visits.", tag: "Worth watching" },
+  { icon: "↘", title: "Groceries are moving the right way", text: "You spent EGP 480 less than last month without buying less often.", tag: "Good progress", positive: true },
+  { icon: "!", title: "The last week is your budget trap", text: "You usually exceed your food budget between the 24th and payday.", tag: "Cashly forecast" },
+];
+
+function TrendChart() {
+  const width = 900, height = 250, padX = 20, padY = 26;
+  const max = 14000, min = 8500;
+  const points = monthly.map((value, index) => ({ x: padX + index * ((width - padX * 2) / (monthly.length - 1)), y: padY + (max - value) * ((height - padY * 2) / (max - min)) }));
+  const line = points.map((p, i) => `${i ? "L" : "M"}${p.x},${p.y}`).join(" ");
+  const area = `${line} L${points.at(-1).x},${height} L${points[0].x},${height} Z`;
+  return (
+    <div className="trend-chart-wrap">
+      <svg className="trend-chart" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Monthly spending declined from EGP 13,200 to EGP 9,200 over twelve months">
+        <defs><linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#dfbb52" stopOpacity=".3"/><stop offset="1" stopColor="#dfbb52" stopOpacity="0"/></linearGradient></defs>
+        {[50, 110, 170, 230].map((y) => <line key={y} x1="0" y1={y} x2={width} y2={y} className="trend-grid" />)}
+        <path d={area} fill="url(#trendFill)"/><path d={line} className="trend-line"/>
+        {points.map((p, index) => <g key={monthLabels[index]} className="trend-point"><circle cx={p.x} cy={p.y} r="11" className="trend-point-hit"/><circle cx={p.x} cy={p.y} r={index === 11 ? 5 : 3}/><text x={p.x} y={p.y - 17}>EGP {monthly[index].toLocaleString()}</text></g>)}
+      </svg>
+      <div className="month-labels">{monthLabels.map((month) => <span key={month}>{month}</span>)}</div>
+    </div>
+  );
+}
 
 function Analytics() {
-  const {
-    summary,
-    comparisons,
-    financialHealth,
-    spendingCategories,
-    weeklySpending,
-  } = financialData;
-
-  const [showIntelligenceReport, setShowIntelligenceReport] =
-    useState(false);
-
-  const [selectedPeriod, setSelectedPeriod] =
-    useState("6-months");
-
-  const userName =
-    localStorage.getItem("cashlyUserName") || "Cashly User";
-
-  const firstLetter = userName.charAt(0).toUpperCase();
-
-  const remainingBudget =
-    summary.budget - summary.expenses;
-
-  const budgetUsedPercentage = Math.round(
-    (summary.expenses / summary.budget) * 100
-  );
-
-  const budgetRemainingPercentage = Math.round(
-    (remainingBudget / summary.budget) * 100
-  );
-
-  const savingsPercentage = Math.round(
-    (summary.savings / summary.income) * 100
-  );
-
-  const averageDailySpend = Math.round(
-    summary.expenses / 31
-  );
-
-  const dailyBudgetLimit = Math.round(
-    summary.budget / 31
-  );
-
-  const dailyAmountBelowLimit =
-    dailyBudgetLimit - averageDailySpend;
-
-  const highestSpendingDay = weeklySpending.reduce(
-    (highest, current) =>
-      current.amount > highest.amount
-        ? current
-        : highest
-  );
-
-  const lowestSpendingDay = weeklySpending.reduce(
-    (lowest, current) =>
-      current.amount < lowest.amount
-        ? current
-        : lowest
-  );
-
-  const largestSpendingCategory =
-    spendingCategories.reduce((largest, current) =>
-      current.amount > largest.amount
-        ? current
-        : largest
-    );
-
-  const smallestSpendingCategory =
-    spendingCategories.reduce((smallest, current) =>
-      current.amount < smallest.amount
-        ? current
-        : smallest
-    );
-
-
-  const displayedMonthlyData =
-    selectedPeriod === "6-months"
-      ? financialData.monthlySpending
-      : financialData.yearlySpending;
-
-
-  const maximumDisplayedSpending = Math.max(
-    ...displayedMonthlyData.map((item) => item.amount)
-  );
-
-
-  const maximumWeeklySpending = Math.max(
-    ...weeklySpending.map((item) => item.amount)
-  );
-
-  const expectedAdditionalExpenses = 1300;
-
-  const expectedExpenses =
-    summary.expenses + expectedAdditionalExpenses;
-
-  const expectedSavings = Math.max(
-    summary.income - expectedExpenses,
-    0
-  );
-
-  const predictedSavingsPercentage = Math.round(
-    (expectedSavings / summary.income) * 100
-  );
-
-  const budgetSuccessChance =
-    expectedExpenses <= summary.budget ? 92 : 64;
-
-  const healthScoreDifference =
-    financialHealth.targetScore -
-    financialHealth.score;
-
+  const userName = localStorage.getItem("cashlyUserName") || "Cashly User";
+  const total = categories.reduce((sum, item) => sum + item.amount, 0);
   return (
-    <div className="analytics-page">
-      {/* Sidebar */}
+    <div className="analytics-simple-page">
       <aside className="dashboard-sidebar">
-        <div className="sidebar-logo">
-          <img src={cashlyLogo} alt="Cashly Logo" />
-          <h2>Cashly</h2>
-        </div>
-
+        <div className="sidebar-logo"><img src={cashlyLogo} alt="Cashly"/><h2>Cashly</h2></div>
         <nav className="sidebar-menu">
-          <Link
-            className="sidebar-link"
-            to="/dashboard"
-          >
-            <span>⌂</span>
-            Dashboard
-          </Link>
-
-          <Link
-            className="sidebar-link"
-            to="/transactions"
-          >
-            <span>↔</span>
-            Transactions
-          </Link>
-
-          <Link
-            className="sidebar-link active"
-            to="/analytics"
-          >
-            <span>◫</span>
-            Analytics
-          </Link>
-
-          <Link
-            className="sidebar-link"
-            to="/dashboard#challenges"
-          >
-            <span>★</span>
-            Challenges
-          </Link>
-
-          <a
-            className="sidebar-link"
-            href="#settings"
-          >
-            <span>⚙</span>
-            Settings
-          </a>
+          <Link className="sidebar-link" to="/dashboard"><Icon name="day"/>My Day</Link>
+          <Link className="sidebar-link" to="/transactions"><Icon name="transactions"/>Transactions</Link>
+          <Link className="sidebar-link active" to="/analytics"><Icon name="analytics"/>Analytics</Link>
+          <Link className="sidebar-link" to="/challenges"><Icon name="challenges"/>Challenges</Link>
+          <Link className="sidebar-link" to="/settings"><Icon name="settings"/>Settings</Link>
         </nav>
-
-        <Link className="logout-link" to="/login">
-          <span>←</span>
-          Logout
-        </Link>
+        <Link className="logout-link" to="/login"><Icon name="logout"/>Logout</Link>
       </aside>
 
-      {/* Main content */}
-      <main className="analytics-main">
-        {/* Navbar */}
-        <header className="analytics-navbar">
-          <div>
-            <span className="analytics-page-label">
-              Financial Intelligence
-            </span>
-
-            <h1>Analytics Overview</h1>
-
-            <p>
-              Understand your spending patterns and predict
-              your financial future.
-            </p>
-          </div>
-
-          <div className="analytics-navbar-actions">
-            <input
-              className="analytics-search"
-              type="text"
-              placeholder="Search analytics..."
-            />
-
-            <button
-              className="analytics-notification-button"
-              type="button"
-            >
-              🔔
-            </button>
-
-            <div className="analytics-user-profile">
-              <div className="analytics-profile-circle">
-                {firstLetter}
-              </div>
-
-              <div>
-                <strong>{userName}</strong>
-                <span>Cashly User</span>
-              </div>
-            </div>
-          </div>
+      <main className="analytics-simple-main">
+        <header className="analytics-simple-header">
+          <div><span className="analytics-kicker">YOUR MONEY, EXPLAINED</span><h1>Where is your money going?</h1><p>A clear look at what changed — and what deserves your attention.</p></div>
+          <div className="analytics-avatar" title={userName}>{userName.charAt(0).toUpperCase()}</div>
         </header>
 
-        {/* Top summary cards */}
-        <section className="analytics-summary-grid">
-          <div className="analytics-summary-card">
-            <div className="analytics-summary-top">
-              <span>Total Expenses</span>
-
-              <div className="analytics-summary-icon">
-                ↑
-              </div>
+        <section className="analytics-section breakdown-section">
+          <div className="analytics-section-title"><div><span>01 · BREAKDOWN</span><h2>Spending breakdown</h2></div><p>August 2026</p></div>
+          <div className="breakdown-grid">
+            <div className="donut" style={{ "--segments": "#e8c45b 0 35%, #738bd7 35% 59%, #5eb9a0 59% 73%, #cf7f83 73% 88%, #9876c7 88% 100%" }}>
+              <div className="donut-center"><span>Total spent</span><strong>EGP {total.toLocaleString()}</strong><small>this month</small></div>
             </div>
-
-            <h2>
-              {formatCurrency(summary.expenses)}
-            </h2>
-
-            <p className="analytics-negative-text">
-              {comparisons.expensesChange}% higher than last
-              month
-            </p>
-          </div>
-
-          <div className="analytics-summary-card">
-            <div className="analytics-summary-top">
-              <span>Average Daily Spend</span>
-
-              <div className="analytics-summary-icon">
-                ◷
-              </div>
-            </div>
-
-            <h2>
-              {formatCurrency(averageDailySpend)}
-            </h2>
-
-            <p className="analytics-positive-text">
-              {dailyAmountBelowLimit > 0
-                ? `${formatCurrency(
-                    dailyAmountBelowLimit
-                  )} below your daily limit`
-                : `${formatCurrency(
-                    Math.abs(dailyAmountBelowLimit)
-                  )} above your daily limit`}
-            </p>
-          </div>
-
-          <div className="analytics-summary-card">
-            <div className="analytics-summary-top">
-              <span>Highest Spending Day</span>
-
-              <div className="analytics-summary-icon">
-                📅
-              </div>
-            </div>
-
-            <h2>{highestSpendingDay.day}</h2>
-
-            <p className="analytics-neutral-text">
-              Average:{" "}
-              {formatCurrency(
-                highestSpendingDay.amount
-              )}
-            </p>
-          </div>
-
-          <div className="analytics-summary-card">
-            <div className="analytics-summary-top">
-              <span>Budget Remaining</span>
-
-              <div className="analytics-summary-icon">
-                ◆
-              </div>
-            </div>
-
-            <h2>{formatCurrency(remainingBudget)}</h2>
-
-            <p className="analytics-positive-text">
-              {budgetRemainingPercentage}% still available
-            </p>
-          </div>
-        </section>
-
-        {/* Main analytics grid */}
-        <section className="analytics-content-grid">
-          {/* Monthly spending chart */}
-          <div className="analytics-panel monthly-trend-panel">
-            <div className="analytics-panel-heading">
-              <div>
-                <h2>Monthly Spending Trend</h2>
-
-                <p>
-{selectedPeriod === "6-months"
-  ? "Your expenses during the last six months."
-  : "Your expenses throughout the current year."}                </p>
-              </div>
-
-              <select
-  className="analytics-period-select"
-  value={selectedPeriod}
-  onChange={(event) =>
-    setSelectedPeriod(event.target.value)
-  }
->
-                <option value="6-months">
-                  Last 6 Months
-                </option>
-
-                <option value="year">
-                  This Year
-                </option>
-              </select>
-            </div>
-
-            <div className="monthly-chart">
-              <div className="chart-value-lines">
-                <span>EGP 8K</span>
-                <span>EGP 6K</span>
-                <span>EGP 4K</span>
-                <span>EGP 2K</span>
-                <span>EGP 0</span>
-              </div>
-
-              <div className="monthly-bars">
-{displayedMonthlyData.map((item) => (
-                      <div
-                    className="monthly-bar-column"
-                    key={item.month}
-                  >
-                    <div className="monthly-bar-area">
-                      <span className="monthly-bar-value">
-                        {formatCurrency(item.amount)}
-                      </span>
-
-                      <div
-                        className="monthly-bar"
-                        style={{
-                          height: `${
-                            (item.amount /
-maximumDisplayedSpending) * 100
-                          }%`,
-                        }}
-                      ></div>
-                    </div>
-
-                    <span className="monthly-label">
-                      {item.month}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Budget usage */}
-          <div className="analytics-panel budget-usage-panel">
-            <div className="analytics-panel-heading">
-              <div>
-                <h2>Budget Usage</h2>
-
-                <p>
-                  Your monthly budget progress.
-                </p>
-              </div>
-            </div>
-
-            <div className="budget-gauge">
-              <div
-                className="budget-gauge-circle"
-                style={{
-                  background: `conic-gradient(
-                    #d4af37 0deg ${
-                      budgetUsedPercentage * 3.6
-                    }deg,
-                    #343434 ${
-                      budgetUsedPercentage * 3.6
-                    }deg 360deg
-                  )`,
-                }}
-              >
-                <div className="budget-gauge-center">
-                  <strong>
-                    {budgetUsedPercentage}%
-                  </strong>
-
-                  <span>Used</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="budget-usage-numbers">
-              <div>
-                <span>Spent</span>
-
-                <strong>
-                  {formatCurrency(summary.expenses)}
-                </strong>
-              </div>
-
-              <div>
-                <span>Budget</span>
-
-                <strong>
-                  {formatCurrency(summary.budget)}
-                </strong>
-              </div>
-            </div>
-
-            <div className="budget-status-message">
-              <span>✓</span>
-
-              <p>
-                You are currently on track to remain within
-                your monthly budget.
-              </p>
-            </div>
-          </div>
-
-          {/* Spending categories */}
-          <div className="analytics-panel categories-panel">
-            <div className="analytics-panel-heading">
-              <div>
-                <h2>Spending Breakdown</h2>
-
-                <p>
-                  Where your money went this month.
-                </p>
-              </div>
-
-              <span className="analytics-total-label">
-                {formatCurrency(summary.expenses)}
-              </span>
-            </div>
-
-            <div className="spending-breakdown-content">
-              <div className="spending-donut">
-                <div className="spending-donut-center">
-                  <strong>
-                    {largestSpendingCategory.percentage}%
-                  </strong>
-
-                  <span>
-                    {largestSpendingCategory.name}
-                  </span>
-                </div>
-              </div>
-
-              <div className="category-list">
-                {spendingCategories.map((category) => (
-                  <div
-                    className="category-item"
-                    key={category.name}
-                  >
-                    <div className="category-information">
-                      <div className="category-icon">
-                        {category.icon}
-                      </div>
-
-                      <div>
-                        <strong>
-                          {category.name}
-                        </strong>
-
-                        <span>
-                          {formatCurrency(
-                            category.amount
-                          )}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="category-percentage-area">
-                      <strong>
-                        {category.percentage}%
-                      </strong>
-
-                      <div className="category-progress">
-                        <div
-                          className="category-progress-fill"
-                          style={{
-                            width: `${category.percentage}%`,
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Weekly spending */}
-          <div className="analytics-panel weekly-spending-panel">
-            <div className="analytics-panel-heading">
-              <div>
-                <h2>Weekly Spending Pattern</h2>
-
-                <p>
-                  Your average spending for each day.
-                </p>
-              </div>
-            </div>
-
-            <div className="weekly-spending-list">
-              {weeklySpending.map((item) => (
-                <div
-                  className="weekly-spending-item"
-                  key={item.day}
-                >
-                  <div className="weekly-day-information">
-                    <span>{item.day}</span>
-
-                    <strong>
-                      {formatCurrency(item.amount)}
-                    </strong>
-                  </div>
-
-                  <div className="weekly-progress">
-                    <div
-                      className="weekly-progress-fill"
-                      style={{
-                        width: `${
-                          (item.amount /
-                            maximumWeeklySpending) *
-                          100
-                        }%`,
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
+            <div className="breakdown-legend">
+              {categories.map((category) => <div className="legend-row" key={category.name}><i style={{ background: category.color }}/><strong>{category.name}</strong><span>{category.percent}%</span><b>EGP {category.amount.toLocaleString()}</b></div>)}
+              <div className="breakdown-callout"><span>Biggest opportunity</span><strong>Food takes EGP 1 of every EGP 3 you spend.</strong><p>Reducing it by 10% saves EGP 520 this month.</p></div>
             </div>
           </div>
         </section>
 
-        {/* Forecast section */}
-        <section className="forecast-section">
-          <div className="analytics-panel forecast-panel">
-            <div className="forecast-heading">
-              <div>
-                <span className="forecast-small-label">
-                  Cashly Prediction
-                </span>
+        <section className="analytics-section trend-section">
+          <div className="analytics-section-title"><div><span>02 · TREND</span><h2>Monthly spending trend</h2></div><div className="trend-summary"><b>↓ 30%</b><span>over 12 months</span></div></div>
+          <TrendChart />
+          <p className="trend-caption"><i/> Your spending is moving down consistently. You kept <strong>EGP 4,000 more</strong> this August than last September.</p>
+        </section>
 
-                <h2>Your Spending Forecast</h2>
-
-                <p>
-                  Based on your current spending rate and
-                  recent financial behavior.
-                </p>
-              </div>
-
-              <div className="forecast-icon">
-                ✦
-              </div>
-            </div>
-
-            <div className="forecast-grid">
-              <div className="forecast-card">
-                <span>Expected Expenses</span>
-
-                <strong>
-                  {formatCurrency(expectedExpenses)}
-                </strong>
-
-                <p>
-                  {formatCurrency(
-                    expectedAdditionalExpenses
-                  )}{" "}
-                  more before month end
-                </p>
-              </div>
-
-              <div className="forecast-card">
-                <span>Expected Savings</span>
-
-                <strong>
-                  {formatCurrency(expectedSavings)}
-                </strong>
-
-                <p>
-                  Approximately{" "}
-                  {predictedSavingsPercentage}% of your
-                  income
-                </p>
-              </div>
-
-              <div className="forecast-card">
-                <span>Budget Success Chance</span>
-
-                <strong>
-                  {budgetSuccessChance}%
-                </strong>
-
-                <p>
-                  High probability of staying on track
-                </p>
-              </div>
-            </div>
+        <section className="analytics-section habits-section">
+          <div className="analytics-section-title"><div><span className="ai-title"><Icon name="spark" size={15}/>03 · CASHLY AI</span><h2>What your spending habits say</h2></div><p>Based on your last 90 days</p></div>
+          <div className="habits-grid">
+            {habits.map((habit) => <article className="habit-card" key={habit.title}><div className={`habit-icon ${habit.positive ? "positive" : ""}`}>{habit.icon}</div><div><span>{habit.tag}</span><h3>{habit.title}</h3><p>{habit.text}</p></div><Icon name="arrow" size={18}/></article>)}
           </div>
+        </section>
 
-          {/* Cashly summary */}
-          <div className="analytics-panel ai-summary-panel">
-            <div className="ai-summary-icon">
-              ✦
-            </div>
-
-            <div className="ai-summary-content">
-              <span className="ai-summary-label">
-                Cashly Intelligence
-              </span>
-
-              <h2>Your Monthly Financial Summary</h2>
-
-              <p>
-                You saved {savingsPercentage}% of your
-                income this month.{" "}
-                {largestSpendingCategory.name} remains your
-                largest expense category, while{" "}
-                {highestSpendingDay.day} is your most
-                expensive day. Based on your current
-                activity, you have a{" "}
-                {budgetSuccessChance}% chance of remaining
-                within your budget.
-              </p>
-
-              <div className="ai-summary-tags">
-                <span>
-                  {savingsPercentage}% Saved
-                </span>
-
-                <span>
-                  {budgetRemainingPercentage}% Budget Left
-                </span>
-
-                <span>
-                  {largestSpendingCategory.name} Warning
-                </span>
-              </div>
-
-              <button
-                className="open-intelligence-button"
-                type="button"
-                onClick={() =>
-                  setShowIntelligenceReport(true)
-                }
-              >
-                Open Full Intelligence Report
-              </button>
-            </div>
+        <section className="analytics-section category-section">
+          <div className="analytics-section-title"><div><span>04 · CATEGORIES</span><h2>Your biggest expense categories</h2></div><p>Compared with July</p></div>
+          <div className="category-cards">
+            {categories.slice(0, 3).map((category, index) => <article className={`category-card rank-${index + 1}`} key={category.name}><div className="category-card-top"><div className="category-icon" style={{ color: category.color, background: `${category.color}18` }}>{category.icon}</div><span>#{index + 1}</span></div><p>{category.name}</p><h3>EGP {category.amount.toLocaleString()}</h3><div className="category-meta"><span className={category.tone}>{category.change}</span><small>vs last month</small></div><div className="category-bar"><i style={{ width: `${category.percent * 2.3}%`, background: category.color }}/></div></article>)}
           </div>
         </section>
       </main>
-
-      {/* Cashly Intelligence Report */}
-      {showIntelligenceReport && (
-        <div
-          className="intelligence-modal-overlay"
-          onClick={() =>
-            setShowIntelligenceReport(false)
-          }
-        >
-          <div
-            className="intelligence-modal"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
-          >
-            <div className="intelligence-modal-header">
-              <div>
-                <span className="intelligence-report-label">
-                  Cashly Intelligence
-                </span>
-
-                <h2>
-                  Your Financial Intelligence Report
-                </h2>
-
-                <p>
-                  A personalized analysis generated from
-                  your financial activity.
-                </p>
-              </div>
-
-              <button
-                className="intelligence-close-button"
-                type="button"
-                onClick={() =>
-                  setShowIntelligenceReport(false)
-                }
-              >
-                ×
-              </button>
-            </div>
-
-            <div className="intelligence-welcome-card">
-              <div className="intelligence-avatar">
-                {firstLetter}
-              </div>
-
-              <div>
-                <span>Prepared for</span>
-
-                <h3>Hello, {userName} 👋</h3>
-
-                <p>
-                  Cashly analyzed your spending, savings,
-                  budget, and financial behavior for this
-                  month.
-                </p>
-              </div>
-            </div>
-
-            <div className="intelligence-score-card">
-              <div className="intelligence-score-circle">
-                <strong>
-                  {financialHealth.score}
-                </strong>
-
-                <span>/ 100</span>
-              </div>
-
-              <div>
-                <span className="intelligence-status">
-                  {financialHealth.status}
-                </span>
-
-                <h3>Your financial health is strong</h3>
-
-                <p>
-                  Your score improved by{" "}
-                  {comparisons.healthImprovement} points
-                  this month. You are only{" "}
-                  {healthScoreDifference} points away from
-                  your next target.
-                </p>
-              </div>
-            </div>
-
-            <div className="intelligence-report-grid">
-              <div className="intelligence-report-card positive-report-card">
-                <div className="report-card-icon">
-                  📈
-                </div>
-
-                <span>Biggest Strength</span>
-
-                <h3>Consistent Savings</h3>
-
-                <strong>
-                  {savingsPercentage}% of income
-                </strong>
-
-                <p>
-                  You saved{" "}
-                  {formatCurrency(summary.savings)} this
-                  month, which shows strong financial
-                  discipline.
-                </p>
-              </div>
-
-              <div className="intelligence-report-card warning-report-card">
-                <div className="report-card-icon">
-                  ⚠
-                </div>
-
-                <span>Needs Attention</span>
-
-                <h3>
-                  {largestSpendingCategory.name} Spending
-                </h3>
-
-                <strong>
-                  {formatCurrency(
-                    largestSpendingCategory.amount
-                  )}
-                </strong>
-
-                <p>
-                  This category represents{" "}
-                  {largestSpendingCategory.percentage}% of
-                  your total monthly expenses.
-                </p>
-              </div>
-
-              <div className="intelligence-report-card">
-                <div className="report-card-icon">
-                  📅
-                </div>
-
-                <span>Highest Spending Day</span>
-
-                <h3>{highestSpendingDay.day}</h3>
-
-                <strong>
-                  {formatCurrency(
-                    highestSpendingDay.amount
-                  )}
-                </strong>
-
-                <p>
-                  Your spending is highest on{" "}
-                  {highestSpendingDay.day} and lowest on{" "}
-                  {lowestSpendingDay.day}.
-                </p>
-              </div>
-
-              <div className="intelligence-report-card">
-                <div className="report-card-icon">
-                  🔮
-                </div>
-
-                <span>Cashly Prediction</span>
-
-                <h3>Budget Success</h3>
-
-                <strong>
-                  {budgetSuccessChance}%
-                </strong>
-
-                <p>
-                  You are expected to finish the month with{" "}
-                  {formatCurrency(expectedSavings)} in
-                  savings.
-                </p>
-              </div>
-            </div>
-
-            <div className="intelligence-observations">
-              <div className="intelligence-section-heading">
-                <span>✦</span>
-
-                <div>
-                  <h3>What Cashly Noticed</h3>
-
-                  <p>
-                    Important patterns found in your data.
-                  </p>
-                </div>
-              </div>
-
-              <div className="observation-list">
-                <div className="observation-item">
-                  <span className="observation-number">
-                    01
-                  </span>
-
-                  <p>
-                    You currently have{" "}
-                    <strong>
-                      {formatCurrency(remainingBudget)}
-                    </strong>{" "}
-                    remaining from your monthly budget.
-                  </p>
-                </div>
-
-                <div className="observation-item">
-                  <span className="observation-number">
-                    02
-                  </span>
-
-                  <p>
-                    Your smallest spending category is{" "}
-                    <strong>
-                      {smallestSpendingCategory.name}
-                    </strong>{" "}
-                    at{" "}
-                    <strong>
-                      {formatCurrency(
-                        smallestSpendingCategory.amount
-                      )}
-                    </strong>
-                    .
-                  </p>
-                </div>
-
-                <div className="observation-item">
-                  <span className="observation-number">
-                    03
-                  </span>
-
-                  <p>
-                    Your average daily spending is{" "}
-                    <strong>
-                      {formatCurrency(averageDailySpend)}
-                    </strong>
-                    .
-                  </p>
-                </div>
-
-                <div className="observation-item">
-                  <span className="observation-number">
-                    04
-                  </span>
-
-                  <p>
-                    Your expenses increased by{" "}
-                    <strong>
-                      {comparisons.expensesChange}%
-                    </strong>{" "}
-                    compared with last month.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="intelligence-recommendation">
-              <div className="recommendation-symbol">
-                ✦
-              </div>
-
-              <div>
-                <span>
-                  Personalized Recommendation
-                </span>
-
-                <h3>
-                  Reduce{" "}
-                  {largestSpendingCategory.name.toLowerCase()}{" "}
-                  spending by 8%
-                </h3>
-
-                <p>
-                  Reducing this category by approximately{" "}
-                  {formatCurrency(
-                    Math.round(
-                      largestSpendingCategory.amount * 0.08
-                    )
-                  )}{" "}
-                  could help you reach a Financial Health
-                  Score of{" "}
-                  {financialHealth.targetScore}.
-                </p>
-              </div>
-            </div>
-
-            <div className="intelligence-actions">
-              <button
-                className="intelligence-secondary-button"
-                type="button"
-                onClick={() =>
-                  window.print()
-                }
-              >
-                Print Report
-              </button>
-
-              <button
-                className="intelligence-done-button"
-                type="button"
-                onClick={() =>
-                  setShowIntelligenceReport(false)
-                }
-              >
-                Done
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

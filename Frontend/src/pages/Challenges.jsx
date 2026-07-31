@@ -1,619 +1,93 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-
 import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
-
 import "../styles/Dashboard.css";
-import "../styles/Challenges.css";
+import "../styles/ChallengesSmart.css";
 
-import {
-  financialData,
-  formatCurrency,
-} from "../data/financialData";
+const Icon = ({ name, size = 20 }) => {
+  const paths = {
+    day: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></>,
+    transactions: <><path d="M7 7h11l-3-3M17 17H6l3 3"/><path d="M18 7l-3 3M6 17l3-3"/></>,
+    analytics: <path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/>,
+    challenges: <><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Z"/><path d="M7 6H3v2a4 4 0 0 0 4 4M17 6h4v2a4 4 0 0 1-4 4"/></>,
+    settings: <><circle cx="12" cy="12" r="3"/><path d="M19 15a2 2 0 0 0 .4 2l-2.8 2.8a2 2 0 0 0-2-.4 2 2 0 0 0-1.2 1.6h-4a2 2 0 0 0-1.2-1.6 2 2 0 0 0-2 .4L3.4 17a2 2 0 0 0 .4-2A2 2 0 0 0 2 13.8v-4A2 2 0 0 0 3.8 8a2 2 0 0 0-.4-2l2.8-2.8a2 2 0 0 0 2 .4A2 2 0 0 0 9.4 2h4a2 2 0 0 0 1.2 1.6 2 2 0 0 0 2-.4L19.4 6a2 2 0 0 0-.4 2 2 2 0 0 0 1.8 1.2v4A2 2 0 0 0 19 15Z"/></>,
+    logout: <><path d="M10 17l5-5-5-5M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></>,
+    spark: <path d="m12 3-1.2 4.2a5 5 0 0 1-3.6 3.6L3 12l4.2 1.2a5 5 0 0 1 3.6 3.6L12 21l1.2-4.2a5 5 0 0 1 3.6-3.6L21 12l-4.2-1.2a5 5 0 0 1-3.6-3.6L12 3Z"/>,
+    check: <path d="m5 12 4 4L19 6"/>,
+    arrow: <path d="m9 18 6-6-6-6"/>,
+  };
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
+};
 
-const startingDailyChallenges = [
-  {
-    id: 1,
-    icon: "☕",
-    title: "Coffee Spending Pause",
-    description:
-      "Avoid buying coffee outside today and keep that amount within your daily budget.",
-    reward: 15,
-    difficulty: "Easy",
-    completed: false,
-  },
-  {
-    id: 2,
-    icon: "🧾",
-    title: "Record Today’s Spending",
-    description:
-      "Record each purchase today to keep your spending data accurate.",
-    reward: 10,
-    difficulty: "Easy",
-    completed: false,
-  },
-  {
-    id: 3,
-    icon: "💰",
-    title: "Savings Transfer",
-    description:
-      "Transfer at least EGP 50 to your savings account today.",
-    reward: 20,
-    difficulty: "Medium",
-    completed: false,
-  },
-  {
-    id: 4,
-    icon: "🍳",
-    title: "Reduce Dining Spend",
-    description:
-      "Replace one restaurant or delivery order with a meal prepared at home.",
-    reward: 20,
-    difficulty: "Medium",
-    completed: false,
-  },
+const suggestions = [
+  { id: "coffee", icon: "☕", signal: "You ordered coffee four times this week.", action: "Make coffee at home tomorrow.", saving: 95, period: "tomorrow", button: "Accept", confidence: "Based on 4 recent purchases" },
+  { id: "streaming", icon: "▶", signal: "You have three streaming subscriptions.", action: "Pause the one you use least.", saving: 180, period: "every month", button: "Review subscriptions", confidence: "One hasn't been used in 24 days" },
+  { id: "delivery", icon: "⌂", signal: "Sunday delivery is becoming a habit.", action: "Plan one easy meal before the weekend.", saving: 240, period: "this week", button: "Plan it", confidence: "Detected 3 Sundays in a row" },
 ];
 
 function Challenges() {
-  const { challenge } = financialData;
-
-  const userName =
-    localStorage.getItem("cashlyUserName") || "Cashly User";
-
-  const firstLetter = userName.charAt(0).toUpperCase();
-
-  const challengeProgressStart = Math.round(
-    (challenge.spent / challenge.limit) * 100
-  );
-
-  const [challengeProgress, setChallengeProgress] =
-    useState(challengeProgressStart);
-
-  const [challengeCheckedIn, setChallengeCheckedIn] =
-    useState(false);
-
-  const [currentStreak, setCurrentStreak] = useState(6);
-
-  const [dailyChallenges, setDailyChallenges] = useState(
-    startingDailyChallenges
-  );
-
-  function handleChallengeCheckIn() {
-    if (!challengeCheckedIn) {
-      setChallengeProgress((currentProgress) =>
-        Math.min(currentProgress + 10, 100)
-      );
-
-      setCurrentStreak(
-        (currentStreakValue) => currentStreakValue + 1
-      );
-
-      setChallengeCheckedIn(true);
-    }
-  }
-
-  function completeDailyChallenge(challengeId) {
-    setDailyChallenges((currentChallenges) =>
-      currentChallenges.map((dailyChallenge) =>
-        dailyChallenge.id === challengeId
-          ? {
-              ...dailyChallenge,
-              completed: true,
-            }
-          : dailyChallenge
-      )
-    );
-  }
-
-  const completedDailyChallenges =
-    dailyChallenges.filter(
-      (dailyChallenge) => dailyChallenge.completed
-    ).length;
-
-  const earnedDailyXp = dailyChallenges
-    .filter((dailyChallenge) => dailyChallenge.completed)
-    .reduce(
-      (totalXp, dailyChallenge) =>
-        totalXp + dailyChallenge.reward,
-      0
-    );
-
-  const baseXp = 420;
-  const featuredChallengeXp = challengeCheckedIn ? 10 : 0;
-  const totalXp =
-    baseXp + earnedDailyXp + featuredChallengeXp;
-
-  const currentLevel = totalXp >= 500 ? 7 : 6;
-
-  const levelTitle =
-    currentLevel === 7
-      ? "Financial Strategist"
-      : "Building Momentum";
-
-  const levelStartXp = currentLevel === 7 ? 500 : 0;
-  const nextLevelXp = currentLevel === 7 ? 650 : 500;
-
-  const levelProgress = Math.round(
-    ((totalXp - levelStartXp) /
-      (nextLevelXp - levelStartXp)) *
-      100
-  );
-
-  const xpUntilNextLevel = Math.max(
-    nextLevelXp - totalXp,
-    0
-  );
+  const userName = localStorage.getItem("cashlyUserName") || "Cashly User";
+  const [accepted, setAccepted] = useState([]);
+  const [todayComplete, setTodayComplete] = useState(false);
+  const [movedSavings, setMovedSavings] = useState(false);
+  const scheduledSaving = useMemo(() => suggestions.filter((item) => accepted.includes(item.id)).reduce((sum, item) => sum + item.saving, 0), [accepted]);
+  const totalImpact = scheduledSaving + (todayComplete ? 225 : 0) + (movedSavings ? 220 : 0);
+  const accept = (id) => setAccepted((current) => current.includes(id) ? current : [...current, id]);
 
   return (
-    <div className="dashboard-page">
+    <div className="smart-actions-page">
       <aside className="dashboard-sidebar">
-        <div className="sidebar-logo">
-          <img src={cashlyLogo} alt="Cashly Logo" />
-          <h2>Cashly</h2>
-        </div>
-
+        <div className="sidebar-logo"><img src={cashlyLogo} alt="Cashly"/><h2>Cashly</h2></div>
         <nav className="sidebar-menu">
-          <Link className="sidebar-link" to="/dashboard">
-            <span>⌂</span>
-            Dashboard
-          </Link>
-
-          <Link className="sidebar-link" to="/transactions">
-            <span>↔</span>
-            Transactions
-          </Link>
-
-          <Link className="sidebar-link" to="/analytics">
-            <span>◫</span>
-            Analytics
-          </Link>
-
-          <Link
-            className="sidebar-link active"
-            to="/challenges"
-          >
-            <span>★</span>
-            Challenges
-          </Link>
-
-          <Link className="sidebar-link" to="/settings">
-            <span>⚙</span>
-            Settings
-          </Link>
+          <Link className="sidebar-link" to="/dashboard"><Icon name="day"/>My Day</Link>
+          <Link className="sidebar-link" to="/transactions"><Icon name="transactions"/>Transactions</Link>
+          <Link className="sidebar-link" to="/analytics"><Icon name="analytics"/>Analytics</Link>
+          <Link className="sidebar-link active" to="/challenges"><Icon name="challenges"/>Challenges</Link>
+          <Link className="sidebar-link" to="/settings"><Icon name="settings"/>Settings</Link>
         </nav>
-
-        <Link className="logout-link" to="/login">
-          <span>←</span>
-          Logout
-        </Link>
+        <Link className="logout-link" to="/login"><Icon name="logout"/>Logout</Link>
       </aside>
 
-      <main className="dashboard-main">
-        <header className="dashboard-navbar">
-          <div>
-            <h1>Financial Challenges</h1>
-            <p>
-              Build better financial habits with focused daily
-              actions and measurable monthly goals.
-            </p>
-          </div>
-
-          <div className="navbar-actions">
-            <input
-              className="dashboard-search"
-              type="text"
-              placeholder="Search financial challenges..."
-            />
-
-            <button
-              className="notification-button"
-              type="button"
-            >
-              🔔
-            </button>
-
-            <div className="user-profile">
-              <div className="profile-circle">
-                {firstLetter}
-              </div>
-
-              <div>
-                <strong>{userName}</strong>
-                <span>Cashly User</span>
-              </div>
-            </div>
-          </div>
+      <main className="smart-actions-main">
+        <header className="smart-actions-header">
+          <div><span className="actions-kicker">SMALL MOVES · REAL MONEY</span><h1>Smart actions</h1><p>Cashly found a few things worth doing. Pick only what feels right.</p></div>
+          <div className="actions-profile" title={userName}>{userName.charAt(0).toUpperCase()}</div>
         </header>
 
-        <section className="challenges-content-layout">
-          <div className="challenges-column challenges-column-left">
-            <div className="dashboard-panel monthly-challenge-panel">
-            <div className="challenge-top">
-              <div>
-                <span className="challenge-small-label">
-                  Monthly Budget Goal
-                </span>
-
-                <h2>{challenge.title}</h2>
-
-                <p>
-                  Keep restaurant and food delivery spending below{" "}
-                  {formatCurrency(challenge.limit)} this month
-                  to protect your budget and maintain steady
-                  financial progress.
-                </p>
-              </div>
-
-              <div className="challenge-trophy">🏆</div>
-            </div>
-
-            <div className="challenge-progress-information">
-              <div className="challenge-progress-heading">
-                <span>Budget progress</span>
-                <strong>
-                  {challengeProgress}% used
-                </strong>
-              </div>
-
-              <div className="challenge-progress-bar">
-                <div
-                  className="challenge-progress-fill"
-                  style={{ width: `${challengeProgress}%` }}
-                ></div>
-              </div>
-
-              <div className="challenge-numbers">
-                <span>
-                  Spent: {formatCurrency(challenge.spent)}
-                </span>
-                <span>
-                  Budget: {formatCurrency(challenge.limit)}
-                </span>
-              </div>
-            </div>
-
-            <div className="featured-challenge-stats">
-              <div className="challenge-detail-card">
-                <span>Progress points</span>
-                <strong>
-                  +{challenge.reward * 10} pts
-                </strong>
-              </div>
-
-              <div className="challenge-detail-card">
-                <span>Consistency streak</span>
-                <strong>{currentStreak} Days</strong>
-              </div>
-
-              <div className="challenge-detail-card">
-                <span>Days remaining</span>
-                <strong>{challenge.daysRemaining}</strong>
-              </div>
-
-              <div className="challenge-detail-card">
-                <span>Budget remaining</span>
-                <strong>
-                  {formatCurrency(
-                    challenge.limit - challenge.spent
-                  )}
-                </strong>
-              </div>
-            </div>
-
-            <div className="challenge-tip">
-              <div className="challenge-tip-icon">✦</div>
-
-              <div>
-                <strong>Recommended Action</strong>
-                <p>
-                  Replace one restaurant or delivery order this week
-                  with a home-prepared meal to create more room
-                  in your monthly dining budget.
-                </p>
-              </div>
-            </div>
-
-            <button
-              className={`challenge-check-button ${
-                challengeCheckedIn ? "checked-in" : ""
-              }`}
-              type="button"
-              onClick={handleChallengeCheckIn}
-              disabled={challengeCheckedIn}
-            >
-              {challengeCheckedIn
-                ? "✓ Daily Review Completed · +10 pts"
-                : "Complete Daily Review"}
-            </button>
+        <section className={`today-action ${todayComplete ? "complete" : ""}`}>
+          <div className="today-action-copy">
+            <span className="today-badge"><i/> TODAY'S FOCUS</span>
+            <h2>{todayComplete ? "You kept EGP 225 today." : "Skip delivery tonight."}</h2>
+            <p>{todayComplete ? "That money stays available for something that matters more." : "Your last three Saturday orders averaged EGP 225. There's food at home that expires tomorrow."}</p>
+            <button type="button" onClick={() => setTodayComplete((value) => !value)}>{todayComplete ? <><Icon name="check" size={18}/>Completed</> : "I'll do this"}</button>
           </div>
+          <div className="today-impact"><span>{todayComplete ? "Saved today" : "Keep in your pocket"}</span><strong>EGP 225</strong><small>One decision. No streaks.</small></div>
+        </section>
 
-            <div className="dashboard-panel achievements-panel">
-            <div className="panel-heading">
-              <div>
-                <h2>Financial Milestones</h2>
-                <p>
-                  A clear record of the habits and results you have built.
-                </p>
-              </div>
-
-              <span className="achievement-count">
-                3 of 6 completed
-              </span>
-            </div>
-
-            <div className="achievements-grid">
-              <div className="achievement-card unlocked-achievement">
-                <div className="achievement-badge">💰</div>
-                <div>
-                  <span className="achievement-status">
-                    Completed
-                  </span>
-                  <h3>First Savings Goal</h3>
-                  <p>
-                    Saved more than EGP 5,000 in one month.
-                  </p>
-                </div>
-              </div>
-
-              <div className="achievement-card unlocked-achievement">
-                <div className="achievement-badge">🔥</div>
-                <div>
-                  <span className="achievement-status">
-                    Completed
-                  </span>
-                  <h3>Seven-Day Discipline</h3>
-                  <p>
-                    Avoided unnecessary spending for seven
-                    consecutive days.
-                  </p>
-                </div>
-              </div>
-
-              <div className="achievement-card unlocked-achievement">
-                <div className="achievement-badge">👑</div>
-                <div>
-                  <span className="achievement-status">
-                    Completed
-                  </span>
-                  <h3>Budget Master</h3>
-                  <p>
-                    Stayed within the monthly spending budget.
-                  </p>
-                </div>
-              </div>
-
-              <div className="achievement-card locked-achievement">
-                <div className="achievement-badge">🚫</div>
-                <div>
-                  <span className="achievement-status">
-                    In progress
-                  </span>
-                  <h3>Subscription Slayer</h3>
-                  <p>
-                    Cancel an unused recurring subscription to reduce
-                    monthly expenses.
-                  </p>
-                </div>
-              </div>
-
-              <div className="achievement-card locked-achievement">
-                <div className="achievement-badge">📈</div>
-                <div>
-                  <span className="achievement-status">
-                    In progress
-                  </span>
-                  <h3>Savings Streak</h3>
-                  <p>
-                    Increase savings for three consecutive months.
-                  </p>
-                </div>
-              </div>
-
-              <div className="achievement-card locked-achievement">
-                <div className="achievement-badge">💎</div>
-                <div>
-                  <span className="achievement-status">
-                    In progress
-                  </span>
-                  <h3>Financial Elite</h3>
-                  <p>
-                    Reach a Financial Health Score of 95.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="next-achievement">
-              <div className="next-achievement-top">
-                <div>
-                  <span>Next milestone</span>
-                  <strong>Subscription Slayer</strong>
-                </div>
-                <span>75%</span>
-              </div>
-
-              <div className="next-achievement-progress">
-                <div className="next-achievement-fill"></div>
-              </div>
-
-              <p>
-                Review one more recurring subscription to complete
-                this milestone.
-              </p>
-            </div>
-          </div>
-          </div>
-
-          <div className="challenges-column challenges-column-right">
-            <section className="dashboard-panel daily-challenges-panel">
-            <div className="daily-challenges-header">
-              <div>
-                <span className="challenge-section-label">
-                  Daily Financial Actions
-                </span>
-
-                <h2>Today’s Priorities</h2>
-
-                <p>
-                  Complete these focused actions today to improve
-                  spending awareness and saving consistency.
-                </p>
-              </div>
-
-              <div className="daily-summary">
-                <strong>
-                  {completedDailyChallenges} /{" "}
-                  {dailyChallenges.length}
-                </strong>
-                <span>Completed</span>
-              </div>
-            </div>
-
-            <div className="daily-progress-section">
-              <div className="daily-progress-heading">
-                <span>Daily progress</span>
-                <strong>
-                  {earnedDailyXp} points earned
-                </strong>
-              </div>
-
-              <div className="daily-progress-bar">
-                <div
-                  className="daily-progress-fill"
-                  style={{
-                    width: `${
-                      (completedDailyChallenges /
-                        dailyChallenges.length) *
-                      100
-                    }%`,
-                  }}
-                ></div>
-              </div>
-            </div>
-
-            <div className="daily-challenges-grid">
-              {dailyChallenges.map((dailyChallenge) => (
-                <article
-                  className={`daily-challenge-card ${
-                    dailyChallenge.completed
-                      ? "daily-challenge-completed"
-                      : ""
-                  }`}
-                  key={dailyChallenge.id}
-                >
-                  <div className="daily-challenge-top">
-                    <div className="daily-challenge-icon">
-                      {dailyChallenge.icon}
-                    </div>
-
-                    <span
-                      className={`daily-difficulty ${
-                        dailyChallenge.difficulty ===
-                        "Medium"
-                          ? "medium-difficulty"
-                          : ""
-                      }`}
-                    >
-                      {dailyChallenge.difficulty}
-                    </span>
-                  </div>
-
-                  <div className="daily-challenge-content">
-                    <h3>{dailyChallenge.title}</h3>
-                    <p>{dailyChallenge.description}</p>
-                  </div>
-
-                  <div className="daily-challenge-footer">
-                    <div className="daily-xp-reward">
-                      <span>Progress</span>
-                      <strong>
-                        +{dailyChallenge.reward} pts
-                      </strong>
-                    </div>
-
-                    <button
-                      className={`daily-complete-button ${
-                        dailyChallenge.completed
-                          ? "daily-completed-button"
-                          : ""
-                      }`}
-                      type="button"
-                      onClick={() =>
-                        completeDailyChallenge(
-                          dailyChallenge.id
-                        )
-                      }
-                      disabled={dailyChallenge.completed}
-                    >
-                      {dailyChallenge.completed
-                        ? "✓ Completed"
-                        : "Complete"}
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="daily-reset-message">
-              <span>◷</span>
-              <p>
-                Today’s actions refresh in{" "}
-                <strong>6 hours and 24 minutes</strong>.
-              </p>
-            </div>
-          </section>
-
-            <section className="dashboard-panel level-panel">
-            <div className="compact-level-header">
-              <div className="compact-level-title">
-                <div className="compact-level-icon">
-                  {currentLevel}
-                </div>
-
-                <div>
-                  <span className="challenge-section-label">
-                    Progress Overview
-                  </span>
-
-                  <h2>{levelTitle}</h2>
-                </div>
-              </div>
-
-              <span className="level-xp-today">
-                Today · +{earnedDailyXp + featuredChallengeXp} pts
-              </span>
-            </div>
-
-            <div className="level-progress-heading">
-              <span>
-                {totalXp} / {nextLevelXp} points
-              </span>
-              <strong>{levelProgress}%</strong>
-            </div>
-
-            <div className="level-progress-bar">
-              <div
-                className="level-progress-fill"
-                style={{
-                  width: `${Math.min(levelProgress, 100)}%`,
-                }}
-              ></div>
-            </div>
-
-            <div className="compact-level-footer">
-              <p>
-                <strong>{xpUntilNextLevel} points</strong> until
-                Level {currentLevel + 1}
-              </p>
-
-              <div className="next-unlock">
-                <span>Next status</span>
-                <strong>Financial Strategist</strong>
-              </div>
-            </div>
-          </section>
+        <section className="suggestions-section">
+          <div className="actions-section-heading"><div><span><Icon name="spark" size={15}/>CASHLY NOTICED</span><h2>Suggestions made for you</h2></div><p>Updated from your latest transactions</p></div>
+          <div className="suggestion-list">
+            {suggestions.map((item) => {
+              const isAccepted = accepted.includes(item.id);
+              return <article className={`suggestion-card ${isAccepted ? "accepted" : ""}`} key={item.id}>
+                <div className="suggestion-icon">{isAccepted ? <Icon name="check" size={23}/> : item.icon}</div>
+                <div className="suggestion-copy"><span>Cashly notices</span><h3>{item.signal}</h3><div className="suggestion-arrow">→</div><span>Suggested action</span><strong>{item.action}</strong><small>{item.confidence}</small></div>
+                <div className="suggestion-impact"><span>Potential saving</span><strong>EGP {item.saving}</strong><small>{item.period}</small><button type="button" disabled={isAccepted} onClick={() => accept(item.id)}>{isAccepted ? "Added for tomorrow" : item.button}{!isAccepted && <Icon name="arrow" size={16}/>}</button></div>
+              </article>;
+            })}
           </div>
         </section>
+
+        <section className={`money-move ${movedSavings ? "moved" : ""}`}>
+          <div className="money-move-icon">↘</div>
+          <div><span>SMART MONEY MOVE</span><h2>{movedSavings ? "EGP 220 is now set aside for savings." : "Your electricity bill was lower than usual."}</h2><p>{movedSavings ? "A lower bill became progress instead of disappearing into everyday spending." : "You paid EGP 220 less than your six-month average. Move the difference before it quietly gets spent?"}</p></div>
+          <div className="money-move-action"><strong>+ EGP 220</strong><span>to Savings</span><button type="button" disabled={movedSavings} onClick={() => setMovedSavings(true)}>{movedSavings ? <><Icon name="check" size={17}/>Moved</> : "Yes, move it"}</button></div>
+        </section>
+
+        <footer className="impact-footer">
+          <div><span>YOUR PLANNED IMPACT</span><strong>EGP {totalImpact.toLocaleString()}</strong><small>kept or redirected</small></div>
+          <p>{accepted.length ? `${accepted.length} smart ${accepted.length === 1 ? "action" : "actions"} ready for tomorrow.` : "Accept a suggestion and Cashly will bring it back at the right time."}</p>
+        </footer>
       </main>
     </div>
   );
