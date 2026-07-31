@@ -11,12 +11,12 @@ function Login() {
 const [password, setPassword] = useState("");
 const [error, setError] = useState("");
 
-    function handleLogin(event) {
+    async function handleLogin(event) {
     event.preventDefault();
 
     setError("");
 
-    const result = loginUser(email, password);
+    const result = await loginUser(email, password);
 
     if (!result.success) {
         setError(result.message);

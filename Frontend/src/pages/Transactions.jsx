@@ -6,6 +6,13 @@ import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 import "../styles/Dashboard.css";
 import "../styles/Transactions.css";
 
+import { logoutUser } from "../services/auth";
+import {
+    getTransactions,
+    createTransaction,
+    deleteTransaction,
+} from "../services/transactions";
+
 const currencyOptions = {
     EGP: { label: "Egyptian Pound", symbol: "EGP", rate: 1 },
     USD: { label: "US Dollar", symbol: "$", rate: 0.0203 },
@@ -31,202 +38,32 @@ const categories = [
     "Other",
 ];
 
-const paymentMethods = [
-    "Cash",
-    "Debit Card",
-    "Credit Card",
-    "InstaPay",
-    "Mobile Wallet",
-    "Bank Transfer",
-];
-
-const merchantSuggestions = [
-    "Spinneys",
-    "Carrefour",
-    "Gourmet Egypt",
-    "Seoudi",
-    "Zara",
-    "H&M",
-    "Bershka",
-    "Pull&Bear",
-    "Uber",
-    "Careem",
-    "inDrive",
-    "Starbucks",
-    "Costa Coffee",
-    "Dunkin'",
-    "McDonald's",
-    "Buffalo Burger",
-    "Sephora",
-    "Faces",
-    "Mazaya",
-    "Shell",
-    "ChillOut",
-    "TotalEnergies",
-    "InstaPay Transfer",
-];
-
-const merchantCategoryMap = {
-    Spinneys: "Groceries",
-    Carrefour: "Groceries",
-    "Gourmet Egypt": "Groceries",
-    Seoudi: "Groceries",
-    Zara: "Fashion",
-    "H&M": "Fashion",
-    Bershka: "Fashion",
-    PullAndBear: "Fashion",
-    Uber: "Transportation",
-    Careem: "Transportation",
-    inDrive: "Transportation",
-    Starbucks: "Dining & Coffee",
-    "Costa Coffee": "Dining & Coffee",
-    "Dunkin'": "Dining & Coffee",
-    "McDonald's": "Dining & Coffee",
-    "Buffalo Burger": "Dining & Coffee",
-    Sephora: "Beauty & Personal Care",
-    Faces: "Beauty & Personal Care",
-    Mazaya: "Beauty & Personal Care",
-    Shell: "Fuel & Car",
-    ChillOut: "Fuel & Car",
-    TotalEnergies: "Fuel & Car",
-    "InstaPay Transfer": "Transfers",
-};
-
-const startingTransactions = [
-    {
-        id: 1,
-        merchant: "Spinneys",
-        category: "Groceries",
-        date: "2026-07-18",
-        time: "14:35",
-        location: "New Cairo",
-        paymentMethod: "Debit Card",
-        status: "Completed",
-        notes: "Weekly groceries",
-        items: [
-            { id: 11, name: "Groceries", quantity: 1, price: 980 },
-            { id: 12, name: "Household supplies", quantity: 1, price: 260 },
-        ],
-        fees: 0,
-        discount: 0,
-    },
-    {
-        id: 2,
-        merchant: "Zara",
-        category: "Fashion",
-        date: "2026-07-16",
-        time: "19:10",
-        location: "Cairo Festival City",
-        paymentMethod: "Credit Card",
-        status: "Completed",
-        notes: "Summer shopping",
-        items: [
-            { id: 21, name: "Blouse", quantity: 1, price: 1250 },
-            { id: 22, name: "Trousers", quantity: 1, price: 850 },
-        ],
-        fees: 0,
-        discount: 0,
-    },
-    {
-        id: 3,
-        merchant: "Uber",
-        category: "Transportation",
-        date: "2026-07-15",
-        time: "09:15",
-        location: "New Cairo",
-        paymentMethod: "Mobile Wallet",
-        status: "Completed",
-        notes: "Trip to internship",
-        items: [{ id: 31, name: "Car ride", quantity: 1, price: 185 }],
-        fees: 0,
-        discount: 0,
-    },
-    {
-        id: 4,
-        merchant: "InstaPay Transfer",
-        category: "Transfers",
-        date: "2026-07-14",
-        time: "21:42",
-        location: "Online",
-        paymentMethod: "InstaPay",
-        status: "Completed",
-        notes: "Shared dinner payment",
-        items: [{ id: 41, name: "Transfer to Sara", quantity: 1, price: 320 }],
-        fees: 0,
-        discount: 0,
-    },
-    {
-        id: 5,
-        merchant: "Sephora",
-        category: "Beauty & Personal Care",
-        date: "2026-07-12",
-        time: "17:25",
-        location: "City Centre Almaza",
-        paymentMethod: "Debit Card",
-        status: "Completed",
-        notes: "",
-        items: [
-            { id: 51, name: "Lip gloss", quantity: 1, price: 740 },
-            { id: 52, name: "Mascara", quantity: 1, price: 890 },
-        ],
-        fees: 0,
-        discount: 130,
-    },
-];
-
 function createEmptyForm() {
-    const now = new Date();
-
     return {
-        merchant: "",
+        description: "",
         category: "Other",
-        date: now.toISOString().slice(0, 10),
-        time: now.toTimeString().slice(0, 5),
-        location: "",
-        paymentMethod: "Debit Card",
-        status: "Completed",
-        notes: "",
-        items: [{ id: Date.now(), name: "", quantity: 1, price: "" }],
-        fees: "",
-        discount: "",
+        date: new Date().toISOString().slice(0, 10),
+        price: "",
     };
 }
 
-function getTransactionTotal(transaction) {
-    const itemsTotal = transaction.items.reduce(
-        (total, item) =>
-            total + Number(item.price || 0) * Number(item.quantity || 1),
-        0
-    );
-
-    return (
-        itemsTotal +
-        Number(transaction.fees || 0) -
-        Number(transaction.discount || 0)
-    );
-}
-
 function Transactions() {
-    const [transactions, setTransactions] = useState(() => {
-        const savedTransactions = localStorage.getItem(
-            "cashlyTransactions"
-        );
-
-        return savedTransactions
-            ? JSON.parse(savedTransactions)
-            : startingTransactions;
-    });
+    const [transactions, setTransactions] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState("");
 
     const [currency, setCurrency] = useState(
         localStorage.getItem("cashlyCurrency") || "EGP"
     );
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [formData, setFormData] = useState(createEmptyForm);
+    const [formError, setFormError] = useState("");
     const [selectedTransaction, setSelectedTransaction] =
         useState(null);
+    const [deleteError, setDeleteError] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const [searchText, setSearchText] = useState("");
-    const [merchantFilter, setMerchantFilter] = useState("All");
     const [categoryFilter, setCategoryFilter] = useState("All");
     const [dateFilter, setDateFilter] = useState("All");
     const [minimumPrice, setMinimumPrice] = useState("");
@@ -239,11 +76,11 @@ function Transactions() {
     const firstLetter = userName.charAt(0).toUpperCase();
 
     useEffect(() => {
-        localStorage.setItem(
-            "cashlyTransactions",
-            JSON.stringify(transactions)
-        );
-    }, [transactions]);
+        getTransactions()
+            .then(setTransactions)
+            .catch((error) => setLoadError(error.message))
+            .finally(() => setIsLoading(false));
+    }, []);
 
     useEffect(() => {
         localStorage.setItem("cashlyCurrency", currency);
@@ -269,130 +106,67 @@ function Transactions() {
         }));
     }
 
-    function updateMerchant(event) {
-        const merchant = event.target.value;
-        const suggestedCategory = merchantCategoryMap[merchant];
-
-        setFormData((currentForm) => ({
-            ...currentForm,
-            merchant,
-            category: suggestedCategory || currentForm.category,
-            paymentMethod:
-                merchant === "InstaPay Transfer"
-                    ? "InstaPay"
-                    : currentForm.paymentMethod,
-            location:
-                merchant === "InstaPay Transfer"
-                    ? "Online"
-                    : currentForm.location,
-        }));
-    }
-
-    function updateItem(itemId, field, value) {
-        setFormData((currentForm) => ({
-            ...currentForm,
-            items: currentForm.items.map((item) =>
-                item.id === itemId ? { ...item, [field]: value } : item
-            ),
-        }));
-    }
-
-    function addItem() {
-        setFormData((currentForm) => ({
-            ...currentForm,
-            items: [
-                ...currentForm.items,
-                {
-                    id: Date.now(),
-                    name: "",
-                    quantity: 1,
-                    price: "",
-                },
-            ],
-        }));
-    }
-
-    function removeItem(itemId) {
-        setFormData((currentForm) => ({
-            ...currentForm,
-            items:
-                currentForm.items.length === 1
-                    ? currentForm.items
-                    : currentForm.items.filter((item) => item.id !== itemId),
-        }));
-    }
-
     function openAddForm() {
         setFormData(createEmptyForm());
+        setFormError("");
         setIsFormOpen(true);
     }
 
     function closeAddForm() {
         setIsFormOpen(false);
         setFormData(createEmptyForm());
+        setFormError("");
     }
 
-    function submitTransaction(event) {
+    async function submitTransaction(event) {
         event.preventDefault();
 
-        const validItems = formData.items.filter(
-            (item) =>
-                item.name.trim() !== "" && Number(item.price) > 0
-        );
-
-        if (formData.merchant.trim() === "" || validItems.length === 0) {
+        if (formData.description.trim() === "" || Number(formData.price) <= 0) {
             return;
         }
 
-        const newTransaction = {
-            ...formData,
-            id: Date.now(),
-            items: validItems.map((item) => ({
-                ...item,
-                quantity: Number(item.quantity),
-                price: Number(item.price),
-            })),
-            fees: Number(formData.fees || 0),
-            discount: Number(formData.discount || 0),
-        };
+        try {
+            const newTransaction = await createTransaction({
+                description: formData.description,
+                price: Number(formData.price),
+                date: formData.date,
+                category: formData.category,
+            });
 
-        setTransactions((currentTransactions) => [
-            newTransaction,
-            ...currentTransactions,
-        ]);
+            setTransactions((currentTransactions) => [
+                newTransaction,
+                ...currentTransactions,
+            ]);
 
-        closeAddForm();
+            closeAddForm();
+        } catch (error) {
+            setFormError(error.message);
+        }
     }
 
-    function deleteTransaction(transactionId) {
-        setTransactions((currentTransactions) =>
-            currentTransactions.filter(
-                (transaction) => transaction.id !== transactionId
-            )
-        );
+    async function handleDeleteTransaction(transactionId) {
+        setIsDeleting(true);
+        setDeleteError("");
 
-        setSelectedTransaction(null);
-    }
+        try {
+            await deleteTransaction(transactionId);
 
-    function repeatTransaction(transaction) {
-        setFormData({
-            ...transaction,
-            merchant: transaction.merchant,
-            date: new Date().toISOString().slice(0, 10),
-            time: new Date().toTimeString().slice(0, 5),
-            items: transaction.items.map((item) => ({
-                ...item,
-                id: Date.now() + Math.random(),
-            })),
-        });
+            setTransactions((currentTransactions) =>
+                currentTransactions.filter(
+                    (transaction) => transaction.transaction_id !== transactionId
+                )
+            );
 
-        setSelectedTransaction(null);
-        setIsFormOpen(true);
+            setSelectedTransaction(null);
+        } catch (error) {
+            setDeleteError(error.message);
+        } finally {
+            setIsDeleting(false);
+        }
     }
 
     function clearFilters() {
         setSearchText("");
-        setMerchantFilter("All");
         setCategoryFilter("All");
         setDateFilter("All");
         setMinimumPrice("");
@@ -400,52 +174,29 @@ function Transactions() {
         setSortBy("newest");
     }
 
-    const uniqueMerchants = useMemo(
-        () => [
-            "All",
-            ...new Set(
-                transactions.map((transaction) => transaction.merchant)
-            ),
-        ],
-        [transactions]
-    );
-
     const filteredTransactions = useMemo(() => {
         const today = new Date();
 
         const result = transactions.filter((transaction) => {
-            const total = getTransactionTotal(transaction);
-            const transactionDate = new Date(
-                `${transaction.date}T${transaction.time || "00:00"}`
-            );
+            const transactionDate = new Date(`${transaction.date}T00:00:00`);
 
             const matchesSearch =
-                transaction.merchant
+                (transaction.description || "")
                     .toLowerCase()
                     .includes(searchText.toLowerCase()) ||
                 transaction.category
                     .toLowerCase()
-                    .includes(searchText.toLowerCase()) ||
-                transaction.location
-                    .toLowerCase()
-                    .includes(searchText.toLowerCase()) ||
-                transaction.items.some((item) =>
-                    item.name.toLowerCase().includes(searchText.toLowerCase())
-                );
-
-            const matchesMerchant =
-                merchantFilter === "All" ||
-                transaction.merchant === merchantFilter;
+                    .includes(searchText.toLowerCase());
 
             const matchesCategory =
                 categoryFilter === "All" ||
                 transaction.category === categoryFilter;
 
             const matchesMinimum =
-                minimumPrice === "" || total >= Number(minimumPrice);
+                minimumPrice === "" || transaction.price >= Number(minimumPrice);
 
             const matchesMaximum =
-                maximumPrice === "" || total <= Number(maximumPrice);
+                maximumPrice === "" || transaction.price <= Number(maximumPrice);
 
             let matchesDate = true;
 
@@ -468,7 +219,6 @@ function Transactions() {
 
             return (
                 matchesSearch &&
-                matchesMerchant &&
                 matchesCategory &&
                 matchesMinimum &&
                 matchesMaximum &&
@@ -477,23 +227,16 @@ function Transactions() {
         });
 
         return result.sort((first, second) => {
-            const firstTotal = getTransactionTotal(first);
-            const secondTotal = getTransactionTotal(second);
-
             if (sortBy === "highest") {
-                return secondTotal - firstTotal;
+                return second.price - first.price;
             }
 
             if (sortBy === "lowest") {
-                return firstTotal - secondTotal;
+                return first.price - second.price;
             }
 
-            if (sortBy === "merchant") {
-                return first.merchant.localeCompare(second.merchant);
-            }
-
-            const firstDate = new Date(`${first.date}T${first.time}`);
-            const secondDate = new Date(`${second.date}T${second.time}`);
+            const firstDate = new Date(first.date);
+            const secondDate = new Date(second.date);
 
             if (sortBy === "oldest") {
                 return firstDate - secondDate;
@@ -504,7 +247,6 @@ function Transactions() {
     }, [
         transactions,
         searchText,
-        merchantFilter,
         categoryFilter,
         dateFilter,
         minimumPrice,
@@ -513,9 +255,8 @@ function Transactions() {
     ]);
 
     const transactionSummary = useMemo(() => {
-        const totals = transactions.map(getTransactionTotal);
-        const totalSpent = totals.reduce(
-            (total, current) => total + current,
+        const totalSpent = transactions.reduce(
+            (total, transaction) => total + transaction.price,
             0
         );
 
@@ -526,11 +267,12 @@ function Transactions() {
                 transactions.length === 0
                     ? 0
                     : totalSpent / transactions.length,
-            highest: totals.length === 0 ? 0 : Math.max(...totals),
+            highest:
+                transactions.length === 0
+                    ? 0
+                    : Math.max(...transactions.map((transaction) => transaction.price)),
         };
     }, [transactions]);
-
-    const formTotal = getTransactionTotal(formData);
 
     return (
         <div className="dashboard-page transactions-page">
@@ -570,7 +312,7 @@ function Transactions() {
                     </Link>
                 </nav>
 
-                <Link className="logout-link" to="/login">
+                <Link className="logout-link" to="/login" onClick={logoutUser}>
                     <span>←</span>
                     Logout
                 </Link>
@@ -693,7 +435,7 @@ function Transactions() {
                                 <span>⌕</span>
                                 <input
                                     type="text"
-                                    placeholder="Search merchant, item, location..."
+                                    placeholder="Search description or category..."
                                     value={searchText}
                                     onChange={(event) =>
                                         setSearchText(event.target.value)
@@ -723,21 +465,6 @@ function Transactions() {
                                 {categories.map((category) => (
                                     <option value={category} key={category}>
                                         {category}
-                                    </option>
-                                ))}
-                            </select>
-
-                            <select
-                                value={merchantFilter}
-                                onChange={(event) =>
-                                    setMerchantFilter(event.target.value)
-                                }
-                            >
-                                {uniqueMerchants.map((merchant) => (
-                                    <option value={merchant} key={merchant}>
-                                        {merchant === "All"
-                                            ? "All merchants"
-                                            : merchant}
                                     </option>
                                 ))}
                             </select>
@@ -798,7 +525,6 @@ function Transactions() {
                                             Highest amount
                                         </option>
                                         <option value="lowest">Lowest amount</option>
-                                        <option value="merchant">Merchant A–Z</option>
                                     </select>
                                 </label>
 
@@ -813,108 +539,83 @@ function Transactions() {
                         )}
 
                         <div className="transactions-table-wrapper">
-                            <table className="transactions-table">
-                                <thead>
-                                    <tr>
-                                        <th>Merchant</th>
-                                        <th>Details</th>
-                                        <th>Category</th>
-                                        <th>Date & time</th>
-                                        <th>Payment</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
+                            {isLoading && (
+                                <p className="transactions-loading-state">
+                                    Loading transactions...
+                                </p>
+                            )}
 
-                                <tbody>
-                                    {filteredTransactions.map((transaction) => (
-                                        <tr key={transaction.id}>
-                                            <td>
-                                                <div className="merchant-cell">
-                                                    <div className="merchant-logo">
-                                                        {transaction.merchant
-                                                            .charAt(0)
-                                                            .toUpperCase()}
-                                                    </div>
-                                                    <div>
-                                                        <strong>{transaction.merchant}</strong>
-                                                        <span>{transaction.location}</span>
-                                                    </div>
-                                                </div>
-                                            </td>
+                            {loadError && (
+                                <p className="transactions-error-state">
+                                    {loadError}
+                                </p>
+                            )}
 
-                                            <td>
-                                                <div className="transaction-item-summary">
-                                                    <strong>
-                                                        {transaction.items.length === 1
-                                                            ? transaction.items[0].name
-                                                            : `${transaction.items.length} items`}
-                                                    </strong>
-                                                    <span>
-                                                        {transaction.items
-                                                            .slice(0, 2)
-                                                            .map((item) => item.name)
-                                                            .join(", ")}
-                                                    </span>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <span className="category-pill">
-                                                    {transaction.category}
-                                                </span>
-                                            </td>
-
-                                            <td>
-                                                <div className="date-cell">
-                                                    <strong>
-                                                        {new Date(
-                                                            `${transaction.date}T00:00:00`
-                                                        ).toLocaleDateString("en-GB", {
-                                                            day: "2-digit",
-                                                            month: "short",
-                                                            year: "numeric",
-                                                        })}
-                                                    </strong>
-                                                    <span>{transaction.time}</span>
-                                                </div>
-                                            </td>
-
-                                            <td>{transaction.paymentMethod}</td>
-
-                                            <td className="amount-cell">
-                                                {formatMoney(
-                                                    getTransactionTotal(transaction)
-                                                )}
-                                            </td>
-
-                                            <td>
-                                                <span
-                                                    className={`status-pill ${transaction.status.toLowerCase()}`}
-                                                >
-                                                    {transaction.status}
-                                                </span>
-                                            </td>
-
-                                            <td>
-                                                <button
-                                                    className="view-transaction-button"
-                                                    type="button"
-                                                    onClick={() =>
-                                                        setSelectedTransaction(transaction)
-                                                    }
-                                                    aria-label={`View ${transaction.merchant} transaction`}
-                                                >
-                                                    ›
-                                                </button>
-                                            </td>
+                            {!isLoading && !loadError && (
+                                <table className="transactions-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Category</th>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th></th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
 
-                            {filteredTransactions.length === 0 && (
+                                    <tbody>
+                                        {filteredTransactions.map((transaction) => (
+                                            <tr key={transaction.transaction_id}>
+                                                <td>
+                                                    <strong>
+                                                        {transaction.description || "—"}
+                                                    </strong>
+                                                </td>
+
+                                                <td>
+                                                    <span className="category-pill">
+                                                        {transaction.category}
+                                                    </span>
+                                                </td>
+
+                                                <td>
+                                                    <div className="date-cell">
+                                                        <strong>
+                                                            {new Date(
+                                                                `${transaction.date}T00:00:00`
+                                                            ).toLocaleDateString("en-GB", {
+                                                                day: "2-digit",
+                                                                month: "short",
+                                                                year: "numeric",
+                                                            })}
+                                                        </strong>
+                                                    </div>
+                                                </td>
+
+                                                <td className="amount-cell">
+                                                    {formatMoney(transaction.price)}
+                                                </td>
+
+                                                <td>
+                                                    <button
+                                                        className="view-transaction-button"
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setSelectedTransaction(transaction);
+                                                            setDeleteError("");
+                                                        }}
+                                                        aria-label="View transaction"
+                                                    >
+                                                        ›
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            )}
+
+                            {!isLoading && !loadError && filteredTransactions.length === 0 && (
                                 <div className="empty-transactions-state">
                                     <div>⌕</div>
                                     <h3>No transactions found</h3>
@@ -948,8 +649,7 @@ function Transactions() {
                                 </span>
                                 <h2>Add transaction</h2>
                                 <p>
-                                    Add the merchant, purchase information, and all
-                                    items included in this payment.
+                                    Add the description, category, date, and amount.
                                 </p>
                             </div>
 
@@ -964,30 +664,16 @@ function Transactions() {
 
                         <div className="transaction-form-scroll">
                             <section className="form-section">
-                                <div className="form-section-heading">
-                                    <span>01</span>
-                                    <div>
-                                        <h3>Transaction details</h3>
-                                        <p>Where and when did this purchase happen?</p>
-                                    </div>
-                                </div>
-
                                 <div className="transaction-form-grid">
                                     <label className="wide-field">
-                                        <span>Merchant name *</span>
+                                        <span>Description *</span>
                                         <input
-                                            name="merchant"
-                                            list="merchant-options"
-                                            placeholder="Example: Spinneys, Zara, Uber..."
-                                            value={formData.merchant}
-                                            onChange={updateMerchant}
+                                            name="description"
+                                            placeholder="Example: Groceries, Uber ride..."
+                                            value={formData.description}
+                                            onChange={updateFormField}
                                             required
                                         />
-                                        <datalist id="merchant-options">
-                                            {merchantSuggestions.map((merchant) => (
-                                                <option value={merchant} key={merchant} />
-                                            ))}
-                                        </datalist>
                                     </label>
 
                                     <label>
@@ -1006,22 +692,7 @@ function Transactions() {
                                     </label>
 
                                     <label>
-                                        <span>Payment method</span>
-                                        <select
-                                            name="paymentMethod"
-                                            value={formData.paymentMethod}
-                                            onChange={updateFormField}
-                                        >
-                                            {paymentMethods.map((method) => (
-                                                <option value={method} key={method}>
-                                                    {method}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </label>
-
-                                    <label>
-                                        <span>Date of purchase *</span>
+                                        <span>Date *</span>
                                         <input
                                             type="date"
                                             name="date"
@@ -1032,192 +703,30 @@ function Transactions() {
                                     </label>
 
                                     <label>
-                                        <span>Time *</span>
+                                        <span>Price in EGP *</span>
                                         <input
-                                            type="time"
-                                            name="time"
-                                            value={formData.time}
+                                            type="number"
+                                            min="0"
+                                            step="0.01"
+                                            name="price"
+                                            placeholder="0"
+                                            value={formData.price}
                                             onChange={updateFormField}
                                             required
                                         />
-                                    </label>
-
-                                    <label className="wide-field">
-                                        <span>Location</span>
-                                        <input
-                                            name="location"
-                                            placeholder="Example: New Cairo, Cairo Festival City, Online"
-                                            value={formData.location}
-                                            onChange={updateFormField}
-                                        />
-                                    </label>
-
-                                    <label>
-                                        <span>Status</span>
-                                        <select
-                                            name="status"
-                                            value={formData.status}
-                                            onChange={updateFormField}
-                                        >
-                                            <option value="Completed">Completed</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Refunded">Refunded</option>
-                                            <option value="Cancelled">Cancelled</option>
-                                        </select>
-                                    </label>
-                                </div>
-                            </section>
-
-                            <section className="form-section">
-                                <div className="form-section-heading items-heading">
-                                    <span>02</span>
-                                    <div>
-                                        <h3>Purchased items</h3>
-                                        <p>
-                                            Add one or several items from the same receipt.
-                                        </p>
-                                    </div>
-
-                                    <button
-                                        className="add-item-button"
-                                        type="button"
-                                        onClick={addItem}
-                                    >
-                                        ＋ Add item
-                                    </button>
-                                </div>
-
-                                <div className="transaction-items-list">
-                                    {formData.items.map((item, index) => (
-                                        <div
-                                            className="transaction-item-row"
-                                            key={item.id}
-                                        >
-                                            <div className="item-number">
-                                                {String(index + 1).padStart(2, "0")}
-                                            </div>
-
-                                            <label className="item-name-field">
-                                                <span>Item name *</span>
-                                                <input
-                                                    placeholder="Example: Iced latte"
-                                                    value={item.name}
-                                                    onChange={(event) =>
-                                                        updateItem(
-                                                            item.id,
-                                                            "name",
-                                                            event.target.value
-                                                        )
-                                                    }
-                                                    required
-                                                />
-                                            </label>
-
-                                            <label className="quantity-field">
-                                                <span>Quantity</span>
-                                                <input
-                                                    type="number"
-                                                    min="1"
-                                                    value={item.quantity}
-                                                    onChange={(event) =>
-                                                        updateItem(
-                                                            item.id,
-                                                            "quantity",
-                                                            event.target.value
-                                                        )
-                                                    }
-                                                />
-                                            </label>
-
-                                            <label className="price-field">
-                                                <span>Price in EGP *</span>
-                                                <input
-                                                    type="number"
-                                                    min="0"
-                                                    step="0.01"
-                                                    placeholder="0"
-                                                    value={item.price}
-                                                    onChange={(event) =>
-                                                        updateItem(
-                                                            item.id,
-                                                            "price",
-                                                            event.target.value
-                                                        )
-                                                    }
-                                                    required
-                                                />
-                                            </label>
-
-                                            <button
-                                                className="remove-item-button"
-                                                type="button"
-                                                onClick={() => removeItem(item.id)}
-                                                disabled={formData.items.length === 1}
-                                                aria-label="Remove item"
-                                            >
-                                                ×
-                                            </button>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-
-                            <section className="form-section">
-                                <div className="form-section-heading">
-                                    <span>03</span>
-                                    <div>
-                                        <h3>Additional information</h3>
-                                        <p>
-                                            Include discounts, fees, or a useful note.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="transaction-form-grid">
-                                    <label>
-                                        <span>Additional fees</span>
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            step="0.01"
-                                            name="fees"
-                                            placeholder="0"
-                                            value={formData.fees}
-                                            onChange={updateFormField}
-                                        />
-                                    </label>
-
-                                    <label>
-                                        <span>Discount</span>
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            step="0.01"
-                                            name="discount"
-                                            placeholder="0"
-                                            value={formData.discount}
-                                            onChange={updateFormField}
-                                        />
-                                    </label>
-
-                                    <label className="wide-field">
-                                        <span>Notes</span>
-                                        <textarea
-                                            name="notes"
-                                            rows="3"
-                                            placeholder="Add any useful details about this transaction..."
-                                            value={formData.notes}
-                                            onChange={updateFormField}
-                                        ></textarea>
                                     </label>
                                 </div>
                             </section>
                         </div>
 
+                        {formError && (
+                            <p className="transactions-error-state">{formError}</p>
+                        )}
+
                         <div className="transaction-form-footer">
                             <div className="form-total">
                                 <span>Transaction total</span>
-                                <strong>{formatMoney(formTotal)}</strong>
+                                <strong>{formatMoney(formData.price)}</strong>
                             </div>
 
                             <div className="form-footer-buttons">
@@ -1255,7 +764,7 @@ function Transactions() {
                                 <span className="transactions-eyebrow">
                                     Transaction receipt
                                 </span>
-                                <h2>{selectedTransaction.merchant}</h2>
+                                <h2>{selectedTransaction.description || "Transaction"}</h2>
                                 <p>
                                     {new Date(
                                         `${selectedTransaction.date}T00:00:00`
@@ -1263,8 +772,7 @@ function Transactions() {
                                         day: "numeric",
                                         month: "long",
                                         year: "numeric",
-                                    })}{" "}
-                                    at {selectedTransaction.time}
+                                    })}
                                 </p>
                             </div>
 
@@ -1277,123 +785,36 @@ function Transactions() {
                             </button>
                         </div>
 
-                        <div className="details-merchant-card">
-                            <div className="details-merchant-logo">
-                                {selectedTransaction.merchant
-                                    .charAt(0)
-                                    .toUpperCase()}
-                            </div>
-                            <div>
-                                <strong>{selectedTransaction.merchant}</strong>
-                                <span>
-                                    {selectedTransaction.category} ·{" "}
-                                    {selectedTransaction.location || "No location"}
-                                </span>
-                            </div>
-                            <span
-                                className={`status-pill ${selectedTransaction.status.toLowerCase()}`}
-                            >
-                                {selectedTransaction.status}
-                            </span>
-                        </div>
-
-                        <div className="details-items">
-                            <div className="details-section-title">
-                                <span>Items</span>
-                                <span>{selectedTransaction.items.length}</span>
-                            </div>
-
-                            {selectedTransaction.items.map((item) => (
-                                <div className="details-item-row" key={item.id}>
-                                    <div>
-                                        <strong>{item.name}</strong>
-                                        <span>Quantity {item.quantity}</span>
-                                    </div>
-                                    <strong>
-                                        {formatMoney(item.price * item.quantity)}
-                                    </strong>
-                                </div>
-                            ))}
-                        </div>
-
                         <div className="details-totals">
                             <div>
-                                <span>Subtotal</span>
-                                <strong>
-                                    {formatMoney(
-                                        selectedTransaction.items.reduce(
-                                            (total, item) =>
-                                                total + item.price * item.quantity,
-                                            0
-                                        )
-                                    )}
-                                </strong>
-                            </div>
-
-                            <div>
-                                <span>Additional fees</span>
-                                <strong>
-                                    {formatMoney(selectedTransaction.fees)}
-                                </strong>
-                            </div>
-
-                            <div>
-                                <span>Discount</span>
-                                <strong>
-                                    − {formatMoney(selectedTransaction.discount)}
-                                </strong>
+                                <span>Category</span>
+                                <strong>{selectedTransaction.category}</strong>
                             </div>
 
                             <div className="details-total-row">
-                                <span>Total paid</span>
+                                <span>Amount</span>
                                 <strong>
-                                    {formatMoney(
-                                        getTransactionTotal(selectedTransaction)
-                                    )}
+                                    {formatMoney(selectedTransaction.price)}
                                 </strong>
                             </div>
                         </div>
 
-                        <div className="details-information-grid">
-                            <div>
-                                <span>Payment method</span>
-                                <strong>
-                                    {selectedTransaction.paymentMethod}
-                                </strong>
-                            </div>
-                            <div>
-                                <span>Location</span>
-                                <strong>
-                                    {selectedTransaction.location || "Not added"}
-                                </strong>
-                            </div>
-                            <div className="details-note">
-                                <span>Notes</span>
-                                <strong>
-                                    {selectedTransaction.notes || "No notes added"}
-                                </strong>
-                            </div>
-                        </div>
+                        {deleteError && (
+                            <p className="transactions-error-state">{deleteError}</p>
+                        )}
 
                         <div className="details-modal-actions">
                             <button
                                 className="delete-transaction-button"
                                 type="button"
+                                disabled={isDeleting}
                                 onClick={() =>
-                                    deleteTransaction(selectedTransaction.id)
+                                    handleDeleteTransaction(
+                                        selectedTransaction.transaction_id
+                                    )
                                 }
                             >
-                                Delete
-                            </button>
-
-                            <button
-                                className="repeat-transaction-button"
-                                type="button"
-                                onClick={() =>
-                                    repeatTransaction(selectedTransaction)
-                                }
-                            >
-                                Repeat transaction
+                                {isDeleting ? "Deleting..." : "Delete"}
                             </button>
                         </div>
                     </article>

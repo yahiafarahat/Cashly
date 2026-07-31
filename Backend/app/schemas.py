@@ -21,3 +21,32 @@ class UserResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+# ---------- Token Schemas ----------
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: UserResponse
+
+
+# ---------- Transaction Schemas ----------
+
+class TransactionCreate(BaseModel):
+    description: str | None = None
+    price: float
+    date: str
+    category: str
+
+
+class TransactionResponse(BaseModel):
+    transaction_id: int
+    user_id: int
+    description: str | None
+    price: float
+    date: str
+    category: str
+
+    class Config:
+        from_attributes = True

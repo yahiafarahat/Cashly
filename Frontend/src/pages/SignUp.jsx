@@ -15,7 +15,7 @@ function SignUp() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  function handleSignUp(event) {
+  async function handleSignUp(event) {
     event.preventDefault();
 
     setError("");
@@ -42,7 +42,7 @@ function SignUp() {
         return;
     }
 
-    const result = registerUser(name, email, password);
+    const result = await registerUser(name, email, password);
 
     if (!result.success) {
         setError(result.message);

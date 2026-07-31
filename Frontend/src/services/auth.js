@@ -1,93 +1,50 @@
-const USERS_KEY = "cashlyUsers";
-const CURRENT_USER_KEY = "cashlyCurrentUser";
+import { apiFetch, setToken, clearToken, getToken } from "./api";
 
-// Get all users
-export function getUsers() {
-  const users = localStorage.getItem(USERS_KEY);
-  return users ? JSON.parse(users) : [];
+function applyLoginResult(result) {
+  setToken(result.access_token);
+  localStorage.setItem("cashlyUserName", result.user.name);
 }
 
-// Save all users
-function saveUsers(users) {
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
-}
+export async function registerUser(name, email, password) {
+  try {
+    await apiFetch("/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+    });
 
-// Register a new user
-export function registerUser(name, email, password) {
-  const users = getUsers();
+    const result = await apiFetch("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
 
-  const existingUser = users.find(
-    (user) => user.email.toLowerCase() === email.toLowerCase()
-  );
+    applyLoginResult(result);
 
-  if (existingUser) {
-    return {
-      success: false,
-      message: "An account with this email already exists."
-    };
+    return { success: true };
+  } catch (error) {
+    return { success: false, message: error.message };
   }
-
-  const newUser = {
-    id: Date.now(),
-    name,
-    email,
-    password
-  };
-
-  users.push(newUser);
-  saveUsers(users);
-
-  localStorage.setItem(
-    CURRENT_USER_KEY,
-    JSON.stringify(newUser)
-  );
-
-  return {
-    success: true
-  };
 }
 
-// Login
-export function loginUser(email, password) {
-  const users = getUsers();
+export async function loginUser(email, password) {
+  try {
+    const result = await apiFetch("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
 
-  const user = users.find(
-    (u) => u.email.toLowerCase() === email.toLowerCase()
-  );
+    applyLoginResult(result);
 
-  if (!user) {
-    return {
-      success: false,
-      message: "No account found with this email."
-    };
+    return { success: true, user: result.user };
+  } catch (error) {
+    return { success: false, message: error.message };
   }
-
-  if (user.password !== password) {
-    return {
-      success: false,
-      message: "Incorrect password."
-    };
-  }
-
-  localStorage.setItem(
-    CURRENT_USER_KEY,
-    JSON.stringify(user)
-  );
-
-  return {
-    success: true,
-    user
-  };
 }
 
-// Current logged in user
 export function getCurrentUser() {
-  return JSON.parse(
-    localStorage.getItem(CURRENT_USER_KEY)
-  );
+  return getToken() ? { name: localStorage.getItem("cashlyUserName") } : null;
 }
 
-// Logout
 export function logoutUser() {
-  localStorage.removeItem(CURRENT_USER_KEY);
+  clearToken();
+  localStorage.removeItem("cashlyUserName");
 }

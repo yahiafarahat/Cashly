@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
+import { logoutUser } from "../services/auth";
 
 import "../styles/Dashboard.css";
 import "../styles/Settings.css";
@@ -981,7 +982,7 @@ function Settings() {
                     </Link>
                 </nav>
 
-                <Link className="logout-link" to="/login">
+                <Link className="logout-link" to="/login" onClick={logoutUser}>
                     <span>←</span>
                     {t.common.logout}
                 </Link>

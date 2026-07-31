@@ -8,6 +8,7 @@ import {
   financialData,
   formatCurrency,
 } from "../data/financialData";
+import { logoutUser } from "../services/auth";
 
 function Analytics() {
   const {
@@ -171,7 +172,7 @@ function Analytics() {
           </a>
         </nav>
 
-        <Link className="logout-link" to="/login">
+        <Link className="logout-link" to="/login" onClick={logoutUser}>
           <span>←</span>
           Logout
         </Link>

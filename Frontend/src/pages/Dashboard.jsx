@@ -6,6 +6,7 @@ import {
   financialData,
   formatCurrency,
 } from "../data/financialData";
+import { logoutUser } from "../services/auth";
 
 const coachMessages = [
   {
@@ -214,7 +215,7 @@ function handleChallengeCheckIn() {
 
         </nav>
 
-        <Link className="logout-link" to="/login">
+        <Link className="logout-link" to="/login" onClick={logoutUser}>
           <span>←</span>
           Logout
         </Link>
