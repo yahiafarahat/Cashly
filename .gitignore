@@ -1,0 +1,22 @@
+# Python temporary files
+__pycache__/
+*.pyc
+*.pyo
+
+# Python virtual environments
+.venv/
+venv/
+
+# SQLite database files
+*.db
+
+# Environment variables and secrets
+.env
+
+# Frontend dependencies and builds
+node_modules/
+dist/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
