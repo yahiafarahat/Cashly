@@ -7,7 +7,7 @@ from app.security import get_current_user
 
 
 router = APIRouter(
-    prefix="/api/v1/transactions",
+   prefix="/transactions",
     tags=["Transactions"]
 )
 

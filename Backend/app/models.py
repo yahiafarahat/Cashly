@@ -24,14 +24,21 @@ class Transaction(Base):
     __tablename__ = "transactions"
 
     transaction_id = Column(Integer, primary_key=True, index=True)
+
     user_id = Column(
         Integer,
         ForeignKey("users.user_id"),
         nullable=False
     )
-    merchant_name = Column(String, nullable=False)
+
+    description = Column(String, nullable=False)
+    price = Column(Float, nullable=False)
     date = Column(String, nullable=False)
-    location = Column(String, nullable=False)
+    category = Column(String, nullable=False)
+
+    # Extra Cashly fields
+    merchant_name = Column(String)
+    location = Column(String)
 
     user = relationship(
         "User",
@@ -49,15 +56,17 @@ class Item(Base):
     __tablename__ = "items"
 
     item_id = Column(Integer, primary_key=True, index=True)
+
     transaction_id = Column(
         Integer,
         ForeignKey("transactions.transaction_id"),
         nullable=False
     )
+
     item_name = Column(String, nullable=False)
     item_price = Column(Float, nullable=False)
 
     transaction = relationship(
         "Transaction",
         back_populates="items"
-    ) 
+    )

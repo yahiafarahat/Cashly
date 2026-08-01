@@ -6,7 +6,7 @@ from app import crud, schemas
 from app.security import create_access_token, get_current_user
 
 router = APIRouter(
-prefix="/api/v1/auth",    tags=["Authentication"]
+prefix="/auth",    tags=["Authentication"]
 )
 
 

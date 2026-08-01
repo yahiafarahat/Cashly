@@ -51,18 +51,27 @@ class ItemResponse(BaseModel):
 # ---------- Transaction Schemas ----------
 
 class TransactionCreate(BaseModel):
-    merchant_name: str
+    description: str
+    price: float = Field(gt=0)
     date: str
-    location: str
+    category: str
+
+    # Extra Cashly fields
+    merchant_name: str | None = None
+    location: str | None = None
+
     items: list[ItemCreate] = Field(min_length=1)
 
 
 class TransactionResponse(BaseModel):
     transaction_id: int
     user_id: int
-    merchant_name: str
+    description: str
+    price: float
     date: str
-    location: str
+    category: str
+    merchant_name: str | None
+    location: str | None
     items: list[ItemResponse]
 
     class Config:

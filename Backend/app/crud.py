@@ -1,7 +1,7 @@
 import secrets
 
-from sqlalchemy.orm import Session, selectinload
 from passlib.context import CryptContext
+from sqlalchemy.orm import Session, selectinload
 
 from app import models, schemas
 
@@ -51,7 +51,10 @@ def get_user_by_id(db: Session, user_id: int):
     )
 
 
-def create_user(db: Session, user: schemas.UserCreate):
+def create_user(
+    db: Session,
+    user: schemas.UserCreate
+):
     salt = generate_salt()
 
     hashed_password = get_password_hash(
@@ -104,8 +107,11 @@ def create_transaction(
 ):
     db_transaction = models.Transaction(
         user_id=user_id,
-        merchant_name=transaction.merchant_name,
+        description=transaction.description,
+        price=transaction.price,
         date=transaction.date,
+        category=transaction.category,
+        merchant_name=transaction.merchant_name,
         location=transaction.location
     )
 
@@ -133,9 +139,15 @@ def get_transactions_by_user(
 ):
     return (
         db.query(models.Transaction)
-        .options(selectinload(models.Transaction.items))
-        .filter(models.Transaction.user_id == user_id)
-        .order_by(models.Transaction.transaction_id.desc())
+        .options(
+            selectinload(models.Transaction.items)
+        )
+        .filter(
+            models.Transaction.user_id == user_id
+        )
+        .order_by(
+            models.Transaction.transaction_id.desc()
+        )
         .all()
     )
 
@@ -147,10 +159,14 @@ def get_transaction_by_id(
 ):
     return (
         db.query(models.Transaction)
-        .options(selectinload(models.Transaction.items))
+        .options(
+            selectinload(models.Transaction.items)
+        )
         .filter(
-            models.Transaction.transaction_id == transaction_id,
-            models.Transaction.user_id == user_id
+            models.Transaction.transaction_id
+            == transaction_id,
+            models.Transaction.user_id
+            == user_id
         )
         .first()
     )

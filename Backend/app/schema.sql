@@ -13,9 +13,12 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS transactions (
     transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
-    merchant_name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    price REAL NOT NULL,
     date TEXT NOT NULL,
-    location TEXT NOT NULL,
+    category TEXT NOT NULL,
+    merchant_name TEXT,
+    location TEXT,
 
     FOREIGN KEY (user_id)
         REFERENCES users(user_id)
@@ -32,4 +35,4 @@ CREATE TABLE IF NOT EXISTS items (
     FOREIGN KEY (transaction_id)
         REFERENCES transactions(transaction_id)
         ON DELETE CASCADE
-); 
+);
