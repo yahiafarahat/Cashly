@@ -5,6 +5,8 @@ import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 
 import "../styles/Dashboard.css";
 import "../styles/Transactions.css";
+import AppSidebar from "../components/AppSidebar";
+import UserProfile from "../components/UserProfile";
 
 const currencyOptions = {
     EGP: { label: "Egyptian Pound", symbol: "EGP", rate: 1 },
@@ -186,6 +188,9 @@ function createEmptyForm() {
         paymentMethod: "Debit Card",
         status: "Completed",
         notes: "",
+        currency: "EGP",
+        exchangeRateToEGP: 1,
+        rateUpdatedAt: "",
         items: [{ id: Date.now(), name: "", quantity: 1, price: "" }],
         fees: "",
         discount: "",
@@ -199,11 +204,18 @@ function getTransactionTotal(transaction) {
         0
     );
 
-    return (
+    const originalTotal = (
         itemsTotal +
         Number(transaction.fees || 0) -
         Number(transaction.discount || 0)
     );
+
+    return originalTotal * Number(transaction.exchangeRateToEGP || 1);
+}
+
+function getOriginalTransactionTotal(transaction) {
+    const rate = Number(transaction.exchangeRateToEGP || 1);
+    return getTransactionTotal(transaction) / rate;
 }
 
 function Transactions() {
@@ -217,11 +229,14 @@ function Transactions() {
             : startingTransactions;
     });
 
-    const [currency, setCurrency] = useState(
-        localStorage.getItem("cashlyCurrency") || "EGP"
-    );
+    // Temporary compatibility state for the hidden legacy header selector.
+    // Currency selection now belongs to each individual transaction form.
+    const [currency, setCurrency] = useState("EGP");
+
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [formData, setFormData] = useState(createEmptyForm);
+    const [rateStatus, setRateStatus] = useState("idle");
+    const [rateError, setRateError] = useState("");
     const [selectedTransaction, setSelectedTransaction] =
         useState(null);
 
@@ -245,20 +260,44 @@ function Transactions() {
         );
     }, [transactions]);
 
-    useEffect(() => {
-        localStorage.setItem("cashlyCurrency", currency);
-    }, [currency]);
-
-    function formatMoney(amount) {
-        const convertedAmount =
-            Number(amount || 0) * currencyOptions[currency].rate;
-
+    function formatMoney(amount, currencyCode = "EGP") {
         return new Intl.NumberFormat("en-US", {
             style: "currency",
-            currency,
-            maximumFractionDigits: currency === "EGP" ? 0 : 2,
-        }).format(convertedAmount);
+            currency: currencyCode,
+            maximumFractionDigits: currencyCode === "EGP" ? 0 : 2,
+        }).format(Number(amount || 0));
     }
+
+    useEffect(() => {
+        if (!isFormOpen) return;
+        if (formData.currency === "EGP") {
+            setFormData((current) => ({ ...current, exchangeRateToEGP: 1, rateUpdatedAt: new Date().toISOString() }));
+            setRateStatus("ready");
+            setRateError("");
+            return;
+        }
+
+        const controller = new AbortController();
+        setRateStatus("loading");
+        setRateError("");
+        fetch(`https://open.er-api.com/v6/latest/${formData.currency}`, { signal: controller.signal })
+            .then((response) => {
+                if (!response.ok) throw new Error("Rate service unavailable");
+                return response.json();
+            })
+            .then((data) => {
+                const rate = Number(data?.rates?.EGP);
+                if (data?.result !== "success" || !Number.isFinite(rate) || rate <= 0) throw new Error("Invalid rate");
+                setFormData((current) => ({ ...current, exchangeRateToEGP: rate, rateUpdatedAt: data.time_last_update_utc || new Date().toISOString() }));
+                setRateStatus("ready");
+            })
+            .catch((error) => {
+                if (error.name === "AbortError") return;
+                setRateStatus("error");
+                setRateError("Current exchange rate could not be loaded. Try again before saving.");
+            });
+        return () => controller.abort();
+    }, [formData.currency, isFormOpen]);
 
     function updateFormField(event) {
         const { name, value } = event.target;
@@ -334,6 +373,11 @@ function Transactions() {
 
     function submitTransaction(event) {
         event.preventDefault();
+
+        if (formData.currency !== "EGP" && rateStatus !== "ready") {
+            setRateError("A current exchange rate is required before this transaction can be saved.");
+            return;
+        }
 
         const validItems = formData.items.filter(
             (item) =>
@@ -531,10 +575,12 @@ function Transactions() {
     }, [transactions]);
 
     const formTotal = getTransactionTotal(formData);
+    const formOriginalTotal = getOriginalTransactionTotal(formData);
 
     return (
         <div className="dashboard-page transactions-page">
-            <aside className="dashboard-sidebar">
+            <AppSidebar active="transactions" />
+            <aside className="legacy-sidebar" aria-hidden="true">
                 <div className="sidebar-logo">
                     <img src={cashlyLogo} alt="Cashly Logo" />
                     <h2>Cashly</h2>
@@ -590,7 +636,7 @@ function Transactions() {
                     </div>
 
                     <div className="transactions-header-actions">
-                        <label className="currency-control">
+                        <label className="currency-control header-currency-control">
                             <span>Currency</span>
                             <select
                                 value={currency}
@@ -617,9 +663,7 @@ function Transactions() {
                             Add Transaction
                         </button>
 
-                        <div className="dashboard-avatar" title={userName}>
-                            {firstLetter}
-                        </div>
+                        <UserProfile />
                     </div>
                 </header>
 
@@ -973,6 +1017,20 @@ function Transactions() {
                                 </div>
 
                                 <div className="transaction-form-grid">
+                                    <label className="wide-field transaction-currency-field">
+                                        <span>Transaction currency *</span>
+                                        <select name="currency" value={formData.currency} onChange={updateFormField}>
+                                            {Object.entries(currencyOptions).map(([code, option]) => (
+                                                <option value={code} key={code}>{code} — {option.label}</option>
+                                            ))}
+                                        </select>
+                                        <small className={`exchange-rate-note ${rateStatus}`}>
+                                            {formData.currency === "EGP" && "Recorded directly in Egyptian pounds."}
+                                            {formData.currency !== "EGP" && rateStatus === "loading" && "Loading the latest EGP exchange rate…"}
+                                            {formData.currency !== "EGP" && rateStatus === "ready" && `1 ${formData.currency} = ${Number(formData.exchangeRateToEGP).toFixed(4)} EGP`}
+                                            {rateStatus === "error" && rateError}
+                                        </small>
+                                    </label>
                                     <label className="wide-field">
                                         <span>Merchant name *</span>
                                         <input
@@ -1130,7 +1188,7 @@ function Transactions() {
                                             </label>
 
                                             <label className="price-field">
-                                                <span>Price in EGP *</span>
+                                                <span>Price in {formData.currency} *</span>
                                                 <input
                                                     type="number"
                                                     min="0"
@@ -1175,7 +1233,7 @@ function Transactions() {
 
                                 <div className="transaction-form-grid">
                                     <label>
-                                        <span>Additional fees</span>
+                                        <span>Additional fees ({formData.currency})</span>
                                         <input
                                             type="number"
                                             min="0"
@@ -1188,7 +1246,7 @@ function Transactions() {
                                     </label>
 
                                     <label>
-                                        <span>Discount</span>
+                                        <span>Discount ({formData.currency})</span>
                                         <input
                                             type="number"
                                             min="0"
@@ -1217,7 +1275,8 @@ function Transactions() {
                         <div className="transaction-form-footer">
                             <div className="form-total">
                                 <span>Transaction total</span>
-                                <strong>{formatMoney(formTotal)}</strong>
+                                <strong>{formatMoney(formOriginalTotal, formData.currency)}</strong>
+                                {formData.currency !== "EGP" && rateStatus === "ready" && <small>About {formatMoney(formTotal)} at the saved rate</small>}
                             </div>
 
                             <div className="form-footer-buttons">
@@ -1232,11 +1291,13 @@ function Transactions() {
                                 <button
                                     className="save-transaction-button"
                                     type="submit"
+                                    disabled={formData.currency !== "EGP" && rateStatus !== "ready"}
                                 >
                                     Save transaction
                                 </button>
                             </div>
                         </div>
+                        <a className="exchange-rate-attribution" href="https://www.exchangerate-api.com" target="_blank" rel="noreferrer">Rates by ExchangeRate-API</a>
                     </form>
                 </div>
             )}
@@ -1310,7 +1371,7 @@ function Transactions() {
                                         <span>Quantity {item.quantity}</span>
                                     </div>
                                     <strong>
-                                        {formatMoney(item.price * item.quantity)}
+                                        {formatMoney(item.price * item.quantity, selectedTransaction.currency || "EGP")}
                                     </strong>
                                 </div>
                             ))}
@@ -1325,7 +1386,8 @@ function Transactions() {
                                             (total, item) =>
                                                 total + item.price * item.quantity,
                                             0
-                                        )
+                                        ),
+                                        selectedTransaction.currency || "EGP"
                                     )}
                                 </strong>
                             </div>
@@ -1333,19 +1395,19 @@ function Transactions() {
                             <div>
                                 <span>Additional fees</span>
                                 <strong>
-                                    {formatMoney(selectedTransaction.fees)}
+                                    {formatMoney(selectedTransaction.fees, selectedTransaction.currency || "EGP")}
                                 </strong>
                             </div>
 
                             <div>
                                 <span>Discount</span>
                                 <strong>
-                                    − {formatMoney(selectedTransaction.discount)}
+                                    − {formatMoney(selectedTransaction.discount, selectedTransaction.currency || "EGP")}
                                 </strong>
                             </div>
 
                             <div className="details-total-row">
-                                <span>Total paid</span>
+                                <span>Total paid {selectedTransaction.currency && selectedTransaction.currency !== "EGP" ? "(in EGP)" : ""}</span>
                                 <strong>
                                     {formatMoney(
                                         getTransactionTotal(selectedTransaction)

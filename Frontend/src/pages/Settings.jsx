@@ -1,10 +1,29 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 
 import "../styles/Dashboard.css";
 import "../styles/Settings.css";
+import AppSidebar from "../components/AppSidebar";
+import UserProfile from "../components/UserProfile";
+import { getCurrentUser, updateCurrentUserProfile } from "../services/auth";
+import { Bell, Database, Languages, Moon, Palette, ShieldCheck, Sun, UserRound, WalletCards } from "lucide-react";
+
+const settingsNavigationIcons = {
+    profile: UserRound,
+    language: Languages,
+    notifications: Bell,
+    appearance: Palette,
+    preferences: WalletCards,
+    security: ShieldCheck,
+    data: Database,
+};
+
+function SettingsNavigationIcon({ section }) {
+    const NavigationIcon = settingsNavigationIcons[section];
+    return <NavigationIcon className="settings-nav-icon" aria-hidden="true" />;
+}
 
 
 const t = {
@@ -45,6 +64,7 @@ const notificationDefaults = {
 };
 
 const appearanceDefaults = {
+    theme: "dark",
     hideValues: false,
     reduceMotion: false,
     compactLayout: false,
@@ -95,6 +115,14 @@ function Toggle({ checked, onChange, label, description }) {
 }
 
 function Settings() {
+    const currentUser = getCurrentUser();
+    const accountNameParts = (currentUser?.name || "").trim().split(/\s+/);
+    const accountProfileDefaults = {
+        ...profileDefaults,
+        firstName: accountNameParts[0] || "",
+        lastName: accountNameParts.slice(1).join(" "),
+        email: currentUser?.email || "",
+    };
     const language = "en";
     const setLanguage = () => { };
 
@@ -102,7 +130,7 @@ function Settings() {
     const [savedMessage, setSavedMessage] = useState("");
 
     const [profile, setProfile] = useState(() =>
-        loadStoredObject("cashlyProfile", profileDefaults)
+        loadStoredObject("cashlyProfile", accountProfileDefaults)
     );
 
     const [notifications, setNotifications] = useState(() =>
@@ -115,6 +143,13 @@ function Settings() {
     const [appearance, setAppearance] = useState(() =>
         loadStoredObject("cashlyAppearance", appearanceDefaults)
     );
+
+    useEffect(() => {
+        const theme = appearance.theme || "dark";
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.classList.toggle("light", theme === "light");
+        localStorage.setItem("cashlyAppearance", JSON.stringify({ ...appearance, theme }));
+    }, [appearance]);
 
     const [preferences, setPreferences] = useState(() =>
         loadStoredObject(
@@ -141,6 +176,7 @@ function Settings() {
         [profile.firstName, profile.lastName]
             .filter(Boolean)
             .join(" ") ||
+        currentUser?.name ||
         localStorage.getItem("cashlyUserName") ||
         "Cashly User";
 
@@ -198,11 +234,9 @@ function Settings() {
         );
 
         if (profile.firstName.trim()) {
-            localStorage.setItem(
-                "cashlyUserName",
-                [profile.firstName, profile.lastName]
-                    .filter(Boolean)
-                    .join(" ")
+            updateCurrentUserProfile(
+                [profile.firstName, profile.lastName].filter(Boolean).join(" "),
+                profile.email
             );
         }
 
@@ -641,7 +675,20 @@ function Settings() {
                     </div>
                 </div>
 
-                <div className="theme-preview-card">
+                <div className="theme-choice-grid" aria-label="Color theme">
+                    <button type="button" className={appearance.theme !== "light" ? "selected" : ""} onClick={() => setAppearance((current) => ({ ...current, theme: "dark" }))}>
+                        <span className="theme-choice-icon"><Moon /></span>
+                        <span><strong>Dark</strong><small>Deep, focused, and easy on the eyes</small></span>
+                        <i>{appearance.theme !== "light" ? "Active" : ""}</i>
+                    </button>
+                    <button type="button" className={appearance.theme === "light" ? "selected" : ""} onClick={() => setAppearance((current) => ({ ...current, theme: "light" }))}>
+                        <span className="theme-choice-icon"><Sun /></span>
+                        <span><strong>Light</strong><small>Bright, clean, and comfortable in daylight</small></span>
+                        <i>{appearance.theme === "light" ? "Active" : ""}</i>
+                    </button>
+                </div>
+
+                <div className="theme-preview-card legacy-theme-preview">
                     <div className="theme-preview-icon">◐</div>
                     <div>
                         <strong>{t.settings.appearance.darkTheme}</strong>
@@ -939,7 +986,8 @@ function Settings() {
 
     return (
         <div className="dashboard-page settings-page">
-            <aside className="dashboard-sidebar">
+            <AppSidebar active="settings" />
+            <aside className="legacy-sidebar" aria-hidden="true">
                 <div className="sidebar-logo">
                     <img src={cashlyLogo} alt="Cashly Logo" />
                     <h2>{t.common.cashly}</h2>
@@ -1011,6 +1059,7 @@ function Settings() {
                         >
                             {t.common.saveChanges}
                         </button>
+                        <UserProfile />
                     </div>
                 </header>
 
@@ -1030,7 +1079,7 @@ function Settings() {
                                     }
                                     onClick={() => setActiveSection(key)}
                                 >
-                                    <span>{icon}</span>
+                                    <SettingsNavigationIcon section={key} />
                                     {label}
                                 </button>
                             )

@@ -1429,3 +1429,16 @@
 .transaction-details-modal::-webkit-scrollbar-thumb:hover {
     background: #d4af37;
 }
+
+.header-currency-control { display: none; }
+
+.transaction-currency-field small.exchange-rate-note { display: block; margin-top: 7px; color: #8c8c91; font-size: 10px; line-height: 1.45; }
+.transaction-currency-field small.exchange-rate-note.ready { color: #73bf94; }
+.transaction-currency-field small.exchange-rate-note.loading { color: #d4af37; }
+.transaction-currency-field small.exchange-rate-note.error { color: #e1847e; }
+.form-total small { display: block; margin-top: 4px; color: #85858a; font-size: 10px; font-weight: 500; }
+.save-transaction-button:disabled { opacity: .45; cursor: not-allowed; }
+.exchange-rate-attribution { padding: 0 24px 13px; display: block; color: #66666c; font-size: 9px; text-align: right; text-decoration: none; }
+.exchange-rate-attribution:hover { color: #b89b43; }
+
+.transactions-page > .legacy-sidebar { display: none; }
