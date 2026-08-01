@@ -18,15 +18,14 @@
 .ai-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 11px; color: #f0d26c; background: rgba(212,175,55,.1); border: 1px solid rgba(212,175,55,.21); border-radius: 8px; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
 .fresh-label { display: flex; align-items: center; gap: 8px; color: #7f7f81; font-size: 12px; }
 .fresh-label i { width: 7px; height: 7px; border-radius: 50%; background: #73c89c; box-shadow: 0 0 12px #73c89c; }
-.insight-content { position: relative; z-index: 1; width: min(790px, 85%); padding: 62px 0 0 16px; }
-.insight-eyebrow { color: #a7a198; font-size: 13px; }
-.insight-content h2 { max-width: 790px; margin: 11px 0 18px; font-size: clamp(34px, 4vw, 58px); line-height: 1.07; letter-spacing: -.045em; font-weight: 620; }
-.insight-content p { max-width: 650px; margin: 0; color: #aaa7a0; font-size: 16px; line-height: 1.7; }
-.insight-actions { margin-top: 30px; display: flex; align-items: center; gap: 22px; }
+.my-day-page .insight-content { position: relative; z-index: 1; width: min(760px, calc(100% - 90px)); padding: 58px 0 0 16px; display: block; }
+.my-day-page .insight-content h2 { max-width: 760px; margin: 0 0 20px; font-size: clamp(34px, 4vw, 58px); line-height: 1.07; letter-spacing: -.045em; font-weight: 620; }
+.my-day-page .insight-content p { max-width: 640px; margin: 0; color: #aaa7a0; font-size: 16px; line-height: 1.7; }
+.my-day-page .insight-actions { margin-top: 28px; display: flex; align-items: center; gap: 20px; }
 .insight-action, .next-insight, .mark-paid { font-family: inherit; cursor: pointer; }
-.insight-action { display: inline-flex; align-items: center; gap: 10px; padding: 12px 17px; color: #17130a; background: linear-gradient(135deg, #ecd26f, #c89b26); border: 0; border-radius: 10px; font-weight: 750; }
+.insight-action { min-height: 44px; display: inline-flex; align-items: center; gap: 10px; padding: 12px 17px; color: #17130a; background: linear-gradient(135deg, #ecd26f, #c89b26); border: 0; border-radius: 10px; font-weight: 750; white-space: nowrap; }
 .insight-action:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(205,161,39,.2); }
-.next-insight { padding: 8px 0; color: #aaa69d; background: none; border: 0; border-bottom: 1px solid #5c5749; font-size: 13px; }
+.next-insight { min-height: 44px; padding: 8px 2px; color: #aaa69d; background: none; border: 0; border-bottom: 1px solid #5c5749; font-size: 13px; white-space: nowrap; }
 .next-insight:hover { color: #ecd26f; box-shadow: none; transform: none; }
 .insight-number { position: absolute; right: 32px; bottom: 28px; color: rgba(238,211,116,.78); font-size: 23px; font-weight: 650; letter-spacing: .04em; }
 .insight-number span { color: #5e5c56; font-size: 12px; }

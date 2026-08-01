@@ -60,7 +60,6 @@ function Dashboard() {
           <div className="insight-glow" />
           <div className="insight-topline"><span className="ai-badge"><Icon name="spark" size={16} /> AI INSIGHT</span><span className="fresh-label"><i /> Updated just now</span></div>
           <div className="insight-content">
-            <span className="insight-eyebrow">{insight.eyebrow}</span>
             <h2>{insight.title}</h2>
             <p>{insight.detail}</p>
             <div className="insight-actions">
