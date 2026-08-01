@@ -5,6 +5,8 @@ import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 
 import "../styles/Dashboard.css";
 import "../styles/Transactions.css";
+import AppSidebar from "../components/AppSidebar";
+import UserProfile from "../components/UserProfile";
 
 const currencyOptions = {
     EGP: { label: "Egyptian Pound", symbol: "EGP", rate: 1 },
@@ -534,7 +536,8 @@ function Transactions() {
 
     return (
         <div className="dashboard-page transactions-page">
-            <aside className="dashboard-sidebar">
+            <AppSidebar active="transactions" />
+            <aside className="legacy-sidebar" aria-hidden="true">
                 <div className="sidebar-logo">
                     <img src={cashlyLogo} alt="Cashly Logo" />
                     <h2>Cashly</h2>
@@ -617,9 +620,7 @@ function Transactions() {
                             Add Transaction
                         </button>
 
-                        <div className="dashboard-avatar" title={userName}>
-                            {firstLetter}
-                        </div>
+                        <UserProfile />
                     </div>
                 </header>
 

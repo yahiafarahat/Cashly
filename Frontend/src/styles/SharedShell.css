@@ -1,0 +1,10 @@
+.app-sidebar .sidebar-link svg,.app-sidebar .logout-link svg{flex:0 0 auto;color:#d4af37}.shared-user-profile{display:flex;align-items:center;gap:11px}.shared-user-avatar{width:44px;height:44px;display:grid;place-items:center;flex:0 0 auto;border:1px solid rgba(232,197,93,.46);border-radius:50%;color:#151109;background:linear-gradient(145deg,#f0d270,#a9780a);font-weight:800;box-shadow:0 0 0 4px rgba(212,175,55,.05)}.shared-user-copy strong,.shared-user-copy span{display:block;max-width:175px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.shared-user-copy strong{color:#eceae5;font-size:12px}.shared-user-copy span{margin-top:4px;color:#6f6f75;font-size:9px}.shared-user-profile.compact{gap:0}@media(max-width:700px){.shared-user-copy{display:none}}
+
+/* Keep the older Transactions and Settings shells aligned with the newer pages. */
+.transactions-main,.settings-main{padding:46px clamp(28px,5vw,76px) 70px;background:radial-gradient(circle at 85% 0,rgba(208,168,46,.08),transparent 25%),#0b0b0c}
+.transactions-header,.settings-page-header{max-width:1120px;margin:0 auto 38px;padding:0;position:static;min-height:0;background:transparent;border:0;box-shadow:none;backdrop-filter:none}
+.transactions-header h1,.settings-page-header h1{margin:8px 0;font-size:clamp(32px,4vw,48px);line-height:1.08;letter-spacing:-.045em}
+.transactions-header p,.settings-page-header p{color:#85858a;font-size:14px}.transactions-eyebrow,.settings-eyebrow{margin:0;color:#b99738;font-size:10px;font-weight:800;letter-spacing:.17em}
+.transactions-content,.settings-layout{max-width:1120px;margin-left:auto;margin-right:auto}.transactions-content{padding:0}
+@media(max-width:900px){.transactions-header,.settings-page-header{align-items:flex-start;flex-direction:column}.transactions-header-actions,.settings-header-actions{width:100%;flex-wrap:wrap}}
+@media(max-width:700px){.transactions-main,.settings-main{padding:30px 18px 55px}}

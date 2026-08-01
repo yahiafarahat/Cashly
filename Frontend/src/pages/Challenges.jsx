@@ -1,8 +1,11 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 import "../styles/Dashboard.css";
 import "../styles/ChallengesSmart.css";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import AppSidebar from "../components/AppSidebar";
+import UserProfile from "../components/UserProfile";
 
 const Icon = ({ name, size = 20 }) => {
   const paths = {
@@ -26,7 +29,6 @@ const suggestions = [
 ];
 
 function Challenges() {
-  const userName = localStorage.getItem("cashlyUserName") || "Cashly User";
   const [accepted, setAccepted] = useState([]);
   const [todayComplete, setTodayComplete] = useState(false);
   const [movedSavings, setMovedSavings] = useState(false);
@@ -36,44 +38,34 @@ function Challenges() {
 
   return (
     <div className="smart-actions-page">
-      <aside className="dashboard-sidebar">
-        <div className="sidebar-logo"><img src={cashlyLogo} alt="Cashly"/><h2>Cashly</h2></div>
-        <nav className="sidebar-menu">
-          <Link className="sidebar-link" to="/dashboard"><Icon name="day"/>My Day</Link>
-          <Link className="sidebar-link" to="/transactions"><Icon name="transactions"/>Transactions</Link>
-          <Link className="sidebar-link" to="/analytics"><Icon name="analytics"/>Analytics</Link>
-          <Link className="sidebar-link active" to="/challenges"><Icon name="challenges"/>Challenges</Link>
-          <Link className="sidebar-link" to="/settings"><Icon name="settings"/>Settings</Link>
-        </nav>
-        <Link className="logout-link" to="/login"><Icon name="logout"/>Logout</Link>
-      </aside>
+      <AppSidebar active="challenges" />
 
       <main className="smart-actions-main">
         <header className="smart-actions-header">
           <div><span className="actions-kicker">SMALL MOVES · REAL MONEY</span><h1>Smart actions</h1><p>Cashly found a few things worth doing. Pick only what feels right.</p></div>
-          <div className="actions-profile" title={userName}>{userName.charAt(0).toUpperCase()}</div>
+          <UserProfile />
         </header>
 
-        <section className={`today-action ${todayComplete ? "complete" : ""}`}>
+        <Card className={`today-action ${todayComplete ? "complete" : ""}`}>
           <div className="today-action-copy">
-            <span className="today-badge"><i/> TODAY'S FOCUS</span>
+            <Badge className="today-badge"><i/> TODAY'S FOCUS</Badge>
             <h2>{todayComplete ? "You kept EGP 225 today." : "Skip delivery tonight."}</h2>
             <p>{todayComplete ? "That money stays available for something that matters more." : "Your last three Saturday orders averaged EGP 225. There's food at home that expires tomorrow."}</p>
-            <button type="button" onClick={() => setTodayComplete((value) => !value)}>{todayComplete ? <><Icon name="check" size={18}/>Completed</> : "I'll do this"}</button>
+            <Button type="button" onClick={() => setTodayComplete((value) => !value)}>{todayComplete ? <><Icon name="check" size={18}/>Completed</> : "I'll do this"}</Button>
           </div>
           <div className="today-impact"><span>{todayComplete ? "Saved today" : "Keep in your pocket"}</span><strong>EGP 225</strong><small>One decision. No streaks.</small></div>
-        </section>
+        </Card>
 
         <section className="suggestions-section">
           <div className="actions-section-heading"><div><span><Icon name="spark" size={15}/>CASHLY NOTICED</span><h2>Suggestions made for you</h2></div><p>Updated from your latest transactions</p></div>
           <div className="suggestion-list">
             {suggestions.map((item) => {
               const isAccepted = accepted.includes(item.id);
-              return <article className={`suggestion-card ${isAccepted ? "accepted" : ""}`} key={item.id}>
+              return <Card className={`suggestion-card ${isAccepted ? "accepted" : ""}`} key={item.id}>
                 <div className="suggestion-icon">{isAccepted ? <Icon name="check" size={23}/> : item.icon}</div>
                 <div className="suggestion-copy"><span>Cashly notices</span><h3>{item.signal}</h3><div className="suggestion-arrow">→</div><span>Suggested action</span><strong>{item.action}</strong><small>{item.confidence}</small></div>
-                <div className="suggestion-impact"><span>Potential saving</span><strong>EGP {item.saving}</strong><small>{item.period}</small><button type="button" disabled={isAccepted} onClick={() => accept(item.id)}>{isAccepted ? "Added for tomorrow" : item.button}{!isAccepted && <Icon name="arrow" size={16}/>}</button></div>
-              </article>;
+                <div className="suggestion-impact"><span>Potential saving</span><strong>EGP {item.saving}</strong><small>{item.period}</small><Button variant="outline" type="button" disabled={isAccepted} onClick={() => accept(item.id)}>{isAccepted ? "Added for tomorrow" : item.button}{!isAccepted && <Icon name="arrow" size={16}/>}</Button></div>
+              </Card>;
             })}
           </div>
         </section>
@@ -81,7 +73,7 @@ function Challenges() {
         <section className={`money-move ${movedSavings ? "moved" : ""}`}>
           <div className="money-move-icon">↘</div>
           <div><span>SMART MONEY MOVE</span><h2>{movedSavings ? "EGP 220 is now set aside for savings." : "Your electricity bill was lower than usual."}</h2><p>{movedSavings ? "A lower bill became progress instead of disappearing into everyday spending." : "You paid EGP 220 less than your six-month average. Move the difference before it quietly gets spent?"}</p></div>
-          <div className="money-move-action"><strong>+ EGP 220</strong><span>to Savings</span><button type="button" disabled={movedSavings} onClick={() => setMovedSavings(true)}>{movedSavings ? <><Icon name="check" size={17}/>Moved</> : "Yes, move it"}</button></div>
+          <div className="money-move-action"><strong>+ EGP 220</strong><span>to Savings</span><Button variant="outline" type="button" disabled={movedSavings} onClick={() => setMovedSavings(true)}>{movedSavings ? <><Icon name="check" size={17}/>Moved</> : "Yes, move it"}</Button></div>
         </section>
 
         <footer className="impact-footer">

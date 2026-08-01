@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 import "../styles/Dashboard.css";
 import "../styles/MyDay.css";
+import { getCurrentUser } from "../services/auth";
+import AppSidebar from "../components/AppSidebar";
+import UserProfile from "../components/UserProfile";
 
 const Icon = ({ name, size = 20 }) => {
   const paths = {
@@ -34,7 +35,8 @@ const initialBills = [
 ];
 
 function Dashboard() {
-  const userName = localStorage.getItem("cashlyUserName") || "Cashly User";
+  const currentUser = getCurrentUser();
+  const userName = currentUser?.name?.trim() || localStorage.getItem("cashlyUserName") || "Cashly User";
   const firstName = userName.split(" ")[0];
   const [insightIndex, setInsightIndex] = useState(0);
   const [paidBills, setPaidBills] = useState([]);
@@ -46,22 +48,12 @@ function Dashboard() {
 
   return (
     <div className="dashboard-page my-day-page">
-      <aside className="dashboard-sidebar">
-        <div className="sidebar-logo"><img src={cashlyLogo} alt="Cashly" /><h2>Cashly</h2></div>
-        <nav className="sidebar-menu">
-          <Link className="sidebar-link active" to="/dashboard"><Icon name="day" />My Day</Link>
-          <Link className="sidebar-link" to="/transactions"><Icon name="transactions" />Transactions</Link>
-          <Link className="sidebar-link" to="/analytics"><Icon name="analytics" />Analytics</Link>
-          <Link className="sidebar-link" to="/challenges"><Icon name="challenges" />Challenges</Link>
-          <Link className="sidebar-link" to="/settings"><Icon name="settings" />Settings</Link>
-        </nav>
-        <Link className="logout-link" to="/login"><Icon name="logout" />Logout</Link>
-      </aside>
+      <AppSidebar active="day" />
 
       <main className="dashboard-main my-day-main">
         <header className="my-day-header">
           <div><span className="today-label">SATURDAY · AUGUST 1</span><h1>Good afternoon, {firstName}.</h1><p>Here’s what matters for your money today.</p></div>
-          <div className="my-day-profile" title={userName}>{userName.charAt(0).toUpperCase()}</div>
+          <UserProfile />
         </header>
 
         <section className={`ai-insight-card ${insight.accent}`}>

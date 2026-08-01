@@ -41,6 +41,7 @@ export function registerUser(name, email, password) {
     CURRENT_USER_KEY,
     JSON.stringify(newUser)
   );
+  localStorage.setItem("cashlyUserName", newUser.name);
 
   return {
     success: true
@@ -73,6 +74,7 @@ export function loginUser(email, password) {
     CURRENT_USER_KEY,
     JSON.stringify(user)
   );
+  localStorage.setItem("cashlyUserName", user.name);
 
   return {
     success: true,
@@ -90,4 +92,19 @@ export function getCurrentUser() {
 // Logout
 export function logoutUser() {
   localStorage.removeItem(CURRENT_USER_KEY);
+  localStorage.removeItem("cashlyUserName");
+}
+
+export function updateCurrentUserProfile(name, email) {
+  const currentUser = getCurrentUser();
+  if (!currentUser) return;
+
+  const updatedUser = { ...currentUser, name, email: email || currentUser.email };
+  localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser));
+  localStorage.setItem("cashlyUserName", name);
+
+  const users = getUsers().map((user) =>
+    user.id === updatedUser.id ? { ...user, ...updatedUser } : user
+  );
+  saveUsers(users);
 }

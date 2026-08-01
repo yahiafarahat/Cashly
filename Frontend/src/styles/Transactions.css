@@ -1429,3 +1429,5 @@
 .transaction-details-modal::-webkit-scrollbar-thumb:hover {
     background: #d4af37;
 }
+
+.transactions-page > .legacy-sidebar { display: none; }

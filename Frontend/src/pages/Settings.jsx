@@ -5,6 +5,9 @@ import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 
 import "../styles/Dashboard.css";
 import "../styles/Settings.css";
+import AppSidebar from "../components/AppSidebar";
+import UserProfile from "../components/UserProfile";
+import { getCurrentUser, updateCurrentUserProfile } from "../services/auth";
 
 
 const t = {
@@ -95,6 +98,14 @@ function Toggle({ checked, onChange, label, description }) {
 }
 
 function Settings() {
+    const currentUser = getCurrentUser();
+    const accountNameParts = (currentUser?.name || "").trim().split(/\s+/);
+    const accountProfileDefaults = {
+        ...profileDefaults,
+        firstName: accountNameParts[0] || "",
+        lastName: accountNameParts.slice(1).join(" "),
+        email: currentUser?.email || "",
+    };
     const language = "en";
     const setLanguage = () => { };
 
@@ -102,7 +113,7 @@ function Settings() {
     const [savedMessage, setSavedMessage] = useState("");
 
     const [profile, setProfile] = useState(() =>
-        loadStoredObject("cashlyProfile", profileDefaults)
+        loadStoredObject("cashlyProfile", accountProfileDefaults)
     );
 
     const [notifications, setNotifications] = useState(() =>
@@ -141,6 +152,7 @@ function Settings() {
         [profile.firstName, profile.lastName]
             .filter(Boolean)
             .join(" ") ||
+        currentUser?.name ||
         localStorage.getItem("cashlyUserName") ||
         "Cashly User";
 
@@ -198,11 +210,9 @@ function Settings() {
         );
 
         if (profile.firstName.trim()) {
-            localStorage.setItem(
-                "cashlyUserName",
-                [profile.firstName, profile.lastName]
-                    .filter(Boolean)
-                    .join(" ")
+            updateCurrentUserProfile(
+                [profile.firstName, profile.lastName].filter(Boolean).join(" "),
+                profile.email
             );
         }
 
@@ -939,7 +949,8 @@ function Settings() {
 
     return (
         <div className="dashboard-page settings-page">
-            <aside className="dashboard-sidebar">
+            <AppSidebar active="settings" />
+            <aside className="legacy-sidebar" aria-hidden="true">
                 <div className="sidebar-logo">
                     <img src={cashlyLogo} alt="Cashly Logo" />
                     <h2>{t.common.cashly}</h2>
@@ -1011,6 +1022,7 @@ function Settings() {
                         >
                             {t.common.saveChanges}
                         </button>
+                        <UserProfile />
                     </div>
                 </header>
 

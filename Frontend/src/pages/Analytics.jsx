@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 import "../styles/Dashboard.css";
 import "../styles/AnalyticsSimple.css";
+import { Card } from "@/components/ui/card";
+import AppSidebar from "../components/AppSidebar";
+import UserProfile from "../components/UserProfile";
 
 const Icon = ({ name, size = 20 }) => {
   const paths = {
@@ -54,29 +55,18 @@ function TrendChart() {
 }
 
 function Analytics() {
-  const userName = localStorage.getItem("cashlyUserName") || "Cashly User";
   const total = categories.reduce((sum, item) => sum + item.amount, 0);
   return (
     <div className="analytics-simple-page">
-      <aside className="dashboard-sidebar">
-        <div className="sidebar-logo"><img src={cashlyLogo} alt="Cashly"/><h2>Cashly</h2></div>
-        <nav className="sidebar-menu">
-          <Link className="sidebar-link" to="/dashboard"><Icon name="day"/>My Day</Link>
-          <Link className="sidebar-link" to="/transactions"><Icon name="transactions"/>Transactions</Link>
-          <Link className="sidebar-link active" to="/analytics"><Icon name="analytics"/>Analytics</Link>
-          <Link className="sidebar-link" to="/challenges"><Icon name="challenges"/>Challenges</Link>
-          <Link className="sidebar-link" to="/settings"><Icon name="settings"/>Settings</Link>
-        </nav>
-        <Link className="logout-link" to="/login"><Icon name="logout"/>Logout</Link>
-      </aside>
+      <AppSidebar active="analytics" />
 
       <main className="analytics-simple-main">
         <header className="analytics-simple-header">
           <div><span className="analytics-kicker">YOUR MONEY, EXPLAINED</span><h1>Where is your money going?</h1><p>A clear look at what changed — and what deserves your attention.</p></div>
-          <div className="analytics-avatar" title={userName}>{userName.charAt(0).toUpperCase()}</div>
+          <UserProfile />
         </header>
 
-        <section className="analytics-section breakdown-section">
+        <Card className="analytics-section breakdown-section">
           <div className="analytics-section-title"><div><span>01 · BREAKDOWN</span><h2>Spending breakdown</h2></div><p>August 2026</p></div>
           <div className="breakdown-grid">
             <div className="donut" style={{ "--segments": "#e8c45b 0 35%, #738bd7 35% 59%, #5eb9a0 59% 73%, #cf7f83 73% 88%, #9876c7 88% 100%" }}>
@@ -87,27 +77,27 @@ function Analytics() {
               <div className="breakdown-callout"><span>Biggest opportunity</span><strong>Food takes EGP 1 of every EGP 3 you spend.</strong><p>Reducing it by 10% saves EGP 520 this month.</p></div>
             </div>
           </div>
-        </section>
+        </Card>
 
-        <section className="analytics-section trend-section">
+        <Card className="analytics-section trend-section">
           <div className="analytics-section-title"><div><span>02 · TREND</span><h2>Monthly spending trend</h2></div><div className="trend-summary"><b>↓ 30%</b><span>over 12 months</span></div></div>
           <TrendChart />
           <p className="trend-caption"><i/> Your spending is moving down consistently. You kept <strong>EGP 4,000 more</strong> this August than last September.</p>
-        </section>
+        </Card>
 
-        <section className="analytics-section habits-section">
+        <Card className="analytics-section habits-section">
           <div className="analytics-section-title"><div><span className="ai-title"><Icon name="spark" size={15}/>03 · CASHLY AI</span><h2>What your spending habits say</h2></div><p>Based on your last 90 days</p></div>
           <div className="habits-grid">
-            {habits.map((habit) => <article className="habit-card" key={habit.title}><div className={`habit-icon ${habit.positive ? "positive" : ""}`}>{habit.icon}</div><div><span>{habit.tag}</span><h3>{habit.title}</h3><p>{habit.text}</p></div><Icon name="arrow" size={18}/></article>)}
+            {habits.map((habit) => <Card className="habit-card" key={habit.title}><div className={`habit-icon ${habit.positive ? "positive" : ""}`}>{habit.icon}</div><div><span>{habit.tag}</span><h3>{habit.title}</h3><p>{habit.text}</p></div><Icon name="arrow" size={18}/></Card>)}
           </div>
-        </section>
+        </Card>
 
-        <section className="analytics-section category-section">
+        <Card className="analytics-section category-section">
           <div className="analytics-section-title"><div><span>04 · CATEGORIES</span><h2>Your biggest expense categories</h2></div><p>Compared with July</p></div>
           <div className="category-cards">
-            {categories.slice(0, 3).map((category, index) => <article className={`category-card rank-${index + 1}`} key={category.name}><div className="category-card-top"><div className="category-icon" style={{ color: category.color, background: `${category.color}18` }}>{category.icon}</div><span>#{index + 1}</span></div><p>{category.name}</p><h3>EGP {category.amount.toLocaleString()}</h3><div className="category-meta"><span className={category.tone}>{category.change}</span><small>vs last month</small></div><div className="category-bar"><i style={{ width: `${category.percent * 2.3}%`, background: category.color }}/></div></article>)}
+            {categories.slice(0, 3).map((category, index) => <Card className={`category-card rank-${index + 1}`} key={category.name}><div className="category-card-top"><div className="category-icon" style={{ color: category.color, background: `${category.color}18` }}>{category.icon}</div><span>#{index + 1}</span></div><p>{category.name}</p><h3>EGP {category.amount.toLocaleString()}</h3><div className="category-meta"><span className={category.tone}>{category.change}</span><small>vs last month</small></div><div className="category-bar"><i style={{ width: `${category.percent * 2.3}%`, background: category.color }}/></div></Card>)}
           </div>
-        </section>
+        </Card>
       </main>
     </div>
   );
