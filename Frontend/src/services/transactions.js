@@ -103,33 +103,12 @@ export async function createTransaction(
   formData,
   totalPrice
 ) {
-  const validItems = formData.items.filter(
-    (item) =>
-      item.name.trim() !== "" &&
-      Number(item.price) > 0
-  );
-
   const response = await fetch(
     `${API_URL}/transactions`,
     {
       method: "POST",
       headers: getAuthorizationHeader(),
-      body: JSON.stringify({
-        description:
-          formData.notes.trim() ||
-          `${formData.merchant} purchase`,
-        price: Number(totalPrice),
-        date: formData.date,
-        category: formData.category,
-        merchant_name: formData.merchant,
-        location: formData.location,
-        items: validItems.map((item) => ({
-          item_name: item.name,
-          item_price:
-            Number(item.price) *
-            Number(item.quantity || 1)
-        }))
-      })
+      body: JSON.stringify(buildTransactionPayload(formData, totalPrice))
     }
   );
 
@@ -141,6 +120,58 @@ export async function createTransaction(
         data,
         "Unable to create transaction."
       )
+    );
+  }
+
+  return normalizeTransaction(data);
+}
+
+
+function buildTransactionPayload(formData, totalPrice) {
+  const validItems = formData.items.filter(
+    (item) =>
+      item.name.trim() !== "" &&
+      Number(item.price) > 0
+  );
+
+  return {
+    description:
+      formData.notes.trim() ||
+      `${formData.merchant} purchase`,
+    price: Number(totalPrice),
+    date: formData.date,
+    category: formData.category,
+    merchant_name: formData.merchant,
+    location: formData.location,
+    items: validItems.map((item) => ({
+      item_name: item.name,
+      item_price:
+        Number(item.price) *
+        Number(item.quantity || 1)
+    }))
+  };
+}
+
+
+export async function updateTransaction(
+  transactionId,
+  formData,
+  totalPrice
+) {
+  const response = await fetch(
+    `${API_URL}/transactions/${transactionId}`,
+    {
+      method: "PUT",
+      headers: getAuthorizationHeader(),
+      body: JSON.stringify(buildTransactionPayload(formData, totalPrice))
+    }
+  );
+
+  const data = await readResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      getErrorMessage(data, "Unable to update transaction.")
     );
   }
 

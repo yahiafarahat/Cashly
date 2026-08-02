@@ -11,6 +11,7 @@ import {
     createTransaction,
     deleteTransaction as deleteTransactionRequest,
     fetchTransactions,
+    updateTransaction,
 } from "../services/transactions";
 const currencyOptions = {
     EGP: { label: "Egyptian Pound", symbol: "EGP", rate: 1 },
@@ -238,6 +239,8 @@ const [transactionError, setTransactionError] = useState("");
     const [rateError, setRateError] = useState("");
     const [selectedTransaction, setSelectedTransaction] =
         useState(null);
+    const [editingTransactionId, setEditingTransactionId] =
+        useState(null);
 
     const [searchText, setSearchText] = useState("");
     const [merchantFilter, setMerchantFilter] = useState("All");
@@ -387,12 +390,28 @@ const [transactionError, setTransactionError] = useState("");
 
     function openAddForm() {
         setFormData(createEmptyForm());
+        setEditingTransactionId(null);
         setIsFormOpen(true);
     }
 
     function closeAddForm() {
         setIsFormOpen(false);
         setFormData(createEmptyForm());
+        setEditingTransactionId(null);
+    }
+
+    function openEditForm(transaction) {
+        setFormData({
+            ...transaction,
+            items: transaction.items.map((item) => ({
+                ...item,
+                quantity: Number(item.quantity || 1),
+                price: Number(item.price),
+            })),
+        });
+        setEditingTransactionId(transaction.id);
+        setSelectedTransaction(null);
+        setIsFormOpen(true);
     }
 
     async function submitTransaction(event) {
@@ -426,15 +445,26 @@ const [transactionError, setTransactionError] = useState("");
 
         try {
             setTransactionError("");
-            const savedTransaction = await createTransaction(
-                newTransaction,
-                getTransactionTotal(newTransaction)
-            );
+            const savedTransaction = editingTransactionId
+                ? await updateTransaction(
+                    editingTransactionId,
+                    newTransaction,
+                    getTransactionTotal(newTransaction)
+                )
+                : await createTransaction(
+                    newTransaction,
+                    getTransactionTotal(newTransaction)
+                );
 
-            setTransactions((currentTransactions) => [
-                savedTransaction,
-                ...currentTransactions,
-            ]);
+            setTransactions((currentTransactions) =>
+                editingTransactionId
+                    ? currentTransactions.map((transaction) =>
+                        transaction.id === editingTransactionId
+                            ? savedTransaction
+                            : transaction
+                    )
+                    : [savedTransaction, ...currentTransactions]
+            );
             closeAddForm();
         } catch (error) {
             setTransactionError(error.message);
@@ -468,6 +498,7 @@ const [transactionError, setTransactionError] = useState("");
             })),
         });
 
+        setEditingTransactionId(null);
         setSelectedTransaction(null);
         setIsFormOpen(true);
     }
@@ -1026,9 +1057,15 @@ const [transactionError, setTransactionError] = useState("");
                         <div className="transaction-modal-header">
                             <div>
                                 <span className="transactions-eyebrow">
-                                    New financial record
+                                    {editingTransactionId
+                                        ? "Edit financial record"
+                                        : "New financial record"}
                                 </span>
-                                <h2>Add transaction</h2>
+                                <h2>
+                                    {editingTransactionId
+                                        ? "Edit transaction"
+                                        : "Add transaction"}
+                                </h2>
                                 <p>
                                     Add the merchant, purchase information, and all
                                     items included in this payment.
@@ -1331,7 +1368,9 @@ const [transactionError, setTransactionError] = useState("");
                                     type="submit"
                                     disabled={formData.currency !== "EGP" && rateStatus !== "ready"}
                                 >
-                                    Save transaction
+                                    {editingTransactionId
+                                        ? "Save changes"
+                                        : "Save transaction"}
                                 </button>
                             </div>
                         </div>
@@ -1476,6 +1515,16 @@ const [transactionError, setTransactionError] = useState("");
                         </div>
 
                         <div className="details-modal-actions">
+                            <button
+                                className="repeat-transaction-button"
+                                type="button"
+                                onClick={() =>
+                                    openEditForm(selectedTransaction)
+                                }
+                            >
+                                Edit transaction
+                            </button>
+
                             <button
                                 className="delete-transaction-button"
                                 type="button"
