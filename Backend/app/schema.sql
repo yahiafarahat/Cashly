@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     description TEXT NOT NULL,
-    price REAL NOT NULL,
+    price REAL NOT NULL CHECK (price > 0),
     date TEXT NOT NULL,
     category TEXT NOT NULL,
     merchant_name TEXT,

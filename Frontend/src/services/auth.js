@@ -1,110 +1,232 @@
-const USERS_KEY = "cashlyUsers";
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "http://127.0.0.1:8000";
+
+const TOKEN_KEY = "cashlyAccessToken";
 const CURRENT_USER_KEY = "cashlyCurrentUser";
 
-// Get all users
-export function getUsers() {
-  const users = localStorage.getItem(USERS_KEY);
-  return users ? JSON.parse(users) : [];
+
+async function readResponse(response) {
+  try {
+    return await response.json();
+  } catch {
+    return {};
+  }
 }
 
-// Save all users
-function saveUsers(users) {
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+
+function getErrorMessage(data, fallbackMessage) {
+  if (typeof data.detail === "string") {
+    return data.detail;
+  }
+
+  if (Array.isArray(data.detail)) {
+    return data.detail
+      .map((error) => error.msg)
+      .join(", ");
+  }
+
+  return fallbackMessage;
 }
 
-// Register a new user
-export function registerUser(name, email, password) {
-  const users = getUsers();
 
-  const existingUser = users.find(
-    (user) => user.email.toLowerCase() === email.toLowerCase()
-  );
+function saveLoginSession(token, user, remember = false) {
+  localStorage.removeItem(TOKEN_KEY);
+  sessionStorage.removeItem(TOKEN_KEY);
 
-  if (existingUser) {
-    return {
-      success: false,
-      message: "An account with this email already exists."
-    };
-  }
+  localStorage.removeItem(CURRENT_USER_KEY);
+  sessionStorage.removeItem(CURRENT_USER_KEY);
 
-  const newUser = {
-    id: Date.now(),
-    name,
-    email,
-    password
-  };
+  const storage = remember
+    ? localStorage
+    : sessionStorage;
 
-  users.push(newUser);
-  saveUsers(users);
+  storage.setItem(TOKEN_KEY, token);
 
-  localStorage.setItem(
-    CURRENT_USER_KEY,
-    JSON.stringify(newUser)
-  );
-  localStorage.setItem("cashlyUserName", newUser.name);
-
-  return {
-    success: true
-  };
-}
-
-// Login
-export function loginUser(email, password) {
-  const users = getUsers();
-
-  const user = users.find(
-    (u) => u.email.toLowerCase() === email.toLowerCase()
-  );
-
-  if (!user) {
-    return {
-      success: false,
-      message: "No account found with this email."
-    };
-  }
-
-  if (user.password !== password) {
-    return {
-      success: false,
-      message: "Incorrect password."
-    };
-  }
-
-  localStorage.setItem(
+  storage.setItem(
     CURRENT_USER_KEY,
     JSON.stringify(user)
   );
-  localStorage.setItem("cashlyUserName", user.name);
 
-  return {
-    success: true,
-    user
-  };
-}
-
-// Current logged in user
-export function getCurrentUser() {
-  return JSON.parse(
-    localStorage.getItem(CURRENT_USER_KEY)
+  localStorage.setItem(
+    "cashlyUserName",
+    user.name
   );
 }
 
-// Logout
+
+export async function registerUser(
+  name,
+  email,
+  password
+) {
+  try {
+    const response = await fetch(
+      `${API_URL}/auth/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          password
+        })
+      }
+    );
+
+    const data = await readResponse(response);
+
+    if (!response.ok) {
+      return {
+        success: false,
+        message: getErrorMessage(
+          data,
+          "Unable to create your account."
+        )
+      };
+    }
+
+    return await loginUser(
+      email,
+      password,
+      false
+    );
+  } catch {
+    return {
+      success: false,
+      message:
+        "Unable to connect to the Cashly server."
+    };
+  }
+}
+
+
+export async function loginUser(
+  email,
+  password,
+  remember = false
+) {
+  try {
+    const response = await fetch(
+      `${API_URL}/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          password
+        })
+      }
+    );
+
+    const data = await readResponse(response);
+
+    if (!response.ok) {
+      return {
+        success: false,
+        message: getErrorMessage(
+          data,
+          "Incorrect email or password."
+        )
+      };
+    }
+
+    saveLoginSession(
+      data.access_token,
+      data.user,
+      remember
+    );
+
+    return {
+      success: true,
+      user: data.user
+    };
+  } catch {
+    return {
+      success: false,
+      message:
+        "Unable to connect to the Cashly server."
+    };
+  }
+}
+
+
+export function getAccessToken() {
+  return (
+    sessionStorage.getItem(TOKEN_KEY) ||
+    localStorage.getItem(TOKEN_KEY)
+  );
+}
+
+
+export function getCurrentUser() {
+  const savedUser =
+    sessionStorage.getItem(CURRENT_USER_KEY) ||
+    localStorage.getItem(CURRENT_USER_KEY);
+
+  return savedUser
+    ? JSON.parse(savedUser)
+    : null;
+}
+
+
+export function getAuthHeaders() {
+  const token = getAccessToken();
+
+  return token
+    ? {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    : {
+        "Content-Type": "application/json"
+      };
+}
+
+
 export function logoutUser() {
+  sessionStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(TOKEN_KEY);
+
+  sessionStorage.removeItem(CURRENT_USER_KEY);
   localStorage.removeItem(CURRENT_USER_KEY);
+
   localStorage.removeItem("cashlyUserName");
 }
 
-export function updateCurrentUserProfile(name, email) {
+
+export function updateCurrentUserProfile(
+  name,
+  email
+) {
   const currentUser = getCurrentUser();
-  if (!currentUser) return;
 
-  const updatedUser = { ...currentUser, name, email: email || currentUser.email };
-  localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser));
-  localStorage.setItem("cashlyUserName", name);
+  if (!currentUser) {
+    return;
+  }
 
-  const users = getUsers().map((user) =>
-    user.id === updatedUser.id ? { ...user, ...updatedUser } : user
+  const updatedUser = {
+    ...currentUser,
+    name,
+    email: email || currentUser.email
+  };
+
+  const storage =
+    sessionStorage.getItem(CURRENT_USER_KEY)
+      ? sessionStorage
+      : localStorage;
+
+  storage.setItem(
+    CURRENT_USER_KEY,
+    JSON.stringify(updatedUser)
   );
-  saveUsers(users);
+
+  localStorage.setItem(
+    "cashlyUserName",
+    updatedUser.name
+  );
 }

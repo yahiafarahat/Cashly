@@ -23,7 +23,11 @@ class User(Base):
 class Transaction(Base):
     __tablename__ = "transactions"
 
-    transaction_id = Column(Integer, primary_key=True, index=True)
+    transaction_id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
     user_id = Column(
         Integer,
@@ -35,10 +39,8 @@ class Transaction(Base):
     price = Column(Float, nullable=False)
     date = Column(String, nullable=False)
     category = Column(String, nullable=False)
-
-    # Extra Cashly fields
-    merchant_name = Column(String)
-    location = Column(String)
+    merchant_name = Column(String, nullable=True)
+    location = Column(String, nullable=True)
 
     user = relationship(
         "User",
@@ -55,7 +57,11 @@ class Transaction(Base):
 class Item(Base):
     __tablename__ = "items"
 
-    item_id = Column(Integer, primary_key=True, index=True)
+    item_id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
     transaction_id = Column(
         Integer,

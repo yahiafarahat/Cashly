@@ -7,7 +7,11 @@ import "../styles/Dashboard.css";
 import "../styles/Transactions.css";
 import AppSidebar from "../components/AppSidebar";
 import UserProfile from "../components/UserProfile";
-
+import {
+    createTransaction,
+    deleteTransaction as deleteTransactionRequest,
+    fetchTransactions,
+} from "../services/transactions";
 const currencyOptions = {
     EGP: { label: "Egyptian Pound", symbol: "EGP", rate: 1 },
     USD: { label: "US Dollar", symbol: "$", rate: 0.0203 },
@@ -219,15 +223,10 @@ function getOriginalTransactionTotal(transaction) {
 }
 
 function Transactions() {
-    const [transactions, setTransactions] = useState(() => {
-        const savedTransactions = localStorage.getItem(
-            "cashlyTransactions"
-        );
-
-        return savedTransactions
-            ? JSON.parse(savedTransactions)
-            : startingTransactions;
-    });
+  const [transactions, setTransactions] = useState([]);
+const [isLoadingTransactions, setIsLoadingTransactions] =
+    useState(true);
+const [transactionError, setTransactionError] = useState("");
 
     // Temporary compatibility state for the hidden legacy header selector.
     // Currency selection now belongs to each individual transaction form.
@@ -253,12 +252,37 @@ function Transactions() {
         localStorage.getItem("cashlyUserName") || "Cashly User";
     const firstLetter = userName.charAt(0).toUpperCase();
 
-    useEffect(() => {
-        localStorage.setItem(
-            "cashlyTransactions",
-            JSON.stringify(transactions)
-        );
-    }, [transactions]);
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadTransactions() {
+        setIsLoadingTransactions(true);
+        setTransactionError("");
+
+        try {
+            const savedTransactions =
+                await fetchTransactions(
+                    controller.signal
+                );
+
+            setTransactions(savedTransactions);
+        } catch (error) {
+            if (error.name !== "AbortError") {
+                setTransactionError(error.message);
+            }
+        } finally {
+            if (!controller.signal.aborted) {
+                setIsLoadingTransactions(false);
+            }
+        }
+    }
+
+    loadTransactions();
+
+    return () => {
+        controller.abort();
+    };
+}, []);
 
     function formatMoney(amount, currencyCode = "EGP") {
         return new Intl.NumberFormat("en-US", {
@@ -371,7 +395,7 @@ function Transactions() {
         setFormData(createEmptyForm());
     }
 
-    function submitTransaction(event) {
+    async function submitTransaction(event) {
         event.preventDefault();
 
         if (formData.currency !== "EGP" && rateStatus !== "ready") {
@@ -400,22 +424,36 @@ function Transactions() {
             discount: Number(formData.discount || 0),
         };
 
-        setTransactions((currentTransactions) => [
-            newTransaction,
-            ...currentTransactions,
-        ]);
+        try {
+            setTransactionError("");
+            const savedTransaction = await createTransaction(
+                newTransaction,
+                getTransactionTotal(newTransaction)
+            );
 
-        closeAddForm();
+            setTransactions((currentTransactions) => [
+                savedTransaction,
+                ...currentTransactions,
+            ]);
+            closeAddForm();
+        } catch (error) {
+            setTransactionError(error.message);
+        }
     }
 
-    function deleteTransaction(transactionId) {
-        setTransactions((currentTransactions) =>
-            currentTransactions.filter(
-                (transaction) => transaction.id !== transactionId
-            )
-        );
-
-        setSelectedTransaction(null);
+    async function deleteTransaction(transactionId) {
+        try {
+            setTransactionError("");
+            await deleteTransactionRequest(transactionId);
+            setTransactions((currentTransactions) =>
+                currentTransactions.filter(
+                    (transaction) => transaction.id !== transactionId
+                )
+            );
+            setSelectedTransaction(null);
+        } catch (error) {
+            setTransactionError(error.message);
+        }
     }
 
     function repeatTransaction(transaction) {

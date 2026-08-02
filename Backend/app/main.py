@@ -1,22 +1,52 @@
 import sqlite3
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import auth, transactions
+from app.routers import auth, transactions, analytics
+from app.database import DATABASE_PATH
 
 
 def init_db():
-    conn = sqlite3.connect("finance.db")
+    conn = sqlite3.connect(DATABASE_PATH)
+    conn.execute("PRAGMA foreign_keys = ON")
 
-    with open("app/schema.sql", "r") as f:
+    schema_path = Path(__file__).resolve().parent / "schema.sql"
+
+    with schema_path.open("r", encoding="utf-8") as f:
         conn.executescript(f.read())
+
+    transaction_columns = {
+        row[1] for row in conn.execute(
+            "PRAGMA table_info(transactions)"
+        )
+    }
+
+    required_columns = {
+        "description": "TEXT",
+        "price": "REAL",
+        "category": "TEXT",
+        "merchant_name": "TEXT",
+        "location": "TEXT"
+    }
+
+    for column, column_type in required_columns.items():
+        if column not in transaction_columns:
+            conn.execute(
+                f"ALTER TABLE transactions ADD COLUMN {column} {column_type}"
+            )
+
+    conn.execute("""
+        UPDATE transactions
+        SET description = COALESCE(NULLIF(description, ''), merchant_name, 'Transaction'),
+            price = COALESCE(price, (SELECT COALESCE(SUM(item_price), 0) FROM items WHERE items.transaction_id = transactions.transaction_id), 0),
+            category = COALESCE(NULLIF(category, ''), 'Other')
+    """)
 
     conn.commit()
     conn.close()
 
-
-init_db()
 
 app = FastAPI(
     title="Financial Tracker API",
@@ -38,8 +68,14 @@ app.add_middleware(
 
 app.include_router(auth.router)
 app.include_router(transactions.router)
+app.include_router(analytics.router)
+
+
+@app.on_event("startup")
+def startup():
+    init_db()
 
 
 @app.get("/")
 def root():
-    return {"message": "Financial Tracker API"} 
+    return {"message": "Financial Tracker API"}

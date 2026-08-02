@@ -65,4 +65,19 @@ def get_one_transaction(
         )
 
     return transaction
-    
+
+
+@router.delete("/{transaction_id}", status_code=204)
+def delete_one_transaction(
+    transaction_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+    transaction = crud.delete_transaction(
+        db,
+        transaction_id,
+        current_user.user_id
+    )
+
+    if transaction is None:
+        raise HTTPException(status_code=404, detail="Transaction not found")

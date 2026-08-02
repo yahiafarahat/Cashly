@@ -109,9 +109,9 @@ def create_transaction(
         user_id=user_id,
         description=transaction.description,
         price=transaction.price,
-        date=transaction.date,
         category=transaction.category,
         merchant_name=transaction.merchant_name,
+        date=transaction.date,
         location=transaction.location
     )
 
@@ -170,3 +170,14 @@ def get_transaction_by_id(
         )
         .first()
     )
+
+
+def delete_transaction(db: Session, transaction_id: int, user_id: int):
+    transaction = get_transaction_by_id(db, transaction_id, user_id)
+
+    if transaction is None:
+        return None
+
+    db.delete(transaction)
+    db.commit()
+    return transaction
