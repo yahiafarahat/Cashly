@@ -6,7 +6,7 @@ The FastAPI backend persists users, transactions, and transaction items in SQLit
 
 ```powershell
 cd Backend
-.\.venv\Scripts\Activate.ps1
+..\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 $env:CASHLY_SECRET_KEY = "replace-this-with-a-long-random-secret"
 uvicorn app.main:app --reload
