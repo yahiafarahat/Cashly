@@ -21,5 +21,6 @@ The API starts at `http://127.0.0.1:8000`; interactive documentation is availabl
 - `POST /transactions`
 - `GET /transactions`
 - `GET /transactions/{transaction_id}`
+- `PUT /transactions/{transaction_id}`
 
 `POST /transactions` accepts `description`, `price`, `date`, and `category`, plus optional `merchant_name`, `location`, and nested `items`.

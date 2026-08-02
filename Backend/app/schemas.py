@@ -60,6 +60,10 @@ class TransactionCreate(BaseModel):
     items: list[ItemCreate] = Field(default_factory=list)
 
 
+class TransactionUpdate(TransactionCreate):
+    """Full replacement payload for an existing transaction."""
+
+
 class TransactionResponse(BaseModel):
     transaction_id: int
     user_id: int

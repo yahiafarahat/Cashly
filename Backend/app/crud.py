@@ -172,6 +172,38 @@ def get_transaction_by_id(
     )
 
 
+def update_transaction(
+    db: Session,
+    transaction_id: int,
+    user_id: int,
+    transaction_update: schemas.TransactionUpdate
+):
+    transaction = get_transaction_by_id(db, transaction_id, user_id)
+
+    if transaction is None:
+        return None
+
+    transaction.description = transaction_update.description
+    transaction.price = transaction_update.price
+    transaction.date = transaction_update.date
+    transaction.category = transaction_update.category
+    transaction.merchant_name = transaction_update.merchant_name
+    transaction.location = transaction_update.location
+
+    # A PUT replaces the entire resource, including its nested items.
+    transaction.items = [
+        models.Item(
+            item_name=item.item_name,
+            item_price=item.item_price
+        )
+        for item in transaction_update.items
+    ]
+
+    db.commit()
+    db.refresh(transaction)
+    return transaction
+
+
 def delete_transaction(db: Session, transaction_id: int, user_id: int):
     transaction = get_transaction_by_id(db, transaction_id, user_id)
 
