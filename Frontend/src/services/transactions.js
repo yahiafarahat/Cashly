@@ -47,6 +47,13 @@ function getErrorMessage(data, fallbackMessage) {
 
 
 export function normalizeTransaction(transaction) {
+  const items = transaction.items.map((item) => ({
+    id: item.item_id,
+    name: item.item_name,
+    quantity: 1,
+    price: item.item_price
+  }));
+
   return {
     id: transaction.transaction_id,
     merchant:
@@ -59,12 +66,12 @@ export function normalizeTransaction(transaction) {
     paymentMethod: "Not specified",
     status: "Completed",
     notes: transaction.description,
-    items: transaction.items.map((item) => ({
-      id: item.item_id,
-      name: item.item_name,
-      quantity: 1,
-      price: item.item_price
-    })),
+    // A transaction may not have itemized lines. Keep its persisted total so
+    // every screen can still calculate from the same transaction value.
+    items: items.length
+      ? items
+      : [{ id: `total-${transaction.transaction_id}`, name: transaction.description, quantity: 1, price: transaction.price }],
+    amount: Number(transaction.price),
     fees: 0,
     discount: 0,
     currency: "EGP",

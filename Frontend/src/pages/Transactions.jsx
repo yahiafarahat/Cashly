@@ -203,6 +203,13 @@ function createEmptyForm() {
 }
 
 function getTransactionTotal(transaction) {
+    // Persisted transactions include `amount`, the EGP total calculated at
+    // save time. Use it for history rather than reinterpreting item prices
+    // (which may have been entered in USD or another currency).
+    if (Number.isFinite(Number(transaction.amount))) {
+        return Number(transaction.amount);
+    }
+
     const itemsTotal = transaction.items.reduce(
         (total, item) =>
             total + Number(item.price || 0) * Number(item.quantity || 1),
@@ -401,8 +408,9 @@ const [transactionError, setTransactionError] = useState("");
     }
 
     function openEditForm(transaction) {
+        const { amount, ...transactionForm } = transaction;
         setFormData({
-            ...transaction,
+            ...transactionForm,
             items: transaction.items.map((item) => ({
                 ...item,
                 quantity: Number(item.quantity || 1),
@@ -487,8 +495,9 @@ const [transactionError, setTransactionError] = useState("");
     }
 
     function repeatTransaction(transaction) {
+        const { amount, ...transactionForm } = transaction;
         setFormData({
-            ...transaction,
+            ...transactionForm,
             merchant: transaction.merchant,
             date: new Date().toISOString().slice(0, 10),
             time: new Date().toTimeString().slice(0, 5),
