@@ -52,7 +52,7 @@ function Challenges() {
             <Badge className="today-badge"><i /> TODAY&apos;S FOCUS</Badge>
             <h2>{focus ? (todayComplete ? `You set aside ${formatMoney(focus.saving)} today.` : `Reduce ${focus.id.toLowerCase()} spending today.`) : "Record a transaction to get your first focus."}</h2>
             <p>{focus ? `${focus.id} represents ${analytics.category_breakdown[0].percent}% of your spending this month. A 10% reduction could keep ${formatMoney(focus.saving)} available.` : "Cashly will create tailored actions once there is spending data to analyse."}</p>
-            {focus && <Button type="button" onClick={() => setTodayComplete((value) => !value)}>{todayComplete ? <><Check size={18} />Completed</> : "I&apos;ll do this"}</Button>}
+            {focus && <Button type="button" onClick={() => setTodayComplete((value) => !value)}>{todayComplete ? <><Check size={18} />Completed</> : "I'll do this"}</Button>}
           </div>
           <div className="today-impact"><span>{todayComplete ? "Potential saving" : "Could keep"}</span><strong>{formatMoney(focus?.saving)}</strong><small>10% of your largest category</small></div>
         </Card>
