@@ -4,7 +4,26 @@ import {
   useState
 } from "react";
 
+import {
+  Bar,
+  CartesianGrid,
+  Cell,
+  ComposedChart,
+  Line,
+  Pie,
+  PieChart,
+  XAxis,
+  YAxis
+} from "recharts";
+
 import { Card } from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent
+} from "@/components/ui/chart";
 
 import AppSidebar from "../components/AppSidebar";
 import UserProfile from "../components/UserProfile";
@@ -82,6 +101,33 @@ const INSIGHT_ICONS = [
 ];
 
 
+// Fixed categorical color order — a validated 7-hue palette (see the dataviz
+// skill) assigned by identity, never cycled. Anything past the 7th named
+// category (plus any unrecognized name) folds into one shared "other" slot.
+const CATEGORY_COLOR_ORDER = [
+  "Groceries",
+  "Dining & Coffee",
+  "Transportation",
+  "Bills & Utilities",
+  "Fashion",
+  "Entertainment",
+  "Healthcare"
+];
+
+function getCategoryColorVar(categoryName) {
+  const index = CATEGORY_COLOR_ORDER.indexOf(categoryName);
+  const slot = index === -1 ? 8 : index + 1;
+  return `var(--chart-cat-${slot})`;
+}
+
+
+const GRANULARITY_OPTIONS = [
+  { value: "daily", label: "Daily" },
+  { value: "weekly", label: "Weekly" },
+  { value: "monthly", label: "Monthly" }
+];
+
+
 function Icon({
   name,
   size = 20
@@ -125,6 +171,14 @@ function formatCurrency(value) {
 }
 
 
+function formatAxisCurrency(value) {
+  return new Intl.NumberFormat("en-EG", {
+    notation: "compact",
+    maximumFractionDigits: 1
+  }).format(Number(value || 0));
+}
+
+
 function formatCategoryChange(category) {
   const change = category.change_percent;
 
@@ -144,206 +198,6 @@ function formatCategoryChange(category) {
 }
 
 
-function createDonutSegments(categories) {
-  if (!categories.length) {
-    return "#2a2a2a 0% 100%";
-  }
-
-  let currentPercent = 0;
-
-  return categories
-    .map((category) => {
-      const start = currentPercent;
-
-      currentPercent += category.percent;
-
-      const end = Math.min(
-        currentPercent,
-        100
-      );
-
-      return (
-        `${category.color} ` +
-        `${start}% ${end}%`
-      );
-    })
-    .join(", ");
-}
-
-
-function TrendChart({
-  monthlyValues,
-  monthLabels
-}) {
-  const width = 900;
-  const height = 250;
-  const padX = 20;
-  const padY = 26;
-  const chartBottom = height - padY;
-
-  const safeValues = monthlyValues.length
-    ? monthlyValues
-    : [0];
-
-  const highestValue = Math.max(
-    ...safeValues,
-    1
-  );
-
-  const chartMaximum = highestValue * 1.15;
-
-  const pointDistance =
-    monthlyValues.length > 1
-      ? (
-          (width - padX * 2)
-          / (monthlyValues.length - 1)
-        )
-      : 0;
-
-  const points = monthlyValues.map(
-    (value, index) => {
-      const x =
-        padX + index * pointDistance;
-
-      const y =
-        padY +
-        (
-          (chartMaximum - value)
-          / chartMaximum
-        ) *
-        (chartBottom - padY);
-
-      return {
-        x,
-        y
-      };
-    }
-  );
-
-  const line = points
-    .map(
-      (point, index) =>
-        `${index ? "L" : "M"}` +
-        `${point.x},${point.y}`
-    )
-    .join(" ");
-
-  const lastPoint =
-    points[points.length - 1];
-
-  const firstPoint = points[0];
-
-  const area =
-    points.length > 0
-      ? (
-          `${line} ` +
-          `L${lastPoint.x},${chartBottom} ` +
-          `L${firstPoint.x},${chartBottom} Z`
-        )
-      : "";
-
-  return (
-    <div className="trend-chart-wrap">
-      <svg
-        className="trend-chart"
-        viewBox={`0 0 ${width} ${height}`}
-        role="img"
-        aria-label="Monthly spending trend"
-      >
-        <defs>
-          <linearGradient
-            id="trendFill"
-            x1="0"
-            y1="0"
-            x2="0"
-            y2="1"
-          >
-            <stop
-              offset="0"
-              stopColor="#dfbb52"
-              stopOpacity=".3"
-            />
-
-            <stop
-              offset="1"
-              stopColor="#dfbb52"
-              stopOpacity="0"
-            />
-          </linearGradient>
-        </defs>
-
-        {[50, 110, 170, 224].map((y) => (
-          <line
-            key={y}
-            x1="0"
-            y1={y}
-            x2={width}
-            y2={y}
-            className="trend-grid"
-          />
-        ))}
-
-        {area && (
-          <>
-            <path
-              d={area}
-              fill="url(#trendFill)"
-            />
-
-            <path
-              d={line}
-              className="trend-line"
-            />
-          </>
-        )}
-
-        {points.map((point, index) => (
-          <g
-            key={`${monthLabels[index]}-${index}`}
-            className="trend-point"
-          >
-            <circle
-              cx={point.x}
-              cy={point.y}
-              r="11"
-              className="trend-point-hit"
-            />
-
-            <circle
-              cx={point.x}
-              cy={point.y}
-              r={
-                index === points.length - 1
-                  ? 5
-                  : 3
-              }
-            />
-
-            <text
-              x={point.x}
-              y={point.y - 17}
-            >
-              EGP{" "}
-              {formatCurrency(
-                monthlyValues[index]
-              )}
-            </text>
-          </g>
-        ))}
-      </svg>
-
-      <div className="month-labels">
-        {monthLabels.map((month, index) => (
-          <span key={`${month}-${index}`}>
-            {month}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-
 function Analytics() {
   const [analytics, setAnalytics] =
     useState(null);
@@ -353,6 +207,9 @@ function Analytics() {
 
   const [error, setError] =
     useState("");
+
+  const [granularity, setGranularity] =
+    useState("monthly");
 
 
   useEffect(() => {
@@ -366,7 +223,8 @@ function Analytics() {
       try {
         const data =
           await getAnalyticsSummary(
-            controller.signal
+            controller.signal,
+            granularity
           );
 
         setAnalytics(data);
@@ -388,7 +246,7 @@ function Analytics() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [granularity]);
 
 
   const categories = useMemo(() => {
@@ -416,10 +274,54 @@ function Analytics() {
   }, [analytics]);
 
 
-  const donutSegments = useMemo(
-    () => createDonutSegments(categories),
-    [categories]
+  const frequencyData = useMemo(() => {
+    if (!analytics) {
+      return [];
+    }
+
+    return analytics.category_frequency.map((entry) => ({
+      ...entry,
+      fill: getCategoryColorVar(entry.name)
+    }));
+  }, [analytics]);
+
+
+  const frequencyChartConfig = useMemo(() => {
+    const config = {
+      count: { label: "Transactions" }
+    };
+
+    frequencyData.forEach((entry) => {
+      config[entry.name] = {
+        label: entry.name,
+        color: entry.fill
+      };
+    });
+
+    return config;
+  }, [frequencyData]);
+
+
+  const totalTransactionCount = useMemo(
+    () =>
+      frequencyData.reduce(
+        (sum, entry) => sum + entry.count,
+        0
+      ),
+    [frequencyData]
   );
+
+
+  const periodChartConfig = {
+    amount: {
+      label: "Total spent",
+      color: "var(--chart-bar)"
+    },
+    average: {
+      label: "Running average",
+      color: "var(--chart-line)"
+    }
+  };
 
 
   if (isLoading) {
@@ -482,66 +384,13 @@ function Analytics() {
   }
 
 
-  const monthlyValues =
-    analytics.monthly_trend.map(
-      (month) => month.amount
-    );
-
-  const monthLabels =
-    analytics.monthly_trend.map(
-      (month) => month.month
-    );
-
-  const trendChange =
-    analytics.trend_change_percent;
-
-  const amountDifference =
-    analytics.amount_difference;
-
   const opportunity =
     analytics.biggest_opportunity;
 
-
-  function getTrendCaption() {
-    if (amountDifference > 0) {
-      return (
-        <>
-          Your spending decreased. You kept{" "}
-          <strong>
-            EGP{" "}
-            {formatCurrency(
-              amountDifference
-            )}{" "}
-            more
-          </strong>{" "}
-          in the latest month.
-        </>
-      );
-    }
-
-    if (amountDifference < 0) {
-      return (
-        <>
-          Your spending increased by{" "}
-          <strong>
-            EGP{" "}
-            {formatCurrency(
-              Math.abs(amountDifference)
-            )}
-          </strong>{" "}
-          compared with your earliest
-          active month.
-        </>
-      );
-    }
-
-    return (
-      <>
-        Add more transactions to build a
-        meaningful monthly comparison.
-      </>
-    );
-  }
+  const periodData = analytics.spending_by_period;
+  const hasPeriodData = periodData.some(
+    (entry) => entry.amount > 0
+  );
 
 
   return (
@@ -572,10 +421,10 @@ function Analytics() {
         <Card className="analytics-section breakdown-section">
           <div className="analytics-section-title">
             <div>
-              <span>01 · BREAKDOWN</span>
+              <span>01 · FREQUENCY</span>
 
               <h2>
-                Spending breakdown
+                Expense frequency by category
               </h2>
             </div>
 
@@ -585,87 +434,114 @@ function Analytics() {
           </div>
 
           <div className="breakdown-grid">
-            <div
-              className="donut"
-              style={{
-                "--segments": donutSegments
-              }}
-            >
-              <div className="donut-center">
-                <span>Total spent</span>
-
-                <strong>
-                  EGP{" "}
-                  {formatCurrency(
-                    analytics.total_spent
-                  )}
-                </strong>
-
-                <small>this month</small>
-              </div>
-            </div>
-
-            <div className="breakdown-legend">
-              {categories.length > 0 ? (
-                categories.map((category) => (
-                  <div
-                    className="legend-row"
-                    key={category.name}
-                  >
-                    <i
-                      style={{
-                        background:
-                          category.color
-                      }}
+            {frequencyData.length > 0 ? (
+              <>
+                <ChartContainer
+                  config={frequencyChartConfig}
+                  className="frequency-chart"
+                >
+                  <PieChart accessibilityLayer>
+                    <ChartTooltip
+                      content={
+                        <ChartTooltipContent
+                          hideLabel
+                          nameKey="name"
+                          formatter={(value, name, item) => (
+                            <div className="frequency-tooltip-row">
+                              <i style={{ background: item.payload.fill }} />
+                              <span>{name}</span>
+                              <strong>
+                                {value} {value === 1 ? "purchase" : "purchases"}
+                              </strong>
+                              <em>{item.payload.percent}%</em>
+                            </div>
+                          )}
+                        />
+                      }
                     />
 
-                    <strong>
-                      {category.name}
-                    </strong>
+                    <Pie
+                      data={frequencyData}
+                      dataKey="count"
+                      nameKey="name"
+                      innerRadius="58%"
+                      outerRadius="88%"
+                      paddingAngle={2}
+                      strokeWidth={2}
+                      stroke="var(--chart-surface)"
+                    >
+                      {frequencyData.map((entry) => (
+                        <Cell key={entry.name} fill={entry.fill} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ChartContainer>
 
-                    <span>
-                      {category.percent}%
-                    </span>
-
-                    <b>
-                      EGP{" "}
-                      {formatCurrency(
-                        category.amount
-                      )}
-                    </b>
-                  </div>
-                ))
-              ) : (
-                <p>
-                  No spending recorded for
-                  this month yet.
-                </p>
-              )}
-
-              {opportunity && (
-                <div className="breakdown-callout">
-                  <span>
-                    Biggest opportunity
-                  </span>
-
-                  <strong>
-                    {opportunity.category} takes{" "}
-                    {opportunity.share_percent}%
-                    of this month&apos;s spending.
-                  </strong>
-
-                  <p>
-                    Reducing it by 10% could
-                    save EGP{" "}
-                    {formatCurrency(
-                      opportunity
-                        .potential_savings
-                    )}{" "}
-                    this month.
-                  </p>
+                <div className="donut-center frequency-center">
+                  <span>Transactions</span>
+                  <strong>{totalTransactionCount}</strong>
+                  <small>
+                    EGP {formatCurrency(analytics.total_spent)} spent
+                  </small>
                 </div>
-              )}
-            </div>
+
+                <div className="breakdown-legend">
+                  {frequencyData.map((entry) => (
+                    <div
+                      className="legend-row"
+                      key={entry.name}
+                    >
+                      <i
+                        style={{
+                          background: entry.fill
+                        }}
+                      />
+
+                      <strong>
+                        {entry.name}
+                      </strong>
+
+                      <span>
+                        {entry.percent}%
+                      </span>
+
+                      <b>
+                        {entry.count} {entry.count === 1 ? "purchase" : "purchases"}
+                      </b>
+                    </div>
+                  ))}
+
+                  {opportunity && (
+                    <div className="breakdown-callout">
+                      <span>
+                        Biggest opportunity
+                      </span>
+
+                      <strong>
+                        {opportunity.category} takes{" "}
+                        {opportunity.share_percent}%
+                        of this month&apos;s spending.
+                      </strong>
+
+                      <p>
+                        Reducing it by 10% could
+                        save EGP{" "}
+                        {formatCurrency(
+                          opportunity
+                            .potential_savings
+                        )}{" "}
+                        this month.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <p className="analytics-empty-state">
+                No purchases recorded yet this month —
+                add a transaction to see your category mix.
+              </p>
+            )}
           </div>
         </Card>
 
@@ -673,38 +549,99 @@ function Analytics() {
         <Card className="analytics-section trend-section">
           <div className="analytics-section-title">
             <div>
-              <span>02 · TREND</span>
+              <span>02 · SPENDING OVER TIME</span>
 
               <h2>
-                Monthly spending trend
+                Total spent by period
               </h2>
             </div>
 
-            <div className="trend-summary">
-              <b>
-                {trendChange > 0
-                  ? "↑"
-                  : trendChange < 0
-                    ? "↓"
-                    : "—"}{" "}
-                {Math.abs(trendChange)}%
-              </b>
-
-              <span>
-                across active months
-              </span>
+            <div
+              className="period-toggle"
+              role="group"
+              aria-label="Chart period"
+            >
+              {GRANULARITY_OPTIONS.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  className={
+                    granularity === option.value ? "active" : ""
+                  }
+                  onClick={() => setGranularity(option.value)}
+                >
+                  {option.label}
+                </button>
+              ))}
             </div>
           </div>
 
-          <TrendChart
-            monthlyValues={monthlyValues}
-            monthLabels={monthLabels}
-          />
+          {hasPeriodData ? (
+            <ChartContainer
+              config={periodChartConfig}
+              className="period-chart"
+            >
+              <ComposedChart
+                accessibilityLayer
+                data={periodData}
+                margin={{ left: 8, right: 8, top: 8 }}
+              >
+                <CartesianGrid vertical={false} />
 
-          <p className="trend-caption">
-            <i />
-            {getTrendCaption()}
-          </p>
+                <XAxis
+                  dataKey="period"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={10}
+                />
+
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={formatAxisCurrency}
+                  width={48}
+                />
+
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      labelKey="period"
+                      formatter={(value, name) => (
+                        <div className="period-tooltip-row">
+                          <span>
+                            {name === "amount" ? "Total spent" : "Running average"}
+                          </span>
+                          <strong>EGP {formatCurrency(value)}</strong>
+                        </div>
+                      )}
+                    />
+                  }
+                />
+
+                <ChartLegend content={<ChartLegendContent />} />
+
+                <Bar
+                  dataKey="amount"
+                  fill="var(--color-amount)"
+                  radius={4}
+                />
+
+                <Line
+                  dataKey="average"
+                  type="monotone"
+                  stroke="var(--color-average)"
+                  strokeWidth={2}
+                  dot={{ r: 3, fill: "var(--color-average)" }}
+                />
+              </ComposedChart>
+            </ChartContainer>
+          ) : (
+            <p className="analytics-empty-state">
+              No purchases in this {granularity.replace("ly", "")} range yet —
+              add a transaction to see your spending trend.
+            </p>
+          )}
         </Card>
 
 

@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -12,11 +12,16 @@ import Analytics from "./pages/Analytics";
 import Challenges from "./pages/Challenges";
 import Transactions from "./pages/Transactions";
 import Settings from "./pages/Settings";
+import AssistantWidget from "./components/AssistantWidget";
 
+const ASSISTANT_HIDDEN_PATHS = ["/", "/login", "/signup"];
 
-function App() {
+function AppShell() {
+  const location = useLocation();
+  const showAssistant = !ASSISTANT_HIDDEN_PATHS.includes(location.pathname);
+
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
@@ -55,6 +60,16 @@ function App() {
           element={<Settings />}
         />
       </Routes>
+
+      {showAssistant && <AssistantWidget />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
     </BrowserRouter>
   );
 }

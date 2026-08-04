@@ -86,7 +86,7 @@ body {
 
   margin-bottom: 8px;
 
-  color: #c8a24a;
+  color: #CA902B;
   font-size: 14px;
   font-weight: bold;
 }
@@ -166,10 +166,7 @@ body {
 
   color: #111111;
 
-  background: linear-gradient(135deg,
-      #b8860b,
-      #d4af37,
-      #f1d66a);
+  background: #CA902B;
 
   border: none;
   border-radius: 10px;
@@ -309,4 +306,107 @@ body {
 
     color: #ff8c8c;
     font-size: 14px;
+}
+
+
+/* =========================================================
+   CASHLY LIGHT THEME
+   ========================================================= */
+
+.light body {
+    background-color: #ebebeb;
+}
+
+.light .login-page {
+    background: radial-gradient(circle at top left,
+      rgba(168, 136, 32, 0.14),
+      transparent 35%),
+    radial-gradient(circle at bottom right,
+      rgba(135, 99, 11, 0.12),
+      transparent 35%),
+    linear-gradient(135deg, #ebebeb, #eaeaea);
+}
+
+.light .login-card {
+    background: rgba(233, 233, 233, 0.95);
+    border: 1px solid rgba(168, 136, 32, 0.7);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(168, 136, 32, 0.12);
+}
+
+.light .login-card h1 {
+    color: #a88820;
+}
+
+.light .login-welcome-text {
+    color: #424242;
+}
+
+.light .login-inputs label {
+    color: #A16A17;
+}
+
+.light .login-inputs input {
+    color: #1a1a1a;
+    background-color: #dcdcdc;
+    border: 1px solid #bbbbbb;
+}
+
+.light .login-inputs input::placeholder {
+    color: #7a7a7a;
+}
+
+.light .login-inputs input:focus {
+    border-color: #a88820;
+    box-shadow: 0 0 10px rgba(168, 136, 32, 0.25);
+}
+
+.light .login-checkbox label {
+    color: #383838;
+}
+
+.light .forgot-password {
+    color: #a88820;
+}
+
+.light .login-button {
+    color: #ebebeb;
+    background: #A16A17;
+}
+
+.light .login-button:hover {
+    box-shadow: 0 8px 22px rgba(168, 136, 32, 0.28);
+}
+
+.light .continue-with::before,
+.light .continue-with::after {
+    background: rgba(168, 136, 32, 0.25);
+}
+
+.light .continue-with span {
+    color: #464646;
+}
+
+.light .social-btn {
+    background: #e3e3e3;
+    border: 1px solid rgba(168, 136, 32, 0.35);
+}
+
+.light .social-btn:hover {
+    border-color: #a88820;
+    box-shadow: 0 0 18px rgba(168, 136, 32, 0.25);
+}
+
+.light .signup-text {
+    color: #424242;
+}
+
+.light .signup-text a {
+    color: #a88820;
+}
+
+.light .login-error {
+    background: rgba(178, 27, 41, 0.15);
+    border: 1px solid #b21b29;
+    color: #ee2b2b;
 }

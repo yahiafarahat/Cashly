@@ -47,30 +47,15 @@ function getErrorMessage(data, fallbackMessage) {
 
 
 export function normalizeTransaction(transaction) {
-  const items = transaction.items.map((item) => ({
-    id: item.item_id,
-    name: item.item_name,
-    quantity: 1,
-    price: item.item_price
-  }));
-
   return {
     id: transaction.transaction_id,
-    merchant:
-      transaction.merchant_name ||
-      transaction.description,
+    description: transaction.description,
     category: transaction.category,
     date: transaction.date,
-    time: "00:00",
-    location: transaction.location || "",
-    paymentMethod: "Not specified",
+    time: transaction.time || "00:00",
+    paymentMethod: transaction.payment_method || "Not specified",
     status: "Completed",
-    notes: transaction.description,
-    // A transaction may not have itemized lines. Keep its persisted total so
-    // every screen can still calculate from the same transaction value.
-    items: items.length
-      ? items
-      : [{ id: `total-${transaction.transaction_id}`, name: transaction.description, quantity: 1, price: transaction.price }],
+    price: Number(transaction.price),
     amount: Number(transaction.price),
     fees: 0,
     discount: 0,
@@ -135,27 +120,13 @@ export async function createTransaction(
 
 
 function buildTransactionPayload(formData, totalPrice) {
-  const validItems = formData.items.filter(
-    (item) =>
-      item.name.trim() !== "" &&
-      Number(item.price) > 0
-  );
-
   return {
-    description:
-      formData.notes.trim() ||
-      `${formData.merchant} purchase`,
+    description: formData.description.trim(),
     price: Number(totalPrice),
     date: formData.date,
     category: formData.category,
-    merchant_name: formData.merchant,
-    location: formData.location,
-    items: validItems.map((item) => ({
-      item_name: item.name,
-      item_price:
-        Number(item.price) *
-        Number(item.quantity || 1)
-    }))
+    time: formData.time || null,
+    payment_method: formData.paymentMethod || null
   };
 }
 

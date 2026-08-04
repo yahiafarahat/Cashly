@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { CalendarDays, Check, Sparkles } from "lucide-react";
+import { CalendarDays, Check, Sparkles, Zap } from "lucide-react";
 import "../styles/Dashboard.css";
 import "../styles/MyDay.css";
 import { getCurrentUser } from "../services/auth";
@@ -9,6 +9,33 @@ import AppSidebar from "../components/AppSidebar";
 import UserProfile from "../components/UserProfile";
 
 const formatMoney = (amount) => `EGP ${Number(amount || 0).toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+
+function toDateKey(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function calculateTransactionStreak(transactions) {
+  const daysWithTransactions = new Set(
+    transactions.map((transaction) => transaction.date)
+  );
+
+  const cursor = new Date();
+
+  // Don't zero out the streak just because today hasn't been logged yet —
+  // it only breaks once a full day passes with nothing recorded.
+  if (!daysWithTransactions.has(toDateKey(cursor))) {
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  let streak = 0;
+
+  while (daysWithTransactions.has(toDateKey(cursor))) {
+    streak += 1;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  return streak;
+}
 
 function Dashboard() {
   const currentUser = getCurrentUser();
@@ -38,6 +65,7 @@ function Dashboard() {
   const insight = insights[insightIndex % Math.max(insights.length, 1)];
   const recentTransactions = useMemo(() => transactions.slice(0, 3), [transactions]);
   const recentTotal = useMemo(() => recentTransactions.reduce((sum, transaction) => sum + Number(transaction.amount || 0), 0), [recentTransactions]);
+  const streak = useMemo(() => calculateTransactionStreak(transactions), [transactions]);
   const todayLabel = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric" }).format(new Date()).toUpperCase();
 
   return (
@@ -46,7 +74,13 @@ function Dashboard() {
       <main className="dashboard-main my-day-main">
         <header className="my-day-header">
           <div><span className="today-label">{todayLabel}</span><h1>Good afternoon, {firstName}.</h1><p>Here&apos;s what matters for your money today.</p></div>
-          <UserProfile />
+          <div className="my-day-header-actions">
+            <div className="streak-badge" title="Consecutive days with a logged transaction">
+              <Zap size={15} />
+              <span>{streak}</span>
+            </div>
+            <UserProfile />
+          </div>
         </header>
 
         <section className={`ai-insight-card ${insight?.accent || "cash"}`}>
@@ -68,8 +102,8 @@ function Dashboard() {
           <div className="bills-list">
             {recentTransactions.map((transaction) => (
               <article className="bill-row" key={transaction.id}>
-                <div className="bill-mark">{transaction.merchant?.charAt(0)?.toUpperCase() || "T"}</div>
-                <div className="bill-name"><strong>{transaction.merchant}</strong><span>{transaction.date}</span></div>
+                <div className="bill-mark">{transaction.description?.charAt(0)?.toUpperCase() || "T"}</div>
+                <div className="bill-name"><strong>{transaction.description}</strong><span>{transaction.date}</span></div>
                 <span className="bill-due">{transaction.category}</span>
                 <strong className="bill-amount">{formatMoney(transaction.amount)}</strong>
               </article>

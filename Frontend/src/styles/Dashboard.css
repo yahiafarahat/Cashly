@@ -2168,3 +2168,708 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* =========================================================
+   CASHLY LIGHT THEME
+   ========================================================= */
+
+.light .dashboard-page {
+    color: #1a1a1a;
+    background: radial-gradient(circle at top right,
+      rgba(168, 136, 32, 0.1),
+      transparent 28%),
+    linear-gradient(135deg, #ebebeb, #ebebeb);
+}
+
+.light .dashboard-sidebar {
+    background: rgba(235, 235, 235, 0.98);
+    border-right: 1px solid rgba(168, 136, 32, 0.25);
+}
+
+.light .sidebar-logo h2 {
+    color: #a88820;
+}
+
+.light .sidebar-link,
+.light .logout-link {
+    color: #424242;
+}
+
+.light .sidebar-link span,
+.light .logout-link span {
+    color: #a88820;
+}
+
+.light .sidebar-link:hover,
+.light .sidebar-link.active {
+    color: #1a1a1a;
+    background: rgba(168, 136, 32, 0.12);
+}
+
+.light .sidebar-link.active {
+    border-left: 3px solid #a88820;
+}
+
+.light .logout-link:hover {
+    color: #1a1a1a;
+    background: rgba(187, 31, 31, 0.12);
+}
+
+.light .dashboard-navbar h1 {
+    color: #1a1a1a;
+}
+
+.light .dashboard-navbar p {
+    color: #6d6d6d;
+}
+
+.light .dashboard-search {
+    color: #1a1a1a;
+    background: #e4e4e4;
+    border: 1px solid #c7c7c7;
+}
+
+.light .dashboard-search:focus {
+    border-color: #a88820;
+}
+
+.light .notification-button {
+    color: #1a1a1a;
+    background: #e4e4e4;
+    border: 1px solid #c7c7c7;
+}
+
+.light .notification-button:hover {
+    border-color: #a88820;
+}
+
+.light .profile-circle {
+    color: #ebebeb;
+    background: linear-gradient(135deg, #87630b, #ecc218);
+}
+
+.light .user-profile strong {
+    color: #1a1a1a;
+}
+
+.light .user-profile span {
+    color: #7a7a7a;
+}
+
+.light .summary-card {
+    background: rgba(230, 230, 230, 0.95);
+    border: 1px solid #cfcfcf;
+}
+
+.light .summary-card:hover {
+    border-color: rgba(168, 136, 32, 0.65);
+}
+
+.light .summary-card-top span {
+    color: #666666;
+}
+
+.light .summary-icon {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.1);
+}
+
+.light .summary-card h2 {
+    color: #1a1a1a;
+}
+
+.light .positive-text {
+    color: #39b66d;
+}
+
+.light .negative-text {
+    color: #e42424;
+}
+
+.light .dashboard-panel {
+    background: rgba(231, 231, 231, 0.96);
+    border: 1px solid #cfcfcf;
+}
+
+.light .panel-heading h2 {
+    color: #1a1a1a;
+}
+
+.light .panel-heading p {
+    color: #7a7a7a;
+}
+
+.light .small-action-button {
+    color: #a88820;
+    border: 1px solid rgba(168, 136, 32, 0.4);
+}
+
+.light .small-action-button:hover {
+    background: rgba(168, 136, 32, 0.1);
+}
+
+.light .health-score-circle {
+    background: radial-gradient(circle, #e7e7e7 56%, transparent 58%),
+    conic-gradient(#a88820 0deg 302deg, #cccccc 302deg 360deg);
+}
+
+.light .health-score-circle strong {
+    color: #1a1a1a;
+}
+
+.light .health-score-circle span {
+    color: #717171;
+}
+
+.light .health-information h3 {
+    color: #a88820;
+}
+
+.light .health-information p {
+    color: #434343;
+}
+
+.light .health-progress {
+    background: #cccccc;
+}
+
+.light .health-progress-fill {
+    background: linear-gradient(90deg, #87630b, #ecc218);
+}
+
+.light .health-information small {
+    color: #808080;
+}
+
+.light .personality-icon,
+.light .insight-icon {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.1);
+    border: 1px solid rgba(168, 136, 32, 0.25);
+}
+
+.light .personality-label {
+    color: #7a7a7a;
+}
+
+.light .personality-content h3,
+.light .insight-content h3 {
+    color: #a88820;
+}
+
+.light .personality-content p,
+.light .insight-content p {
+    color: #434343;
+}
+
+.light .insight-button {
+    color: #ebebeb;
+}
+
+.light .view-all-link {
+    color: #a88820;
+}
+
+.light .transaction-item {
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.light .transaction-icon {
+    color: #a88820;
+    background: #d7d7d7;
+}
+
+.light .transaction-item h3 {
+    color: #1a1a1a;
+}
+
+.light .transaction-item p {
+    color: #888888;
+}
+
+.light .transaction-positive {
+    color: #39b66d;
+}
+
+.light .transaction-negative {
+    color: #e42424;
+}
+
+.light .health-modal-overlay {
+    background: rgba(235, 235, 235, 0.82);
+}
+
+.light .health-modal {
+    color: #1a1a1a;
+    background: radial-gradient(circle at top right,
+      rgba(168, 136, 32, 0.14),
+      transparent 28%),
+    #e8e8e8;
+    border: 1px solid rgba(168, 136, 32, 0.38);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65),
+    0 0 35px rgba(168, 136, 32, 0.08);
+}
+
+.light .health-modal::-webkit-scrollbar-thumb {
+    background: #b6b6b6;
+}
+
+.light .health-modal::-webkit-scrollbar-thumb:hover {
+    background: #a88820;
+}
+
+.light .modal-small-title {
+    color: #a88820;
+}
+
+.light .health-modal-header h2 {
+    color: #1a1a1a;
+}
+
+.light .health-modal-header p {
+    color: #727272;
+}
+
+.light .modal-close-button {
+    color: #424242;
+    background: #dbdbdb;
+    border: 1px solid #c7c7c7;
+}
+
+.light .modal-close-button:hover {
+    color: #1a1a1a;
+    background: rgba(228, 36, 36, 0.15);
+    border-color: rgba(228, 36, 36, 0.55);
+}
+
+.light .modal-score-section {
+    background: rgba(168, 136, 32, 0.055);
+    border: 1px solid rgba(168, 136, 32, 0.2);
+}
+
+.light .modal-score-circle {
+    background: radial-gradient(circle, #e7e7e7 55%, transparent 57%),
+    conic-gradient(#a88820 0deg 302deg, #cccccc 302deg 360deg);
+    box-shadow: 0 0 28px rgba(168, 136, 32, 0.08);
+}
+
+.light .modal-score-circle strong {
+    color: #1a1a1a;
+}
+
+.light .modal-score-circle span {
+    color: #777777;
+}
+
+.light .modal-status {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.12);
+    border: 1px solid rgba(168, 136, 32, 0.23);
+}
+
+.light .modal-score-information h3 {
+    color: #1a1a1a;
+}
+
+.light .modal-score-information p {
+    color: #555555;
+}
+
+.light .health-breakdown>h3 {
+    color: #1a1a1a;
+}
+
+.light .breakdown-item {
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.light .breakdown-positive-icon {
+    color: #39b66d;
+    background: rgba(57, 182, 109, 0.1);
+    border: 1px solid rgba(57, 182, 109, 0.25);
+}
+
+.light .breakdown-negative-icon {
+    color: #e42424;
+    background: rgba(228, 36, 36, 0.1);
+    border: 1px solid rgba(228, 36, 36, 0.25);
+}
+
+.light .breakdown-text strong {
+    color: #1a1a1a;
+}
+
+.light .breakdown-text p {
+    color: #808080;
+}
+
+.light .positive-points {
+    color: #39b66d;
+}
+
+.light .negative-points {
+    color: #e42424;
+}
+
+.light .health-recommendation {
+    background: linear-gradient(135deg,
+      rgba(168, 136, 32, 0.14),
+      rgba(168, 136, 32, 0.035));
+    border: 1px solid rgba(168, 136, 32, 0.3);
+}
+
+.light .recommendation-icon {
+    color: #ebebeb;
+    background: linear-gradient(135deg, #87630b, #ecc218);
+}
+
+.light .health-recommendation span {
+    color: #a88820;
+}
+
+.light .health-recommendation h3 {
+    color: #1a1a1a;
+}
+
+.light .health-recommendation p {
+    color: #565656;
+}
+
+.light .target-score-section {
+    background: #dfdfdf;
+    border: 1px solid #cccccc;
+}
+
+.light .target-score-section span {
+    color: #6d6d6d;
+}
+
+.light .target-score-section strong {
+    color: #a88820;
+}
+
+.light .target-progress {
+    background: #cacaca;
+}
+
+.light .target-progress-fill {
+    background: linear-gradient(90deg, #87630b, #ecc218);
+}
+
+.light .target-score-section p {
+    color: #808080;
+}
+
+.light .modal-done-button {
+    color: #ebebeb;
+    background: linear-gradient(135deg, #87630b, #ecc218);
+}
+
+.light .modal-done-button:hover {
+    box-shadow: 0 8px 22px rgba(168, 136, 32, 0.2);
+}
+
+.light .cashly-coach {
+    background: linear-gradient(135deg,
+      rgba(168, 136, 32, 0.15),
+      rgba(168, 136, 32, 0.035));
+    border: 1px solid rgba(168, 136, 32, 0.38);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22),
+    0 0 25px rgba(168, 136, 32, 0.05);
+}
+
+.light .coach-icon {
+    color: #ebebeb;
+    background: linear-gradient(135deg, #87630b, #ecc218);
+}
+
+.light .coach-label {
+    color: #a88820;
+}
+
+.light .coach-message h2 {
+    color: #1a1a1a;
+}
+
+.light .coach-message p {
+    color: #555555;
+}
+
+.light .new-advice-button {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.08);
+    border: 1px solid rgba(168, 136, 32, 0.4);
+}
+
+.light .new-advice-button:hover {
+    background: rgba(168, 136, 32, 0.15);
+}
+
+.light .insight-category {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.09);
+    border: 1px solid rgba(168, 136, 32, 0.25);
+}
+
+.light .personality-confidence {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.1);
+    border: 1px solid rgba(168, 136, 32, 0.28);
+}
+
+.light .personality-main h3 {
+    color: #a88820;
+}
+
+.light .personality-main p {
+    color: #434343;
+}
+
+.light .personality-confidence-section {
+    background: #dfdfdf;
+    border: 1px solid #cfcfcf;
+}
+
+.light .confidence-heading span {
+    color: #666666;
+}
+
+.light .confidence-heading strong {
+    color: #a88820;
+}
+
+.light .confidence-progress {
+    background: #cacaca;
+}
+
+.light .confidence-progress-fill {
+    background: linear-gradient(90deg,
+      #87630b,
+      #ecc218);
+}
+
+.light .personality-trait {
+    background: #dfdfdf;
+    border: 1px solid #cfcfcf;
+}
+
+.light .positive-trait>span {
+    color: #39b66d;
+    background: rgba(57, 182, 109, 0.1);
+    border: 1px solid rgba(57, 182, 109, 0.25);
+}
+
+.light .warning-trait>span {
+    color: #e6ab13;
+    background: rgba(230, 171, 19, 0.1);
+    border: 1px solid rgba(230, 171, 19, 0.25);
+}
+
+.light .personality-trait strong {
+    color: #1a1a1a;
+}
+
+.light .personality-trait p {
+    color: #888888;
+}
+
+.light .personality-comparison h4 {
+    color: #1a1a1a;
+}
+
+.light .comparison-card {
+    background: rgba(168, 136, 32, 0.045);
+    border: 1px solid rgba(168, 136, 32, 0.15);
+}
+
+.light .comparison-card span {
+    color: #6d6d6d;
+}
+
+.light .comparison-positive {
+    color: #39b66d;
+}
+
+.light .comparison-negative {
+    color: #e42424;
+}
+
+.light .monthly-challenge-panel {
+    background: radial-gradient(circle at top right,
+      rgba(168, 136, 32, 0.16),
+      transparent 35%),
+    rgba(231, 231, 231, 0.96);
+}
+
+.light .challenge-small-label {
+    color: #a88820;
+}
+
+.light .challenge-top h2 {
+    color: #1a1a1a;
+}
+
+.light .challenge-top p {
+    color: #666666;
+}
+
+.light .challenge-trophy {
+    background: linear-gradient(135deg,
+      #87630b,
+      #ecc218);
+    box-shadow: 0 10px 25px rgba(168, 136, 32, 0.15);
+}
+
+.light .challenge-progress-heading span {
+    color: #5f5f5f;
+}
+
+.light .challenge-progress-heading strong {
+    color: #a88820;
+}
+
+.light .challenge-progress-bar {
+    background: #cacaca;
+}
+
+.light .challenge-progress-fill {
+    background: linear-gradient(90deg,
+      #87630b,
+      #ecc218);
+}
+
+.light .challenge-numbers span {
+    color: #8a8a8a;
+}
+
+.light .challenge-detail-card {
+    background: #dfdfdf;
+    border: 1px solid #cfcfcf;
+}
+
+.light .challenge-detail-card span {
+    color: #818181;
+}
+
+.light .challenge-detail-card strong {
+    color: #1a1a1a;
+}
+
+.light .challenge-tip {
+    background: rgba(168, 136, 32, 0.07);
+    border: 1px solid rgba(168, 136, 32, 0.18);
+}
+
+.light .challenge-tip-icon {
+    color: #ebebeb;
+    background: linear-gradient(135deg,
+      #87630b,
+      #ecc218);
+}
+
+.light .challenge-tip strong {
+    color: #a88820;
+}
+
+.light .challenge-tip p {
+    color: #686868;
+}
+
+.light .challenge-check-button {
+    color: #ebebeb;
+    background: linear-gradient(135deg,
+      #87630b,
+      #ecc218);
+}
+
+.light .challenge-check-button:hover {
+    box-shadow: 0 8px 22px rgba(168, 136, 32, 0.16);
+}
+
+.light .challenge-check-button.checked-in {
+    color: #39b66d;
+    background: rgba(57, 182, 109, 0.1);
+    border: 1px solid rgba(57, 182, 109, 0.25);
+}
+
+.light .achievement-count {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.09);
+    border: 1px solid rgba(168, 136, 32, 0.25);
+}
+
+.light .unlocked-achievement {
+    background: linear-gradient(135deg,
+      rgba(168, 136, 32, 0.09),
+      rgba(168, 136, 32, 0.025));
+    border: 1px solid rgba(168, 136, 32, 0.23);
+}
+
+.light .locked-achievement {
+    background: #dfdfdf;
+    border: 1px solid #cfcfcf;
+}
+
+.light .achievement-badge {
+    background: #d5d5d5;
+}
+
+.light .unlocked-achievement .achievement-badge {
+    background: linear-gradient(135deg,
+      #84620b,
+      #d0a517);
+    box-shadow: 0 7px 18px rgba(168, 136, 32, 0.13);
+}
+
+.light .achievement-status {
+    color: #888888;
+}
+
+.light .unlocked-achievement .achievement-status {
+    color: #a88820;
+}
+
+.light .achievement-card h3 {
+    color: #1a1a1a;
+}
+
+.light .achievement-card p {
+    color: #888888;
+}
+
+.light .next-achievement {
+    background: #dfdfdf;
+    border: 1px solid #cfcfcf;
+}
+
+.light .next-achievement-top div span {
+    color: #888888;
+}
+
+.light .next-achievement-top div strong {
+    color: #1a1a1a;
+}
+
+.light .next-achievement-top>span {
+    color: #a88820;
+}
+
+.light .next-achievement-progress {
+    background: #cbcbcb;
+}
+
+.light .next-achievement-fill {
+    background: linear-gradient(90deg,
+      #87630b,
+      #ecc218);
+}
+
+.light .next-achievement p {
+    color: #8e8e8e;
+}
+
+.light .dashboard-panel {
+    background: rgba(231, 231, 231, 0.96);
+    border: 1px solid #cfcfcf;
+}

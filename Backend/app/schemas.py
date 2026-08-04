@@ -31,23 +31,6 @@ class TokenResponse(BaseModel):
     user: UserResponse
 
 
-# ---------- Item Schemas ----------
-
-class ItemCreate(BaseModel):
-    item_name: str
-    item_price: float = Field(gt=0)
-
-
-class ItemResponse(BaseModel):
-    item_id: int
-    transaction_id: int
-    item_name: str
-    item_price: float
-
-    class Config:
-        from_attributes = True
-
-
 # ---------- Transaction Schemas ----------
 
 class TransactionCreate(BaseModel):
@@ -55,9 +38,8 @@ class TransactionCreate(BaseModel):
     price: float = Field(gt=0)
     date: str
     category: str = Field(min_length=1, max_length=100)
-    merchant_name: str | None = Field(default=None, max_length=200)
-    location: str | None = Field(default=None, max_length=200)
-    items: list[ItemCreate] = Field(default_factory=list)
+    time: str | None = Field(default=None, max_length=20)
+    payment_method: str | None = Field(default=None, max_length=100)
 
 
 class TransactionUpdate(TransactionCreate):
@@ -71,9 +53,8 @@ class TransactionResponse(BaseModel):
     price: float
     date: str
     category: str
-    merchant_name: str | None
-    location: str | None
-    items: list[ItemResponse]
+    time: str | None
+    payment_method: str | None
 
     class Config:
         from_attributes = True
@@ -94,6 +75,18 @@ class MonthlySpending(BaseModel):
     amount: float
 
 
+class CategoryFrequency(BaseModel):
+    name: str
+    count: int
+    percent: float
+
+
+class PeriodSpending(BaseModel):
+    period: str
+    amount: float
+    average: float
+
+
 class BiggestOpportunity(BaseModel):
     category: str
     share_percent: float
@@ -111,8 +104,27 @@ class AnalyticsSummary(BaseModel):
     current_month: str
     total_spent: float
     category_breakdown: list[CategoryAnalytics]
+    category_frequency: list[CategoryFrequency]
     monthly_trend: list[MonthlySpending]
+    granularity: str
+    spending_by_period: list[PeriodSpending]
     trend_change_percent: float
     amount_difference: float
     biggest_opportunity: BiggestOpportunity | None
     insights: list[SpendingInsight]
+
+
+# ---------- Assistant Schemas ----------
+
+class AssistantMessage(BaseModel):
+    role: str
+    content: str = Field(min_length=1, max_length=4000)
+
+
+class AssistantAskRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=2000)
+    history: list[AssistantMessage] = Field(default_factory=list)
+
+
+class AssistantAskResponse(BaseModel):
+    reply: str

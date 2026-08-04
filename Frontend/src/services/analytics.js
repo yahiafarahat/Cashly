@@ -7,7 +7,8 @@ const API_URL =
 
 
 export async function getAnalyticsSummary(
-  signal
+  signal,
+  granularity = "monthly"
 ) {
   const token = getAccessToken();
 
@@ -18,7 +19,7 @@ export async function getAnalyticsSummary(
   }
 
   const response = await fetch(
-    `${API_URL}/analytics/summary`,
+    `${API_URL}/analytics/summary?granularity=${granularity}`,
     {
       method: "GET",
       headers: {

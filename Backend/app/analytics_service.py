@@ -58,10 +58,123 @@ def get_change_tone(change_percent):
     return "stable"
 
 
+GRANULARITY_BUCKET_COUNTS = {
+    "daily": 14,
+    "weekly": 8,
+    "monthly": 6
+}
+
+
+def build_period_buckets(today: date, granularity: str):
+    bucket_count = GRANULARITY_BUCKET_COUNTS[granularity]
+    buckets = []
+
+    if granularity == "daily":
+        for offset in range(bucket_count - 1, -1, -1):
+            day = today - timedelta(days=offset)
+            label = f"{day.strftime('%b')} {day.day}"
+            buckets.append((day, day, label))
+
+    elif granularity == "weekly":
+        for offset in range(bucket_count - 1, -1, -1):
+            end = today - timedelta(days=7 * offset)
+            start = end - timedelta(days=6)
+            label = f"{start.strftime('%b')} {start.day}"
+            buckets.append((start, end, label))
+
+    else:
+        for offset in range(-(bucket_count - 1), 1):
+            year, month = shift_month(today, offset)
+            start = date(year, month, 1)
+
+            if month == 12:
+                end = date(year, 12, 31)
+            else:
+                end = date(year, month + 1, 1) - timedelta(days=1)
+
+            label = start.strftime("%b")
+            buckets.append((start, end, label))
+
+    return buckets
+
+
+def build_spending_by_period(
+    valid_transactions,
+    today: date,
+    granularity: str
+):
+    buckets = build_period_buckets(today, granularity)
+    running_total = 0.0
+    spending_by_period = []
+
+    for index, (start, end, label) in enumerate(buckets):
+        amount = round(
+            sum(
+                float(transaction.price)
+                for transaction, transaction_date in valid_transactions
+                if start <= transaction_date <= end
+            ),
+            2
+        )
+
+        running_total += amount
+
+        spending_by_period.append({
+            "period": label,
+            "amount": amount,
+            "average": round(running_total / (index + 1), 2)
+        })
+
+    return spending_by_period
+
+
+def build_category_frequency(
+    valid_transactions,
+    current_month_key
+):
+    category_counts = defaultdict(int)
+
+    for transaction, transaction_date in valid_transactions:
+        transaction_month_key = (
+            transaction_date.year,
+            transaction_date.month
+        )
+
+        if transaction_month_key == current_month_key:
+            category = transaction.category.strip().title()
+            category_counts[category] += 1
+
+    total_count = sum(category_counts.values())
+    category_frequency = []
+
+    for category, count in category_counts.items():
+        percent = (
+            (count / total_count) * 100
+            if total_count > 0 else 0
+        )
+
+        category_frequency.append({
+            "name": category,
+            "count": count,
+            "percent": round(percent, 1)
+        })
+
+    category_frequency.sort(
+        key=lambda category: category["count"],
+        reverse=True
+    )
+
+    return category_frequency
+
+
 def build_analytics_summary(
     db: Session,
-    user_id: int
+    user_id: int,
+    granularity: str = "monthly"
 ):
+    if granularity not in GRANULARITY_BUCKET_COUNTS:
+        raise ValueError(f"Unsupported granularity: {granularity}")
+
     today = date.today()
 
     transactions = (
@@ -245,13 +358,27 @@ def build_analytics_summary(
         category_breakdown
     )
 
+    category_frequency = build_category_frequency(
+        valid_transactions,
+        current_month_key
+    )
+
+    spending_by_period = build_spending_by_period(
+        valid_transactions,
+        today,
+        granularity
+    )
+
     return {
         "current_month": today.strftime(
             "%B %Y"
         ),
         "total_spent": total_spent,
         "category_breakdown": category_breakdown,
+        "category_frequency": category_frequency,
         "monthly_trend": monthly_trend,
+        "granularity": granularity,
+        "spending_by_period": spending_by_period,
         "trend_change_percent": trend_change_percent,
         "amount_difference": amount_difference,
         "biggest_opportunity": biggest_opportunity,
@@ -308,37 +435,6 @@ def build_spending_insights(
                 f"{weekday_totals[highest_day]:,.0f} "
                 f"on {highest_day}s during the "
                 f"last 90 days."
-            ),
-            "positive": False
-        })
-
-    merchant_totals = defaultdict(float)
-
-    for transaction, _ in recent_transactions:
-        if transaction.merchant_name:
-            merchant = (
-                transaction.merchant_name.strip()
-            )
-
-            merchant_totals[merchant] += float(
-                transaction.price
-            )
-
-    if merchant_totals:
-        top_merchant = max(
-            merchant_totals,
-            key=merchant_totals.get
-        )
-
-        insights.append({
-            "tag": "Merchant pattern",
-            "title": (
-                f"{top_merchant} is your top merchant"
-            ),
-            "text": (
-                f"You spent EGP "
-                f"{merchant_totals[top_merchant]:,.0f} "
-                f"there during the last 90 days."
             ),
             "positive": False
         })

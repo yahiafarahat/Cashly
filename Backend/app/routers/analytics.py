@@ -1,3 +1,5 @@
+from typing import Literal
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -18,10 +20,12 @@ router = APIRouter(
     response_model=schemas.AnalyticsSummary
 )
 def get_analytics_summary(
+    granularity: Literal["daily", "weekly", "monthly"] = "monthly",
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user)
 ):
     return build_analytics_summary(
         db,
-        current_user.user_id
+        current_user.user_id,
+        granularity
     )

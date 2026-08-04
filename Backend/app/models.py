@@ -39,40 +39,10 @@ class Transaction(Base):
     price = Column(Float, nullable=False)
     date = Column(String, nullable=False)
     category = Column(String, nullable=False)
-    merchant_name = Column(String, nullable=True)
-    location = Column(String, nullable=True)
+    time = Column(String, nullable=True)
+    payment_method = Column(String, nullable=True)
 
     user = relationship(
         "User",
         back_populates="transactions"
-    )
-
-    items = relationship(
-        "Item",
-        back_populates="transaction",
-        cascade="all, delete-orphan"
-    )
-
-
-class Item(Base):
-    __tablename__ = "items"
-
-    item_id = Column(
-        Integer,
-        primary_key=True,
-        index=True
-    )
-
-    transaction_id = Column(
-        Integer,
-        ForeignKey("transactions.transaction_id"),
-        nullable=False
-    )
-
-    item_name = Column(String, nullable=False)
-    item_price = Column(Float, nullable=False)
-
-    transaction = relationship(
-        "Transaction",
-        back_populates="items"
     )

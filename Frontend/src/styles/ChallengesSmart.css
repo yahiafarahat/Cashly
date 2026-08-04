@@ -25,3 +25,252 @@
 .smart-actions-page .today-action.complete .today-impact { border-color: rgba(91,188,136,.2); background: rgba(55,143,95,.08); }
 @media(max-width:900px){.smart-actions-page .today-action{padding:34px;grid-template-columns:1fr;row-gap:28px}.smart-actions-page .today-impact{width:100%;max-width:360px}}
 @media(max-width:520px){.smart-actions-page .today-action{padding:26px 22px}.smart-actions-page .today-action h2{font-size:35px}.smart-actions-page .today-impact{max-width:none}}
+
+
+/* =========================================================
+   CASHLY LIGHT THEME
+   ========================================================= */
+
+.light .smart-actions-page {
+    color: #1e1c15;
+    background: #eaeaeb;
+}
+
+.light .smart-actions-page .sidebar-link svg,
+.light .smart-actions-page .logout-link svg {
+    color: #a88820;
+}
+
+.light .smart-actions-main {
+    background: radial-gradient(circle at 85% 0,rgba(159, 128, 31, .1),transparent 25%),#eaeaeb;
+}
+
+.light .actions-kicker,
+.light .actions-section-heading span,
+.light .money-move > div > span,
+.light .impact-footer > div > span {
+    color: #8d7228;
+}
+
+.light .smart-actions-header p {
+    color: #75757a;
+}
+
+.light .actions-profile {
+    color: #f3eee3;
+    background: linear-gradient(145deg,#ecbb19,#845f0b);
+    box-shadow: 0 0 0 5px rgba(168, 136, 32, .06);
+}
+
+.light .today-action {
+    border: 1px solid rgba(180, 143, 27, .35);
+    background: radial-gradient(circle at 90% 20%,rgba(173, 138, 27, .16),transparent 34%),linear-gradient(125deg,#e8e4db,#e9e9ea 65%);
+}
+
+.light .today-badge {
+    color: #d9ae1b;
+}
+
+.light .today-badge i {
+    background: #41a66c;
+    box-shadow: 0 0 12px #41a66c;
+}
+
+.light .today-action p {
+    color: #615d55;
+}
+
+.light .today-action button {
+    color: #f4eee1;
+    background: linear-gradient(135deg,#e9ba19,#987316);
+}
+
+.light .today-action.complete {
+    border-color: rgba(58, 151, 101, .36);
+    background: radial-gradient(circle at 90% 20%,rgba(51, 133, 88, .14),transparent 34%),linear-gradient(125deg,#dce8e2,#e9e9ea 65%);
+}
+
+.light .today-action.complete button {
+    color: #57c185;
+    background: rgba(54, 135, 87, .12);
+    border: 1px solid rgba(58, 151, 101, .25);
+}
+
+.light .today-impact {
+    border-left: 1px solid rgba(205, 163, 33, .23);
+}
+
+.light .today-impact span,
+.light .today-impact small {
+    color: #848077;
+}
+
+.light .today-impact strong {
+    color: #deb21e;
+}
+
+.light .actions-section-heading > p {
+    color: #8b8b90;
+}
+
+.light .suggestion-list {
+    border: 1px solid #d3d3d6;
+    background: #eaeaeb;
+}
+
+.light .suggestion-card {
+    border-bottom: 1px solid #d3d3d6;
+}
+
+.light .suggestion-card:hover {
+    background: #e6e6e7;
+}
+
+.light .suggestion-icon {
+    color: #d5a81e;
+    background: rgba(168, 136, 32, .1);
+}
+
+.light .suggestion-copy > span,
+.light .suggestion-impact > span {
+    color: #7f7f84;
+}
+
+.light .suggestion-copy strong {
+    color: #383630;
+}
+
+.light .suggestion-copy small {
+    color: #9b9ba0;
+}
+
+.light .suggestion-arrow {
+    color: #6f5c23;
+}
+
+.light .suggestion-impact {
+    border-left: 1px solid #d1d1d4;
+}
+
+.light .suggestion-impact strong {
+    color: #cca322;
+}
+
+.light .suggestion-impact small {
+    color: #86868b;
+}
+
+.light .suggestion-impact button {
+    color: #c09e2d;
+    border: 1px solid #675728;
+}
+
+.light .suggestion-impact button:hover {
+    background: rgba(168, 136, 32, .08);
+}
+
+.light .suggestion-impact button:disabled {
+    color: #4b9e6e;
+    border-color: rgba(59, 136, 93, .3);
+}
+
+.light .money-move {
+    border: 1px solid rgba(59, 135, 95, .25);
+    background: linear-gradient(120deg,rgba(45, 106, 73, .1),#e9e9ea 60%);
+}
+
+.light .money-move-icon {
+    color: #42a06a;
+    background: rgba(52, 131, 88, .1);
+}
+
+.light .money-move p {
+    color: #808086;
+}
+
+.light .money-move-action {
+    border-left: 1px solid #cbd3cf;
+}
+
+.light .money-move-action strong {
+    color: #42a56b;
+}
+
+.light .money-move-action span {
+    color: #8a8a8f;
+}
+
+.light .money-move-action button {
+    color: #60b984;
+    background: rgba(51, 129, 87, .1);
+    border: 1px solid rgba(57, 140, 96, .3);
+}
+
+.light .impact-footer {
+    border: 1px solid #d3d3d6;
+    background: #eaeaeb;
+}
+
+.light .impact-footer strong {
+    color: #d2ab22;
+}
+
+.light .impact-footer small,
+.light .impact-footer p {
+    color: #87878c;
+}
+
+@media(max-width:900px) {
+.light .today-impact {
+    border-top: 1px solid rgba(205, 163, 33, .23);
+}
+
+.light .suggestion-impact {
+    border-top: 1px solid #d1d1d4;
+}
+
+.light .money-move-action {
+    border-top: 1px solid #cbd3cf;
+}
+}
+
+.light .smart-actions-page .today-badge {
+    color: #e9b816;
+    background: rgba(168, 136, 32, .1);
+    border: 1px solid rgba(168, 136, 32, .24);
+}
+
+.light .smart-actions-page .today-action h2 {
+    color: #221e11;
+}
+
+.light .smart-actions-page .today-action p {
+    color: #605d56;
+}
+
+.light .smart-actions-page .today-action button {
+    color: #f4eee2;
+    background: linear-gradient(135deg,#e9ba19,#987316);
+}
+
+.light .smart-actions-page .today-impact {
+    border: 1px solid rgba(182, 145, 32, .16);
+    background: rgba(235, 235, 235, .17);
+}
+
+.light .smart-actions-page .today-impact span {
+    color: #7d7970;
+}
+
+.light .smart-actions-page .today-impact strong {
+    color: #e8b616;
+}
+
+.light .smart-actions-page .today-impact small {
+    color: #928f89;
+}
+
+.light .smart-actions-page .today-action.complete .today-impact {
+    border-color: rgba(58, 151, 101, .2);
+    background: rgba(40, 109, 71, .08);
+}

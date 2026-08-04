@@ -64,3 +64,42 @@
 .policy-card a:hover {
   text-decoration: underline;
 }
+
+
+/* =========================================================
+   CASHLY LIGHT THEME
+   ========================================================= */
+
+.light .policy-page {
+    background: radial-gradient(circle at top left,
+    rgba(168, 136, 32, .12),
+    transparent 35%),
+
+    linear-gradient(135deg,#ebebeb,#eaeaea);
+}
+
+.light .policy-card {
+    background: rgba(233, 233, 233, .95);
+    border: 1px solid rgba(168, 136, 32, .5);
+    color: #1a1a1a;
+}
+
+.light .policy-card h1 {
+    color: #a88820;
+}
+
+.light .policy-card h2 {
+    color: #a88820;
+}
+
+.light .policy-card p {
+    color: #2f2f2f;
+}
+
+.light .policy-card ul {
+    color: #2f2f2f;
+}
+
+.light .policy-card a {
+    color: #a88820;
+}

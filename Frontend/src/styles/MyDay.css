@@ -6,6 +6,9 @@
 .my-day-header h1 { margin: 8px 0 8px; font-size: clamp(28px, 3vw, 42px); letter-spacing: -.04em; font-weight: 650; }
 .my-day-header p { margin: 0; color: #8e8e94; font-size: 15px; }
 .today-label { color: #b99738; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
+.my-day-header-actions { display: flex; align-items: center; gap: 14px; }
+.streak-badge { display: flex; align-items: center; gap: 6px; height: 38px; padding: 0 13px; flex: 0 0 auto; color: #f0d26c; background: rgba(212, 175, 55, .1); border: 1px solid rgba(212, 175, 55, .28); border-radius: 999px; font-size: 14px; font-weight: 800; }
+.streak-badge svg { color: #e7c85e; }
 .my-day-profile { display: flex; align-items: center; gap: 12px; }
 .my-day-profile-avatar { width: 46px; height: 46px; display: grid; place-items: center; flex: 0 0 auto; border: 1px solid rgba(232, 197, 93, .48); border-radius: 50%; color: #111; background: linear-gradient(145deg, #f0d270, #a9780a); font-weight: 800; box-shadow: 0 0 0 5px rgba(212, 175, 55, .06); }
 .my-day-profile-copy strong, .my-day-profile-copy span { display: block; }
@@ -56,3 +59,181 @@
 .bill-reassurance { margin: 14px 4px 0; display: flex; justify-content: flex-end; align-items: center; gap: 7px; color: #6f987f; font-size: 12px; }
 @media (max-width: 900px) { .my-day-main { padding: 34px 22px 54px; } .ai-insight-card { min-height: 420px; } .insight-content { width: 100%; padding-left: 0; } .bill-row { grid-template-columns: 48px 1fr auto; } .bill-due { grid-column: 2; } .bill-amount { grid-column: 3; grid-row: 1; } .mark-paid { grid-column: 3; grid-row: 2; } }
 @media (max-width: 640px) { .my-day-header { margin-bottom: 28px; } .today-label { font-size: 9px; } .my-day-profile { display: none; } .ai-insight-card { padding: 22px; border-radius: 20px; } .fresh-label { display: none; } .insight-content { padding-top: 46px; } .insight-content h2 { font-size: 34px; } .insight-actions { align-items: flex-start; flex-direction: column; } .insight-number { right: 20px; bottom: 20px; } .section-heading { align-items: flex-start; gap: 14px; } .bills-total { align-items: flex-end; flex-direction: column; gap: 3px; } .bill-row { padding: 15px; grid-template-columns: 44px 1fr auto; gap: 11px; } .bill-amount { font-size: 12px; } .mark-paid { padding: 7px; } }
+
+
+/* =========================================================
+   CASHLY LIGHT THEME
+   ========================================================= */
+
+.light .my-day-page {
+    background: #eaeaeb;
+}
+
+.light .my-day-page .sidebar-link svg,
+.light .my-day-page .logout-link svg {
+    color: #a88820;
+}
+
+.light .my-day-main {
+    background: radial-gradient(circle at 82% -10%, rgba(161, 128, 33, .11), transparent 31%), #eaeaeb;
+}
+
+.light .streak-badge {
+    color: #8a6c14;
+    background: rgba(168, 136, 32, .1);
+    border-color: rgba(168, 136, 32, .3);
+}
+
+.light .streak-badge svg {
+    color: #a88820;
+}
+
+.light .my-day-header p {
+    color: #6b6b71;
+}
+
+.light .today-label {
+    color: #8d7228;
+}
+
+.light .my-day-profile-avatar {
+    border: 1px solid rgba(218, 170, 26, .48);
+    color: #ebebeb;
+    background: linear-gradient(145deg, #edbc1b, #845f0b);
+    box-shadow: 0 0 0 5px rgba(168, 136, 32, .06);
+}
+
+.light .my-day-profile-copy strong {
+    color: #1e1c16;
+}
+
+.light .my-day-profile-copy span {
+    color: #8a8a90;
+}
+
+.light .ai-insight-card {
+    border: 1px solid rgba(182, 145, 31, .3);
+    background: linear-gradient(125deg, rgba(230, 228, 222, .97), rgba(234, 234, 235, .98) 60%, #eeece7);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, .34), inset 0 1px rgba(26, 26, 26, .04);
+}
+
+.light .insight-glow {
+    background: rgba(166, 130, 26, .14);
+}
+
+.light .ai-badge {
+    color: #ecbc19;
+    background: rgba(168, 136, 32, .1);
+    border: 1px solid rgba(168, 136, 32, .21);
+}
+
+.light .fresh-label {
+    color: #7e7e80;
+}
+
+.light .fresh-label i {
+    background: #40ac74;
+    box-shadow: 0 0 12px #40ac74;
+}
+
+.light .my-day-page .insight-content p {
+    color: #5f5c55;
+}
+
+.light .insight-action {
+    color: #f3eee3;
+    background: linear-gradient(135deg, #e7bd1e, #997619);
+}
+
+.light .insight-action:hover {
+    box-shadow: 0 8px 24px rgba(157, 122, 26, .2);
+}
+
+.light .next-insight {
+    color: #625e55;
+    border-bottom: 1px solid #b6b1a3;
+}
+
+.light .next-insight:hover {
+    color: #e7bd1e;
+}
+
+.light .insight-number {
+    color: rgba(233, 189, 32, .78);
+}
+
+.light .insight-number span {
+    color: #a9a7a1;
+}
+
+.light .section-kicker {
+    color: #8d7228;
+}
+
+.light .bills-total span {
+    color: #828288;
+}
+
+.light .bills-total strong {
+    color: #b29c67;
+}
+
+.light .bills-list {
+    border: 1px solid #d3d3d6;
+    background: #eaeaeb;
+}
+
+.light .bill-row {
+    border-bottom: 1px solid #d6d6d8;
+}
+
+.light .bill-row:hover {
+    background: #e6e6e7;
+}
+
+.light .bill-n {
+    color: #bf1814;
+    background: rgba(191, 24, 20, .12);
+}
+
+.light .bill-e {
+    color: #db9b12;
+    background: rgba(219, 155, 18, .11);
+}
+
+.light .bill-i {
+    color: #1988e1;
+    background: rgba(30, 118, 190, .12);
+}
+
+.light .bill-name span {
+    color: #909096;
+}
+
+.light .bill-due {
+    color: #5f5f64;
+    background: #dcdcdf;
+}
+
+.light .bill-due.urgent {
+    color: #dcae19;
+    background: rgba(168, 136, 32, .1);
+}
+
+.light .bill-amount {
+    color: #322f33;
+}
+
+.light .mark-paid {
+    color: #6e6e73;
+    border: 1px solid #c8c8cc;
+}
+
+.light .mark-paid:hover {
+    color: #deb21c;
+    border-color: #6c5923;
+}
+
+.light .bill-reassurance {
+    color: #51745f;
+}

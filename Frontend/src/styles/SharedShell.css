@@ -8,3 +8,43 @@
 .transactions-content,.settings-layout{max-width:1120px;margin-left:auto;margin-right:auto}.transactions-content{padding:0}
 @media(max-width:900px){.transactions-header,.settings-page-header{align-items:flex-start;flex-direction:column}.transactions-header-actions,.settings-header-actions{width:100%;flex-wrap:wrap}}
 @media(max-width:700px){.transactions-main,.settings-main{padding:30px 18px 55px}}
+
+
+/* =========================================================
+   CASHLY LIGHT THEME
+   ========================================================= */
+
+.light .app-sidebar .sidebar-link svg,
+.light .app-sidebar .logout-link svg {
+    color: #a88820;
+}
+
+.light .shared-user-avatar {
+    border: 1px solid rgba(218, 170, 26, .46);
+    color: #f3ede2;
+    background: linear-gradient(145deg,#edbc1b,#845f0b);
+    box-shadow: 0 0 0 4px rgba(168, 136, 32, .05);
+}
+
+.light .shared-user-copy strong {
+    color: #1d1b16;
+}
+
+.light .shared-user-copy span {
+    color: #8a8a90;
+}
+
+.light .transactions-main,
+.light .settings-main {
+    background: radial-gradient(circle at 85% 0,rgba(159, 128, 31, .08),transparent 25%),#eaeaeb;
+}
+
+.light .transactions-header p,
+.light .settings-page-header p {
+    color: #75757a;
+}
+
+.light .transactions-eyebrow,
+.light .settings-eyebrow {
+    color: #8d7228;
+}

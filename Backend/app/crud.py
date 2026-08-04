@@ -1,7 +1,7 @@
 import secrets
 
 from passlib.context import CryptContext
-from sqlalchemy.orm import Session, selectinload
+from sqlalchemy.orm import Session
 
 from app import models, schemas
 
@@ -110,23 +110,12 @@ def create_transaction(
         description=transaction.description,
         price=transaction.price,
         category=transaction.category,
-        merchant_name=transaction.merchant_name,
         date=transaction.date,
-        location=transaction.location
+        time=transaction.time,
+        payment_method=transaction.payment_method
     )
 
     db.add(db_transaction)
-    db.flush()
-
-    for item in transaction.items:
-        db_item = models.Item(
-            transaction_id=db_transaction.transaction_id,
-            item_name=item.item_name,
-            item_price=item.item_price
-        )
-
-        db.add(db_item)
-
     db.commit()
     db.refresh(db_transaction)
 
@@ -139,9 +128,6 @@ def get_transactions_by_user(
 ):
     return (
         db.query(models.Transaction)
-        .options(
-            selectinload(models.Transaction.items)
-        )
         .filter(
             models.Transaction.user_id == user_id
         )
@@ -159,9 +145,6 @@ def get_transaction_by_id(
 ):
     return (
         db.query(models.Transaction)
-        .options(
-            selectinload(models.Transaction.items)
-        )
         .filter(
             models.Transaction.transaction_id
             == transaction_id,
@@ -187,17 +170,8 @@ def update_transaction(
     transaction.price = transaction_update.price
     transaction.date = transaction_update.date
     transaction.category = transaction_update.category
-    transaction.merchant_name = transaction_update.merchant_name
-    transaction.location = transaction_update.location
-
-    # A PUT replaces the entire resource, including its nested items.
-    transaction.items = [
-        models.Item(
-            item_name=item.item_name,
-            item_price=item.item_price
-        )
-        for item in transaction_update.items
-    ]
+    transaction.time = transaction_update.time
+    transaction.payment_method = transaction_update.payment_method
 
     db.commit()
     db.refresh(transaction)

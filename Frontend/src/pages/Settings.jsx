@@ -283,7 +283,7 @@ function Settings() {
 
         const rows = [
             [
-                "Merchant",
+                "Description",
                 "Category",
                 "Amount",
                 "Date",
@@ -291,7 +291,7 @@ function Settings() {
                 "Status",
             ],
             ...transactions.map((transaction) => [
-                transaction.merchant || "",
+                transaction.description || "",
                 transaction.category || "",
                 transaction.total ||
                 transaction.amount ||

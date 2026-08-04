@@ -1881,3 +1881,665 @@ body {
     width: 100%;
   }
 }
+
+
+/* =========================================================
+   CASHLY LIGHT THEME
+   ========================================================= */
+
+.light .analytics-page {
+    color: #1a1a1a;
+    background: radial-gradient(
+      circle at top right,
+      rgba(168, 136, 32, 0.07),
+      transparent 24%
+    ),
+    #ebebeb;
+}
+
+.light .analytics-page-label {
+    color: #a88820;
+}
+
+.light .analytics-navbar h1 {
+    color: #1a1a1a;
+}
+
+.light .analytics-navbar p {
+    color: #7f7f7f;
+}
+
+.light .analytics-search {
+    color: #1a1a1a;
+    background: #e3e3e3;
+    border: 1px solid #cfcfcf;
+}
+
+.light .analytics-search::placeholder {
+    color: #999999;
+}
+
+.light .analytics-search:focus {
+    border-color: rgba(168, 136, 32, 0.6);
+}
+
+.light .analytics-notification-button {
+    color: #1a1a1a;
+    background: #e3e3e3;
+    border: 1px solid #cfcfcf;
+}
+
+.light .analytics-notification-button:hover {
+    background: rgba(168, 136, 32, 0.09);
+    border-color: rgba(168, 136, 32, 0.35);
+}
+
+.light .analytics-user-profile {
+    border-left: 1px solid #cfcfcf;
+}
+
+.light .analytics-profile-circle {
+    color: #ebebeb;
+    background: linear-gradient(
+    135deg,
+    #84600b,
+    #ecc218
+  );
+}
+
+.light .analytics-user-profile strong {
+    color: #1a1a1a;
+}
+
+.light .analytics-user-profile span {
+    color: #919191;
+}
+
+.light .analytics-summary-card {
+    background: rgba(230, 230, 230, 0.96);
+    border: 1px solid #d2d2d2;
+}
+
+.light .analytics-summary-card:hover {
+    border-color: rgba(168, 136, 32, 0.3);
+}
+
+.light .analytics-summary-top > span {
+    color: #7a7a7a;
+}
+
+.light .analytics-summary-icon {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.09);
+    border: 1px solid rgba(168, 136, 32, 0.18);
+}
+
+.light .analytics-summary-card h2 {
+    color: #1a1a1a;
+}
+
+.light .analytics-positive-text {
+    color: #39b66d;
+}
+
+.light .analytics-negative-text {
+    color: #e12626;
+}
+
+.light .analytics-neutral-text {
+    color: #a88820;
+}
+
+.light .analytics-panel {
+    background: rgba(231, 231, 231, 0.96);
+    border: 1px solid #d2d2d2;
+}
+
+.light .analytics-panel-heading h2 {
+    color: #1a1a1a;
+}
+
+.light .analytics-panel-heading p {
+    color: #888888;
+}
+
+.light .analytics-period-select {
+    color: #363636;
+    background: #dfdfdf;
+    border: 1px solid #cbcbcb;
+}
+
+.light .chart-value-lines {
+    color: #999999;
+}
+
+.light .monthly-bars {
+    border-bottom: 1px solid #cccccc;
+}
+
+.light .monthly-bar {
+    background: linear-gradient(
+    180deg,
+    #ecc218,
+    #84610b
+  );
+    box-shadow: 0 0 20px rgba(168, 136, 32, 0.08);
+}
+
+.light .monthly-bar-value {
+    color: #a88820;
+    background: #dfdfdf;
+    border: 1px solid rgba(168, 136, 32, 0.2);
+}
+
+.light .monthly-label {
+    color: #888888;
+}
+
+.light .budget-gauge-circle {
+    box-shadow: 0 0 28px rgba(168, 136, 32, 0.08);
+}
+
+.light .budget-gauge-circle::before {
+    background: #e7e7e7;
+}
+
+.light .budget-gauge-center strong {
+    color: #1a1a1a;
+}
+
+.light .budget-gauge-center span {
+    color: #888888;
+}
+
+.light .budget-usage-numbers div {
+    background: #dfdfdf;
+    border: 1px solid #cfcfcf;
+}
+
+.light .budget-usage-numbers span {
+    color: #888888;
+}
+
+.light .budget-usage-numbers strong {
+    color: #1a1a1a;
+}
+
+.light .budget-status-message {
+    color: #39b66d;
+    background: rgba(57, 182, 109, 0.07);
+    border: 1px solid rgba(57, 182, 109, 0.16);
+}
+
+.light .budget-status-message p {
+    color: #628b73;
+}
+
+.light .analytics-total-label {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.08);
+    border: 1px solid rgba(168, 136, 32, 0.2);
+}
+
+.light .spending-donut {
+    background: conic-gradient(
+      #a88820 0deg 137deg,
+      #785d26 137deg 213deg,
+      #6a5525 213deg 271deg,
+      #61542e 271deg 321deg,
+      #d3cfbf 321deg 360deg
+    );
+    box-shadow: 0 0 30px rgba(168, 136, 32, 0.07);
+}
+
+.light .spending-donut::before {
+    background: #e7e7e7;
+}
+
+.light .spending-donut-center strong {
+    color: #1a1a1a;
+}
+
+.light .spending-donut-center span {
+    color: #a88820;
+}
+
+.light .category-item {
+    background: #dfdfdf;
+    border: 1px solid #cfcfcf;
+}
+
+.light .category-item:hover {
+    border-color: rgba(168, 136, 32, 0.25);
+}
+
+.light .category-icon {
+    background: rgba(168, 136, 32, 0.08);
+    border: 1px solid rgba(168, 136, 32, 0.14);
+}
+
+.light .category-information strong {
+    color: #1a1a1a;
+}
+
+.light .category-information span {
+    color: #909090;
+}
+
+.light .category-percentage-area strong {
+    color: #a88820;
+}
+
+.light .category-progress {
+    background: #c5c5c5;
+}
+
+.light .category-progress-fill {
+    background: linear-gradient(
+    90deg,
+    #84620b,
+    #cea71f
+  );
+}
+
+.light .weekly-day-information span {
+    color: #555555;
+}
+
+.light .weekly-day-information strong {
+    color: #a88820;
+}
+
+.light .weekly-progress {
+    background: #cbcbcb;
+}
+
+.light .weekly-progress-fill {
+    background: linear-gradient(
+    90deg,
+    #84620b,
+    #ceaa1f
+  );
+}
+
+.light .forecast-panel {
+    background: radial-gradient(
+      circle at top right,
+      rgba(168, 136, 32, 0.15),
+      transparent 38%
+    ),
+    rgba(231, 231, 231, 0.96);
+}
+
+.light .forecast-small-label {
+    color: #a88820;
+}
+
+.light .forecast-heading h2 {
+    color: #1a1a1a;
+}
+
+.light .forecast-heading p {
+    color: #7a7a7a;
+}
+
+.light .forecast-icon {
+    color: #ebebeb;
+    background: linear-gradient(
+    135deg,
+    #84610b,
+    #ecc218
+  );
+}
+
+.light .forecast-card {
+    background: rgba(224, 224, 224, 0.85);
+    border: 1px solid #cbcbcb;
+}
+
+.light .forecast-card:hover {
+    border-color: rgba(168, 136, 32, 0.25);
+}
+
+.light .forecast-card span {
+    color: #888888;
+}
+
+.light .forecast-card strong {
+    color: #a88820;
+}
+
+.light .forecast-card p {
+    color: #909090;
+}
+
+.light .ai-summary-panel {
+    background: linear-gradient(
+      135deg,
+      rgba(168, 136, 32, 0.1),
+      rgba(168, 136, 32, 0.025)
+    );
+    border-color: rgba(168, 136, 32, 0.22);
+}
+
+.light .ai-summary-icon {
+    color: #ebebeb;
+    background: linear-gradient(
+    135deg,
+    #84620b,
+    #eabf13
+  );
+    box-shadow: 0 8px 22px rgba(168, 136, 32, 0.13);
+}
+
+.light .ai-summary-label {
+    color: #a88820;
+}
+
+.light .ai-summary-panel h2 {
+    color: #1a1a1a;
+}
+
+.light .ai-summary-panel p {
+    color: #646464;
+}
+
+.light .ai-summary-tags span {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.08);
+    border: 1px solid rgba(168, 136, 32, 0.17);
+}
+
+.light .open-intelligence-button {
+    color: #ebebeb;
+    background: linear-gradient(
+    135deg,
+    #84600b,
+    #ecc218
+  );
+}
+
+.light .open-intelligence-button:hover {
+    box-shadow: 0 10px 25px rgba(168, 136, 32, 0.17);
+}
+
+.light .intelligence-modal-overlay {
+    background: rgba(235, 235, 235, 0.82);
+}
+
+.light .intelligence-modal {
+    color: #1a1a1a;
+    background: radial-gradient(
+      circle at top right,
+      rgba(168, 136, 32, 0.16),
+      transparent 28%
+    ),
+    #e8e8e8;
+    border: 1px solid rgba(168, 136, 32, 0.27);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65),
+    0 0 50px rgba(168, 136, 32, 0.05);
+}
+
+.light .intelligence-modal::-webkit-scrollbar-track {
+    background: #e4e4e4;
+}
+
+.light .intelligence-modal::-webkit-scrollbar-thumb {
+    background: #bababa;
+}
+
+.light .intelligence-modal::-webkit-scrollbar-thumb:hover {
+    background: #a88820;
+}
+
+.light .intelligence-modal-header {
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.light .intelligence-report-label {
+    color: #a88820;
+}
+
+.light .intelligence-modal-header h2 {
+    color: #1a1a1a;
+}
+
+.light .intelligence-modal-header p {
+    color: #888888;
+}
+
+.light .intelligence-close-button {
+    color: #5f5f5f;
+    background: #dddddd;
+    border: 1px solid #c9c9c9;
+}
+
+.light .intelligence-close-button:hover {
+    color: #1a1a1a;
+    background: rgba(207, 36, 36, 0.12);
+    border-color: rgba(207, 36, 36, 0.32);
+}
+
+.light .intelligence-welcome-card {
+    background: linear-gradient(
+      135deg,
+      rgba(168, 136, 32, 0.09),
+      rgba(168, 136, 32, 0.025)
+    );
+    border: 1px solid rgba(168, 136, 32, 0.18);
+}
+
+.light .intelligence-avatar {
+    color: #ebebeb;
+    background: linear-gradient(
+    135deg,
+    #84600b,
+    #ecc218
+  );
+    box-shadow: 0 9px 22px rgba(168, 136, 32, 0.15);
+}
+
+.light .intelligence-welcome-card span {
+    color: #888888;
+}
+
+.light .intelligence-welcome-card h3 {
+    color: #1a1a1a;
+}
+
+.light .intelligence-welcome-card p {
+    color: #757575;
+}
+
+.light .intelligence-score-card {
+    background: #dfdfdf;
+    border: 1px solid #cfcfcf;
+}
+
+.light .intelligence-score-circle {
+    background: radial-gradient(
+      circle,
+      #e3e3e3 56%,
+      transparent 58%
+    ),
+    conic-gradient(
+      #a88820 0deg 302deg,
+      #c9c9c9 302deg 360deg
+    );
+    box-shadow: 0 0 25px rgba(168, 136, 32, 0.08);
+}
+
+.light .intelligence-score-circle strong {
+    color: #1a1a1a;
+}
+
+.light .intelligence-score-circle span {
+    color: #888888;
+}
+
+.light .intelligence-status {
+    color: #39b66d;
+    background: rgba(57, 182, 109, 0.08);
+    border: 1px solid rgba(57, 182, 109, 0.18);
+}
+
+.light .intelligence-score-card h3 {
+    color: #1a1a1a;
+}
+
+.light .intelligence-score-card p {
+    color: #777777;
+}
+
+.light .intelligence-report-card {
+    background: #dfdfdf;
+    border: 1px solid #cfcfcf;
+}
+
+.light .intelligence-report-card:hover {
+    border-color: rgba(168, 136, 32, 0.25);
+}
+
+.light .positive-report-card {
+    background: linear-gradient(
+      135deg,
+      rgba(57, 182, 109, 0.08),
+      rgba(57, 182, 109, 0.015)
+    ),
+    #dfdfdf;
+    border-color: rgba(57, 182, 109, 0.17);
+}
+
+.light .warning-report-card {
+    background: linear-gradient(
+      135deg,
+      rgba(228, 36, 36, 0.08),
+      rgba(228, 36, 36, 0.015)
+    ),
+    #dfdfdf;
+    border-color: rgba(228, 36, 36, 0.18);
+}
+
+.light .report-card-icon {
+    background: rgba(168, 136, 32, 0.08);
+    border: 1px solid rgba(168, 136, 32, 0.17);
+}
+
+.light .intelligence-report-card > span {
+    color: #888888;
+}
+
+.light .intelligence-report-card h3 {
+    color: #1a1a1a;
+}
+
+.light .intelligence-report-card > strong {
+    color: #a88820;
+}
+
+.light .positive-report-card > strong {
+    color: #39b66d;
+}
+
+.light .warning-report-card > strong {
+    color: #e42424;
+}
+
+.light .intelligence-report-card p {
+    color: #878787;
+}
+
+.light .intelligence-observations {
+    background: #e2e2e2;
+    border: 1px solid #cfcfcf;
+}
+
+.light .intelligence-section-heading > span {
+    color: #ebebeb;
+    background: linear-gradient(
+    135deg,
+    #84600b,
+    #ecc218
+  );
+}
+
+.light .intelligence-section-heading h3 {
+    color: #1a1a1a;
+}
+
+.light .intelligence-section-heading p {
+    color: #8f8f8f;
+}
+
+.light .observation-item {
+    background: #dcdcdc;
+    border: 1px solid #cfcfcf;
+}
+
+.light .observation-number {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.08);
+    border: 1px solid rgba(168, 136, 32, 0.17);
+}
+
+.light .observation-item p {
+    color: #707070;
+}
+
+.light .observation-item p strong {
+    color: #a88820;
+}
+
+.light .intelligence-recommendation {
+    background: linear-gradient(
+      135deg,
+      rgba(168, 136, 32, 0.12),
+      rgba(168, 136, 32, 0.03)
+    );
+    border: 1px solid rgba(168, 136, 32, 0.23);
+}
+
+.light .recommendation-symbol {
+    color: #ebebeb;
+    background: linear-gradient(
+    135deg,
+    #84600b,
+    #ecc218
+  );
+    box-shadow: 0 9px 22px rgba(168, 136, 32, 0.13);
+}
+
+.light .intelligence-recommendation span {
+    color: #a88820;
+}
+
+.light .intelligence-recommendation h3 {
+    color: #1a1a1a;
+}
+
+.light .intelligence-recommendation p {
+    color: #707070;
+}
+
+.light .intelligence-secondary-button {
+    color: #a88820;
+    background: rgba(168, 136, 32, 0.07);
+    border: 1px solid rgba(168, 136, 32, 0.25);
+}
+
+.light .intelligence-secondary-button:hover {
+    background: rgba(168, 136, 32, 0.13);
+}
+
+.light .intelligence-done-button {
+    color: #ebebeb;
+    background: linear-gradient(
+    135deg,
+    #84600b,
+    #ecc218
+  );
+}
+
+.light .intelligence-done-button:hover {
+    box-shadow: 0 9px 22px rgba(168, 136, 32, 0.16);
+}
