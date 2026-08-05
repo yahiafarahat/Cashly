@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BarChart3, LogOut, ReceiptText, Settings, Sun, Trophy } from "lucide-react";
+import { BarChart3, LogOut, ReceiptText, Settings, Sun, Trophy, UsersRound } from "lucide-react";
 import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 import { logoutUser } from "../services/auth";
 import "../styles/Sidebar.css";
@@ -10,6 +10,7 @@ const items = [
   { key: "transactions", to: "/transactions", label: "Transactions", icon: ReceiptText },
   { key: "analytics", to: "/analytics", label: "Analytics", icon: BarChart3 },
   { key: "challenges", to: "/challenges", label: "Challenges", icon: Trophy },
+  { key: "groups", to: "/groups", label: "Budget Groups", icon: UsersRound },
   { key: "settings", to: "/settings", label: "Settings", icon: Settings },
 ];
 
@@ -34,7 +35,7 @@ function AppSidebar({ active }) {
     event.preventDefault();
     closeSidebarAfterNavigation();
     // Let the current page show the same close animation before changing routes.
-    window.setTimeout(() => navigate(destination), 360);
+    window.setTimeout(() => navigate(destination), 200);
   }
 
   return (

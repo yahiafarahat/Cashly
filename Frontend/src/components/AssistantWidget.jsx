@@ -65,7 +65,7 @@ function AssistantWidget() {
                     <div className="assistant-widget-header">
                         <div className="assistant-widget-title">
                             <Bot size={18} />
-                            <span>Cashly Assistant</span>
+                            <span>Cisho</span>
                         </div>
 
                         <button
@@ -149,7 +149,7 @@ function AssistantWidget() {
                 className="assistant-widget-toggle"
                 onClick={() => setIsOpen((current) => !current)}
                 aria-label={
-                    isOpen ? "Close financial assistant" : "Open financial assistant"
+                    isOpen ? "Close Cisho" : "Open Cisho"
                 }
             >
                 {isOpen ? <X size={24} /> : <Bot size={24} />}
