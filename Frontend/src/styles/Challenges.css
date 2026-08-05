@@ -29,7 +29,7 @@
 .challenge-section-label {
   display: inline-block;
   margin-bottom: 10px;
-  color: #e3b82b;
+  color: #a93859;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 1.8px;
@@ -52,15 +52,15 @@
 .daily-summary {
   min-width: 135px;
   padding: 16px 20px;
-  border: 1px solid rgba(218, 176, 35, 0.35);
+  border: 1px solid rgba(122, 31, 61, 0.35);
   border-radius: 18px;
-  background: rgba(218, 176, 35, 0.08);
+  background: rgba(122, 31, 61, 0.08);
   text-align: center;
 }
 
 .daily-summary strong {
   display: block;
-  color: #e5bd32;
+  color: #a93859;
   font-size: 23px;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .daily-progress-heading strong {
-  color: #e5bd32;
+  color: #a93859;
 }
 
 .daily-progress-bar {
@@ -98,7 +98,7 @@
 .daily-progress-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #c99200, #f4d75f);
+  background: linear-gradient(90deg, #65142e, #a93859);
   transition: width 0.35s ease;
 }
 
@@ -125,7 +125,7 @@
 
 .daily-challenge-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(220, 177, 30, 0.55);
+  border-color: rgba(122, 31, 61, 0.55);
 }
 
 .daily-challenge-completed {
@@ -146,7 +146,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  background: linear-gradient(135deg, #c48b00, #f2d65d);
+  background: linear-gradient(135deg, #65142e, #a93859);
   font-size: 23px;
 }
 
@@ -161,9 +161,9 @@
 }
 
 .medium-difficulty {
-  border-color: rgba(226, 180, 36, 0.35);
-  background: rgba(226, 180, 36, 0.1);
-  color: #e3b82b;
+  border-color: rgba(122, 31, 61, 0.35);
+  background: rgba(122, 31, 61, 0.1);
+  color: #a93859;
 }
 
 .daily-challenge-content {
@@ -198,7 +198,7 @@
 }
 
 .daily-xp-reward strong {
-  color: #e5bd32;
+  color: #a93859;
   font-size: 18px;
 }
 
@@ -207,7 +207,7 @@
   padding: 12px 18px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(90deg, #ca9200, #efd45a);
+  background: linear-gradient(90deg, #65142e, #a93859);
   color: #111111;
   font-size: 14px;
   font-weight: 800;
@@ -246,7 +246,7 @@
 }
 
 .daily-reset-message span {
-  color: #e3b82b;
+  color: #a93859;
   font-size: 20px;
 }
 
@@ -266,7 +266,7 @@
   background:
     radial-gradient(
       circle at top left,
-      rgba(214, 168, 20, 0.1),
+      rgba(122, 31, 61, 0.1),
       transparent 40%
     ),
     #151515;
@@ -291,9 +291,9 @@
   width: 52px;
   height: 52px;
   min-width: 52px;
-  border: 1px solid rgba(231, 188, 48, 0.35);
+  border: 1px solid rgba(122, 31, 61, 0.35);
   border-radius: 16px;
-  background: rgba(218, 176, 35, 0.1);
+  background: rgba(122, 31, 61, 0.1);
   align-items: center;
   justify-content: center;
   font-size: 24px;
@@ -319,10 +319,10 @@
 
 .level-xp-today {
   padding: 9px 14px;
-  border: 1px solid rgba(230, 187, 45, 0.3);
+  border: 1px solid rgba(122, 31, 61, 0.3);
   border-radius: 50px;
-  background: rgba(230, 187, 45, 0.08);
-  color: #e5bd32;
+  background: rgba(122, 31, 61, 0.08);
+  color: #a93859;
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
@@ -341,7 +341,7 @@
 }
 
 .level-progress-heading strong {
-  color: #e5bd32;
+  color: #a93859;
 }
 
 .level-progress-bar {
@@ -355,7 +355,7 @@
 .level-progress-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #bd8200, #f0d258);
+  background: linear-gradient(90deg, #65142e, #a93859);
   transition: width 0.4s ease;
 }
 
@@ -502,7 +502,7 @@
 
 .daily-challenge-card:hover,
 .achievement-card:hover {
-  border-color: rgba(226, 184, 48, 0.42);
+  border-color: rgba(122, 31, 61, 0.42);
 }
 
 .daily-complete-button,
@@ -530,8 +530,8 @@
   background:
     linear-gradient(
       90deg,
-      rgba(218, 176, 35, 0.055),
-      rgba(218, 176, 35, 0.015)
+      rgba(122, 31, 61, 0.055),
+      rgba(122, 31, 61, 0.015)
     ),
     #191919;
 }
@@ -559,14 +559,14 @@
   background:
     radial-gradient(
       circle at top right,
-      rgba(210, 172, 44, 0.09),
+      rgba(122, 31, 61, 0.09),
       transparent 38%
     ),
     #171717;
 }
 
 .monthly-challenge-panel .challenge-small-label {
-  color: #d9b437;
+  color: #a93859;
   font-size: 8px;
   font-weight: 800;
   letter-spacing: 1.25px;
@@ -587,8 +587,8 @@
 }
 
 .daily-challenge-icon {
-  background: rgba(214, 174, 48, 0.12);
-  border: 1px solid rgba(214, 174, 48, 0.25);
+  background: rgba(122, 31, 61, 0.12);
+  border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .daily-difficulty {
@@ -598,14 +598,14 @@
 }
 
 .medium-difficulty {
-  color: #d5b750;
-  background: rgba(213, 183, 80, 0.08);
-  border-color: rgba(213, 183, 80, 0.22);
+  color: #a93859;
+  background: rgba(122, 31, 61, 0.08);
+  border-color: rgba(122, 31, 61, 0.22);
 }
 
 .daily-complete-button,
 .challenge-check-button {
-  background: linear-gradient(90deg, #c89512, #dfbe4a);
+  background: linear-gradient(90deg, #a93859, #a93859);
   box-shadow: none;
 }
 
@@ -620,7 +620,7 @@
 }
 
 .unlocked-achievement {
-  border-color: rgba(210, 172, 44, 0.28);
+  border-color: rgba(122, 31, 61, 0.28);
 }
 
 .locked-achievement {
@@ -638,19 +638,19 @@
   background:
     radial-gradient(
       circle at top left,
-      rgba(210, 172, 44, 0.07),
+      rgba(122, 31, 61, 0.07),
       transparent 44%
     ),
     #171717;
 }
 
 .next-unlock strong {
-  color: #e1c35f;
+  color: #a93859;
 }
 
 .next-achievement {
-  border-color: rgba(210, 172, 44, 0.2);
-  background: rgba(210, 172, 44, 0.035);
+  border-color: rgba(122, 31, 61, 0.2);
+  background: rgba(122, 31, 61, 0.035);
 }
 
 @media (max-width: 1150px) {
@@ -664,7 +664,7 @@
 .challenges-column { display: flex; min-width: 0; flex-direction: column; gap: 18px; }
 .challenges-content-layout .dashboard-panel { border-radius: 18px; }
 .monthly-challenge-panel, .daily-challenges-panel, .achievements-panel { padding: 26px; }
-.monthly-challenge-panel .challenge-small-label, .challenge-section-label { margin-bottom: 7px; color: #d9b437; font-size: 11px; font-weight: 800; line-height: 1.25; letter-spacing: 1.05px; text-transform: uppercase; }
+.monthly-challenge-panel .challenge-small-label, .challenge-section-label { margin-bottom: 7px; color: #a93859; font-size: 11px; font-weight: 800; line-height: 1.25; letter-spacing: 1.05px; text-transform: uppercase; }
 .monthly-challenge-panel h2, .daily-challenges-header h2, .panel-heading h2, .compact-level-title h2 { line-height: 1.2; }
 .monthly-challenge-panel h2 { margin: 7px 0 8px; font-size: 23px; }
 .monthly-challenge-panel .challenge-top p, .daily-challenges-header p, .panel-heading p { font-size: 14px; line-height: 1.55; }
@@ -871,7 +871,7 @@
    ========================================================= */
 
 .light .challenge-section-label {
-    color: #b79114;
+    color: #65142e;
 }
 
 .light .daily-challenges-header h2 {
@@ -883,12 +883,12 @@
 }
 
 .light .daily-summary {
-    border: 1px solid rgba(167, 134, 23, 0.35);
-    background: rgba(167, 134, 23, 0.08);
+    border: 1px solid rgba(122, 31, 61, 0.35);
+    background: rgba(122, 31, 61, 0.08);
 }
 
 .light .daily-summary strong {
-    color: #be9813;
+    color: #65142e;
 }
 
 .light .daily-summary span {
@@ -900,7 +900,7 @@
 }
 
 .light .daily-progress-heading strong {
-    color: #be9813;
+    color: #65142e;
 }
 
 .light .daily-progress-bar {
@@ -908,7 +908,7 @@
 }
 
 .light .daily-progress-fill {
-    background: linear-gradient(90deg, #8b680b, #ebc113);
+    background: linear-gradient(90deg, #65142e, #a93859);
 }
 
 .light .daily-challenge-card {
@@ -917,7 +917,7 @@
 }
 
 .light .daily-challenge-card:hover {
-    border-color: rgba(169, 135, 19, 0.55);
+    border-color: rgba(122, 31, 61, 0.55);
 }
 
 .light .daily-challenge-completed {
@@ -926,7 +926,7 @@
 }
 
 .light .daily-challenge-icon {
-    background: linear-gradient(135deg, #88640b, #e8c013);
+    background: linear-gradient(135deg, #65142e, #a93859);
 }
 
 .light .daily-difficulty {
@@ -936,9 +936,9 @@
 }
 
 .light .medium-difficulty {
-    border-color: rgba(177, 139, 19, 0.35);
-    background: rgba(177, 139, 19, 0.1);
-    color: #b79114;
+    border-color: rgba(122, 31, 61, 0.35);
+    background: rgba(122, 31, 61, 0.1);
+    color: #65142e;
 }
 
 .light .daily-challenge-content h3 {
@@ -954,11 +954,11 @@
 }
 
 .light .daily-xp-reward strong {
-    color: #be9813;
+    color: #65142e;
 }
 
 .light .daily-complete-button {
-    background: linear-gradient(90deg, #8c680b, #e4be13);
+    background: linear-gradient(90deg, #65142e, #a93859);
     color: #ebebeb;
 }
 
@@ -975,7 +975,7 @@
 }
 
 .light .daily-reset-message span {
-    color: #b79114;
+    color: #65142e;
 }
 
 .light .daily-reset-message strong {
@@ -985,15 +985,15 @@
 .light .level-panel {
     background: radial-gradient(
       circle at top left,
-      rgba(162, 127, 13, 0.1),
+      rgba(122, 31, 61, 0.1),
       transparent 40%
     ),
     #eaeaea;
 }
 
 .light .compact-level-icon {
-    border: 1px solid rgba(192, 151, 18, 0.35);
-    background: rgba(167, 134, 23, 0.1);
+    border: 1px solid rgba(122, 31, 61, 0.35);
+    background: rgba(122, 31, 61, 0.1);
 }
 
 .light .compact-level-title h2 {
@@ -1005,9 +1005,9 @@
 }
 
 .light .level-xp-today {
-    border: 1px solid rgba(188, 149, 18, 0.3);
-    background: rgba(188, 149, 18, 0.08);
-    color: #be9813;
+    border: 1px solid rgba(122, 31, 61, 0.3);
+    background: rgba(122, 31, 61, 0.08);
+    color: #65142e;
 }
 
 .light .level-progress-heading {
@@ -1015,7 +1015,7 @@
 }
 
 .light .level-progress-heading strong {
-    color: #be9813;
+    color: #65142e;
 }
 
 .light .level-progress-bar {
@@ -1023,7 +1023,7 @@
 }
 
 .light .level-progress-fill {
-    background: linear-gradient(90deg, #845e0b, #e4ba12);
+    background: linear-gradient(90deg, #521024, #a93859);
 }
 
 .light .compact-level-footer p {
@@ -1056,14 +1056,14 @@
 
 .light .daily-challenge-card:hover,
 .light .achievement-card:hover {
-    border-color: rgba(184, 146, 21, 0.42);
+    border-color: rgba(122, 31, 61, 0.42);
 }
 
 .light .next-achievement {
     background: linear-gradient(
       90deg,
-      rgba(167, 134, 23, 0.055),
-      rgba(167, 134, 23, 0.015)
+      rgba(122, 31, 61, 0.055),
+      rgba(122, 31, 61, 0.015)
     ),
     #e6e6e6;
 }
@@ -1076,14 +1076,14 @@
 .light .monthly-challenge-panel {
     background: radial-gradient(
       circle at top right,
-      rgba(161, 131, 30, 0.09),
+      rgba(122, 31, 61, 0.09),
       transparent 38%
     ),
     #e8e8e8;
 }
 
 .light .monthly-challenge-panel .challenge-small-label {
-    color: #af8e1d;
+    color: #65142e;
 }
 
 .light .daily-challenge-card {
@@ -1092,8 +1092,8 @@
 }
 
 .light .daily-challenge-icon {
-    background: rgba(167, 134, 29, 0.12);
-    border: 1px solid rgba(167, 134, 29, 0.25);
+    background: rgba(122, 31, 61, 0.12);
+    border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .light .daily-difficulty {
@@ -1103,14 +1103,14 @@
 }
 
 .light .medium-difficulty {
-    color: #b59527;
-    background: rgba(181, 149, 39, 0.08);
-    border-color: rgba(181, 149, 39, 0.22);
+    color: #a93859;
+    background: rgba(122, 31, 61, 0.08);
+    border-color: rgba(122, 31, 61, 0.22);
 }
 
 .light .daily-complete-button,
 .light .challenge-check-button {
-    background: linear-gradient(90deg, #97700c, #c19d1e);
+    background: linear-gradient(90deg, #65142e, #a93859);
 }
 
 .light .achievement-card {
@@ -1119,30 +1119,30 @@
 }
 
 .light .unlocked-achievement {
-    border-color: rgba(161, 131, 30, 0.28);
+    border-color: rgba(122, 31, 61, 0.28);
 }
 
 .light .level-panel {
     background: radial-gradient(
       circle at top left,
-      rgba(161, 131, 30, 0.07),
+      rgba(122, 31, 61, 0.07),
       transparent 44%
     ),
     #e8e8e8;
 }
 
 .light .next-unlock strong {
-    color: #cea622;
+    color: #a93859;
 }
 
 .light .next-achievement {
-    border-color: rgba(161, 131, 30, 0.2);
-    background: rgba(161, 131, 30, 0.035);
+    border-color: rgba(122, 31, 61, 0.2);
+    background: rgba(122, 31, 61, 0.035);
 }
 
 .light .monthly-challenge-panel .challenge-small-label,
 .light .challenge-section-label {
-    color: #af8e1d;
+    color: #65142e;
 }
 
 .light .daily-challenge-content p {

@@ -9,7 +9,7 @@
 
   background:
     radial-gradient(circle at top left,
-    rgba(212,175,55,.12),
+    rgba(122,31,61,.12),
     transparent 35%),
 
     linear-gradient(135deg,#050505,#151515);
@@ -23,7 +23,7 @@
 
   background: rgba(22,22,22,.95);
 
-  border: 1px solid rgba(212,175,55,.5);
+  border: 1px solid rgba(122,31,61,.5);
 
   border-radius: 20px;
 
@@ -31,12 +31,12 @@
 }
 
 .policy-card h1 {
-  color: #d4af37;
+  color: #7a1f3d;
   margin-bottom: 20px;
 }
 
 .policy-card h2 {
-  color: #d4af37;
+  color: #7a1f3d;
   margin-top: 25px;
   margin-bottom: 12px;
 }
@@ -56,7 +56,7 @@
   display: inline-block;
   margin-top: 30px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   text-decoration: none;
   font-weight: bold;
 }
@@ -72,7 +72,7 @@
 
 .light .policy-page {
     background: radial-gradient(circle at top left,
-    rgba(168, 136, 32, .12),
+    rgba(122, 31, 61, .12),
     transparent 35%),
 
     linear-gradient(135deg,#ebebeb,#eaeaea);
@@ -80,16 +80,16 @@
 
 .light .policy-card {
     background: rgba(233, 233, 233, .95);
-    border: 1px solid rgba(168, 136, 32, .5);
+    border: 1px solid rgba(122, 31, 61, .5);
     color: #1a1a1a;
 }
 
 .light .policy-card h1 {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .policy-card h2 {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .policy-card p {
@@ -101,5 +101,5 @@
 }
 
 .light .policy-card a {
-    color: #a88820;
+    color: #7a1f3d;
 }

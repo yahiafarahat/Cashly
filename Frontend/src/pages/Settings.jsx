@@ -65,7 +65,7 @@ const notificationDefaults = {
 };
 
 const appearanceDefaults = {
-    theme: "dark",
+    theme: "light",
     hideValues: false,
     reduceMotion: false,
     compactLayout: false,
@@ -146,7 +146,7 @@ function Settings() {
     );
 
     useEffect(() => {
-        const theme = appearance.theme || "dark";
+        const theme = appearance.theme || "light";
         document.documentElement.classList.toggle("dark", theme === "dark");
         document.documentElement.classList.toggle("light", theme === "light");
         localStorage.setItem("cashlyAppearance", JSON.stringify({ ...appearance, theme }));

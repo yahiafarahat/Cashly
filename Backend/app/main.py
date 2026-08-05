@@ -23,11 +23,36 @@ def init_db():
         )
     }
 
-    for column in ("time", "payment_method"):
+    required_columns = {
+        "description": "TEXT",
+        "price": "REAL",
+        "category": "TEXT",
+        "merchant_name": "TEXT",
+        "location": "TEXT",
+        "time": "TEXT",
+        "payment_method": "TEXT",
+    }
+
+    for column, column_type in required_columns.items():
         if column not in transaction_columns:
             conn.execute(
-                f"ALTER TABLE transactions ADD COLUMN {column} TEXT"
+                f"ALTER TABLE transactions ADD COLUMN {column} {column_type}"
             )
+
+    conn.execute("""
+        UPDATE transactions
+        SET description = COALESCE(NULLIF(description, ''), merchant_name, 'Transaction'),
+            price = COALESCE(
+                price,
+                (
+                    SELECT COALESCE(SUM(item_price), 0)
+                    FROM items
+                    WHERE items.transaction_id = transactions.transaction_id
+                ),
+                0
+            ),
+            category = COALESCE(NULLIF(category, ''), 'Other')
+    """)
 
     conn.commit()
     conn.close()
@@ -38,18 +63,21 @@ app = FastAPI(
     version="1.0.0"
 )
 
-
+# CORS Configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "http://127.0.0.1:5173"
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+        "http://localhost:5175",
+        "http://127.0.0.1:5175",
     ],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
-
 
 app.include_router(auth.router)
 app.include_router(transactions.router)

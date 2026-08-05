@@ -18,12 +18,12 @@ body {
   background:
     radial-gradient(
       circle at top right,
-      rgba(212, 175, 55, 0.07),
+      rgba(122, 31, 61, 0.07),
       transparent 24%
     ),
     #101010;
 
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Sidebar comes from Dashboard.css */
@@ -53,7 +53,7 @@ body {
   display: block;
   margin-bottom: 7px;
 
-  color: #d4af37;
+  color: #7a1f3d;
 
   font-size: 10px;
   font-weight: bold;
@@ -99,7 +99,7 @@ body {
 }
 
 .analytics-search:focus {
-  border-color: rgba(212, 175, 55, 0.6);
+  border-color: rgba(122, 31, 61, 0.6);
 }
 
 .analytics-notification-button {
@@ -119,9 +119,9 @@ body {
 }
 
 .analytics-notification-button:hover {
-  background: rgba(212, 175, 55, 0.09);
+  background: rgba(122, 31, 61, 0.09);
 
-  border-color: rgba(212, 175, 55, 0.35);
+  border-color: rgba(122, 31, 61, 0.35);
 }
 
 .analytics-user-profile {
@@ -145,8 +145,8 @@ body {
   color: #111111;
   background: linear-gradient(
     135deg,
-    #a87908,
-    #f1d66a
+    #65142e,
+    #d98aa0
   );
 
   border-radius: 50%;
@@ -197,7 +197,7 @@ body {
 .analytics-summary-card:hover {
   transform: translateY(-3px);
 
-  border-color: rgba(212, 175, 55, 0.3);
+  border-color: rgba(122, 31, 61, 0.3);
 
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
 }
@@ -223,10 +223,10 @@ body {
   justify-content: center;
   align-items: center;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.09);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.09);
 
-  border: 1px solid rgba(212, 175, 55, 0.18);
+  border: 1px solid rgba(122, 31, 61, 0.18);
   border-radius: 10px;
 
   font-size: 14px;
@@ -255,7 +255,7 @@ body {
 }
 
 .analytics-neutral-text {
-  color: #d4af37;
+  color: #7a1f3d;
 }
 
 /* Panels */
@@ -377,13 +377,13 @@ body {
 
   background: linear-gradient(
     180deg,
-    #f1d66a,
-    #9d7208
+    #d98aa0,
+    #65142e
   );
 
   border-radius: 8px 8px 2px 2px;
 
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.08);
+  box-shadow: 0 0 20px rgba(122, 31, 61, 0.08);
 
   animation: analyticsBarGrow 1s ease;
 }
@@ -394,10 +394,10 @@ body {
 
   padding: 5px 7px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   background: #202020;
 
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(122, 31, 61, 0.2);
   border-radius: 6px;
 
   opacity: 0;
@@ -442,7 +442,7 @@ body {
 
   border-radius: 50%;
 
-  box-shadow: 0 0 28px rgba(212, 175, 55, 0.08);
+  box-shadow: 0 0 28px rgba(122, 31, 61, 0.08);
 }
 
 .budget-gauge-circle::before {
@@ -547,10 +547,10 @@ body {
 .analytics-total-label {
   padding: 6px 10px;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.08);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.08);
 
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(122, 31, 61, 0.2);
   border-radius: 20px;
 
   font-size: 10px;
@@ -578,16 +578,16 @@ body {
 
   background:
     conic-gradient(
-      #d4af37 0deg 137deg,
-      #9d7b35 137deg 213deg,
-      #7e662e 213deg 271deg,
-      #5e522e 271deg 321deg,
+      #7a1f3d 0deg 137deg,
+      #65142e 137deg 213deg,
+      #65142e 213deg 271deg,
+      #65142e 271deg 321deg,
       #403c2c 321deg 360deg
     );
 
   border-radius: 50%;
 
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.07);
+  box-shadow: 0 0 30px rgba(122, 31, 61, 0.07);
 }
 
 .spending-donut::before {
@@ -623,7 +623,7 @@ body {
 .spending-donut-center span {
   margin-top: 4px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 10px;
 }
 
@@ -652,7 +652,7 @@ body {
 .category-item:hover {
   transform: translateX(3px);
 
-  border-color: rgba(212, 175, 55, 0.25);
+  border-color: rgba(122, 31, 61, 0.25);
 }
 
 .category-information {
@@ -669,9 +669,9 @@ body {
   justify-content: center;
   align-items: center;
 
-  background: rgba(212, 175, 55, 0.08);
+  background: rgba(122, 31, 61, 0.08);
 
-  border: 1px solid rgba(212, 175, 55, 0.14);
+  border: 1px solid rgba(122, 31, 61, 0.14);
   border-radius: 9px;
 
   font-size: 15px;
@@ -702,7 +702,7 @@ body {
   display: block;
   margin-bottom: 6px;
 
-  color: #d4af37;
+  color: #7a1f3d;
 
   font-size: 9px;
   text-align: right;
@@ -724,8 +724,8 @@ body {
 
   background: linear-gradient(
     90deg,
-    #a87b0a,
-    #e2c45a
+    #65142e,
+    #a93859
   );
 
   border-radius: 20px;
@@ -755,7 +755,7 @@ body {
 }
 
 .weekly-day-information strong {
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 9px;
 }
 
@@ -775,8 +775,8 @@ body {
 
   background: linear-gradient(
     90deg,
-    #8e6808,
-    #e2c65a
+    #65142e,
+    #a93859
   );
 
   border-radius: 20px;
@@ -799,7 +799,7 @@ body {
   background:
     radial-gradient(
       circle at top right,
-      rgba(212, 175, 55, 0.15),
+      rgba(122, 31, 61, 0.15),
       transparent 38%
     ),
     rgba(24, 24, 24, 0.96);
@@ -818,7 +818,7 @@ body {
   display: block;
   margin-bottom: 7px;
 
-  color: #d4af37;
+  color: #7a1f3d;
 
   font-size: 9px;
   font-weight: bold;
@@ -852,8 +852,8 @@ body {
   color: #111111;
   background: linear-gradient(
     135deg,
-    #a97b08,
-    #f1d66a
+    #65142e,
+    #d98aa0
   );
 
   border-radius: 14px;
@@ -881,7 +881,7 @@ body {
 .forecast-card:hover {
   transform: translateY(-3px);
 
-  border-color: rgba(212, 175, 55, 0.25);
+  border-color: rgba(122, 31, 61, 0.25);
 }
 
 .forecast-card span,
@@ -900,7 +900,7 @@ body {
 .forecast-card strong {
   margin-bottom: 7px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 18px;
 }
 
@@ -922,11 +922,11 @@ body {
   background:
     linear-gradient(
       135deg,
-      rgba(212, 175, 55, 0.1),
-      rgba(212, 175, 55, 0.025)
+      rgba(122, 31, 61, 0.1),
+      rgba(122, 31, 61, 0.025)
     );
 
-  border-color: rgba(212, 175, 55, 0.22);
+  border-color: rgba(122, 31, 61, 0.22);
 }
 
 .ai-summary-icon {
@@ -941,13 +941,13 @@ body {
   color: #111111;
   background: linear-gradient(
     135deg,
-    #9f7408,
-    #efd363
+    #65142e,
+    #a93859
   );
 
   border-radius: 13px;
 
-  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.13);
+  box-shadow: 0 8px 22px rgba(122, 31, 61, 0.13);
 }
 
 .ai-summary-content {
@@ -958,7 +958,7 @@ body {
   display: block;
   margin-bottom: 7px;
 
-  color: #d4af37;
+  color: #7a1f3d;
 
   font-size: 8px;
   font-weight: bold;
@@ -992,10 +992,10 @@ body {
 .ai-summary-tags span {
   padding: 6px 8px;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.08);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.08);
 
-  border: 1px solid rgba(212, 175, 55, 0.17);
+  border: 1px solid rgba(122, 31, 61, 0.17);
   border-radius: 20px;
 
   font-size: 8px;
@@ -1009,8 +1009,8 @@ body {
   color: #111111;
   background: linear-gradient(
     135deg,
-    #a87908,
-    #f1d66a
+    #65142e,
+    #d98aa0
   );
 
   border: none;
@@ -1027,7 +1027,7 @@ body {
 .open-intelligence-button:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.17);
+  box-shadow: 0 10px 25px rgba(122, 31, 61, 0.17);
 }
 
 /* Intelligence modal */
@@ -1066,17 +1066,17 @@ body {
   background:
     radial-gradient(
       circle at top right,
-      rgba(212, 175, 55, 0.16),
+      rgba(122, 31, 61, 0.16),
       transparent 28%
     ),
     #171717;
 
-  border: 1px solid rgba(212, 175, 55, 0.27);
+  border: 1px solid rgba(122, 31, 61, 0.27);
   border-radius: 22px;
 
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.65),
-    0 0 50px rgba(212, 175, 55, 0.05);
+    0 0 50px rgba(122, 31, 61, 0.05);
 
   animation: intelligenceModalOpen 0.32s ease;
 }
@@ -1096,7 +1096,7 @@ body {
 }
 
 .intelligence-modal::-webkit-scrollbar-thumb:hover {
-  background: #d4af37;
+  background: #7a1f3d;
 }
 
 /* Report header */
@@ -1117,7 +1117,7 @@ body {
   display: block;
   margin-bottom: 8px;
 
-  color: #d4af37;
+  color: #7a1f3d;
 
   font-size: 9px;
   font-weight: bold;
@@ -1186,11 +1186,11 @@ body {
   background:
     linear-gradient(
       135deg,
-      rgba(212, 175, 55, 0.09),
-      rgba(212, 175, 55, 0.025)
+      rgba(122, 31, 61, 0.09),
+      rgba(122, 31, 61, 0.025)
     );
 
-  border: 1px solid rgba(212, 175, 55, 0.18);
+  border: 1px solid rgba(122, 31, 61, 0.18);
   border-radius: 15px;
 }
 
@@ -1206,8 +1206,8 @@ body {
   color: #111111;
   background: linear-gradient(
     135deg,
-    #a87908,
-    #f1d66a
+    #65142e,
+    #d98aa0
   );
 
   border-radius: 50%;
@@ -1215,7 +1215,7 @@ body {
   font-size: 17px;
   font-weight: bold;
 
-  box-shadow: 0 9px 22px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 9px 22px rgba(122, 31, 61, 0.15);
 }
 
 .intelligence-welcome-card span {
@@ -1276,13 +1276,13 @@ body {
       transparent 58%
     ),
     conic-gradient(
-      #d4af37 0deg 302deg,
+      #7a1f3d 0deg 302deg,
       #363636 302deg 360deg
     );
 
   border-radius: 50%;
 
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.08);
+  box-shadow: 0 0 25px rgba(122, 31, 61, 0.08);
 }
 
 .intelligence-score-circle strong {
@@ -1353,7 +1353,7 @@ body {
 .intelligence-report-card:hover {
   transform: translateY(-3px);
 
-  border-color: rgba(212, 175, 55, 0.25);
+  border-color: rgba(122, 31, 61, 0.25);
 
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
 }
@@ -1391,9 +1391,9 @@ body {
   justify-content: center;
   align-items: center;
 
-  background: rgba(212, 175, 55, 0.08);
+  background: rgba(122, 31, 61, 0.08);
 
-  border: 1px solid rgba(212, 175, 55, 0.17);
+  border: 1px solid rgba(122, 31, 61, 0.17);
   border-radius: 10px;
 
   font-size: 17px;
@@ -1422,7 +1422,7 @@ body {
   display: block;
   margin-bottom: 7px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 17px;
 }
 
@@ -1473,8 +1473,8 @@ body {
   color: #111111;
   background: linear-gradient(
     135deg,
-    #a87908,
-    #f1d66a
+    #65142e,
+    #d98aa0
   );
 
   border-radius: 10px;
@@ -1524,10 +1524,10 @@ body {
   justify-content: center;
   align-items: center;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.08);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.08);
 
-  border: 1px solid rgba(212, 175, 55, 0.17);
+  border: 1px solid rgba(122, 31, 61, 0.17);
   border-radius: 8px;
 
   font-size: 8px;
@@ -1543,7 +1543,7 @@ body {
 }
 
 .observation-item p strong {
-  color: #d4af37;
+  color: #7a1f3d;
 }
 
 /* Recommendation */
@@ -1559,11 +1559,11 @@ body {
   background:
     linear-gradient(
       135deg,
-      rgba(212, 175, 55, 0.12),
-      rgba(212, 175, 55, 0.03)
+      rgba(122, 31, 61, 0.12),
+      rgba(122, 31, 61, 0.03)
     );
 
-  border: 1px solid rgba(212, 175, 55, 0.23);
+  border: 1px solid rgba(122, 31, 61, 0.23);
   border-radius: 15px;
 }
 
@@ -1579,20 +1579,20 @@ body {
   color: #111111;
   background: linear-gradient(
     135deg,
-    #a87908,
-    #f1d66a
+    #65142e,
+    #d98aa0
   );
 
   border-radius: 11px;
 
-  box-shadow: 0 9px 22px rgba(212, 175, 55, 0.13);
+  box-shadow: 0 9px 22px rgba(122, 31, 61, 0.13);
 }
 
 .intelligence-recommendation span {
   display: block;
   margin-bottom: 6px;
 
-  color: #d4af37;
+  color: #7a1f3d;
 
   font-size: 8px;
   font-weight: bold;
@@ -1640,22 +1640,22 @@ body {
 }
 
 .intelligence-secondary-button {
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.07);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.07);
 
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .intelligence-secondary-button:hover {
-  background: rgba(212, 175, 55, 0.13);
+  background: rgba(122, 31, 61, 0.13);
 }
 
 .intelligence-done-button {
   color: #111111;
   background: linear-gradient(
     135deg,
-    #a87908,
-    #f1d66a
+    #65142e,
+    #d98aa0
   );
 
   border: none;
@@ -1664,7 +1664,7 @@ body {
 .intelligence-done-button:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 9px 22px rgba(212, 175, 55, 0.16);
+  box-shadow: 0 9px 22px rgba(122, 31, 61, 0.16);
 }
 
 /* Animations */
@@ -1891,14 +1891,14 @@ body {
     color: #1a1a1a;
     background: radial-gradient(
       circle at top right,
-      rgba(168, 136, 32, 0.07),
+      rgba(122, 31, 61, 0.07),
       transparent 24%
     ),
     #ebebeb;
 }
 
 .light .analytics-page-label {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .analytics-navbar h1 {
@@ -1920,7 +1920,7 @@ body {
 }
 
 .light .analytics-search:focus {
-    border-color: rgba(168, 136, 32, 0.6);
+    border-color: rgba(122, 31, 61, 0.6);
 }
 
 .light .analytics-notification-button {
@@ -1930,8 +1930,8 @@ body {
 }
 
 .light .analytics-notification-button:hover {
-    background: rgba(168, 136, 32, 0.09);
-    border-color: rgba(168, 136, 32, 0.35);
+    background: rgba(122, 31, 61, 0.09);
+    border-color: rgba(122, 31, 61, 0.35);
 }
 
 .light .analytics-user-profile {
@@ -1942,8 +1942,8 @@ body {
     color: #ebebeb;
     background: linear-gradient(
     135deg,
-    #84600b,
-    #ecc218
+    #65142e,
+    #a93859
   );
 }
 
@@ -1961,7 +1961,7 @@ body {
 }
 
 .light .analytics-summary-card:hover {
-    border-color: rgba(168, 136, 32, 0.3);
+    border-color: rgba(122, 31, 61, 0.3);
 }
 
 .light .analytics-summary-top > span {
@@ -1969,9 +1969,9 @@ body {
 }
 
 .light .analytics-summary-icon {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.09);
-    border: 1px solid rgba(168, 136, 32, 0.18);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.09);
+    border: 1px solid rgba(122, 31, 61, 0.18);
 }
 
 .light .analytics-summary-card h2 {
@@ -1987,7 +1987,7 @@ body {
 }
 
 .light .analytics-neutral-text {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .analytics-panel {
@@ -2020,16 +2020,16 @@ body {
 .light .monthly-bar {
     background: linear-gradient(
     180deg,
-    #ecc218,
-    #84610b
+    #a93859,
+    #65142e
   );
-    box-shadow: 0 0 20px rgba(168, 136, 32, 0.08);
+    box-shadow: 0 0 20px rgba(122, 31, 61, 0.08);
 }
 
 .light .monthly-bar-value {
-    color: #a88820;
+    color: #7a1f3d;
     background: #dfdfdf;
-    border: 1px solid rgba(168, 136, 32, 0.2);
+    border: 1px solid rgba(122, 31, 61, 0.2);
 }
 
 .light .monthly-label {
@@ -2037,7 +2037,7 @@ body {
 }
 
 .light .budget-gauge-circle {
-    box-shadow: 0 0 28px rgba(168, 136, 32, 0.08);
+    box-shadow: 0 0 28px rgba(122, 31, 61, 0.08);
 }
 
 .light .budget-gauge-circle::before {
@@ -2076,20 +2076,20 @@ body {
 }
 
 .light .analytics-total-label {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.08);
-    border: 1px solid rgba(168, 136, 32, 0.2);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.08);
+    border: 1px solid rgba(122, 31, 61, 0.2);
 }
 
 .light .spending-donut {
     background: conic-gradient(
-      #a88820 0deg 137deg,
-      #785d26 137deg 213deg,
-      #6a5525 213deg 271deg,
-      #61542e 271deg 321deg,
+      #7a1f3d 0deg 137deg,
+      #65142e 137deg 213deg,
+      #65142e 213deg 271deg,
+      #65142e 271deg 321deg,
       #d3cfbf 321deg 360deg
     );
-    box-shadow: 0 0 30px rgba(168, 136, 32, 0.07);
+    box-shadow: 0 0 30px rgba(122, 31, 61, 0.07);
 }
 
 .light .spending-donut::before {
@@ -2101,7 +2101,7 @@ body {
 }
 
 .light .spending-donut-center span {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .category-item {
@@ -2110,12 +2110,12 @@ body {
 }
 
 .light .category-item:hover {
-    border-color: rgba(168, 136, 32, 0.25);
+    border-color: rgba(122, 31, 61, 0.25);
 }
 
 .light .category-icon {
-    background: rgba(168, 136, 32, 0.08);
-    border: 1px solid rgba(168, 136, 32, 0.14);
+    background: rgba(122, 31, 61, 0.08);
+    border: 1px solid rgba(122, 31, 61, 0.14);
 }
 
 .light .category-information strong {
@@ -2127,7 +2127,7 @@ body {
 }
 
 .light .category-percentage-area strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .category-progress {
@@ -2137,8 +2137,8 @@ body {
 .light .category-progress-fill {
     background: linear-gradient(
     90deg,
-    #84620b,
-    #cea71f
+    #65142e,
+    #a93859
   );
 }
 
@@ -2147,7 +2147,7 @@ body {
 }
 
 .light .weekly-day-information strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .weekly-progress {
@@ -2157,22 +2157,22 @@ body {
 .light .weekly-progress-fill {
     background: linear-gradient(
     90deg,
-    #84620b,
-    #ceaa1f
+    #65142e,
+    #a93859
   );
 }
 
 .light .forecast-panel {
     background: radial-gradient(
       circle at top right,
-      rgba(168, 136, 32, 0.15),
+      rgba(122, 31, 61, 0.15),
       transparent 38%
     ),
     rgba(231, 231, 231, 0.96);
 }
 
 .light .forecast-small-label {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .forecast-heading h2 {
@@ -2187,8 +2187,8 @@ body {
     color: #ebebeb;
     background: linear-gradient(
     135deg,
-    #84610b,
-    #ecc218
+    #65142e,
+    #a93859
   );
 }
 
@@ -2198,7 +2198,7 @@ body {
 }
 
 .light .forecast-card:hover {
-    border-color: rgba(168, 136, 32, 0.25);
+    border-color: rgba(122, 31, 61, 0.25);
 }
 
 .light .forecast-card span {
@@ -2206,7 +2206,7 @@ body {
 }
 
 .light .forecast-card strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .forecast-card p {
@@ -2216,24 +2216,24 @@ body {
 .light .ai-summary-panel {
     background: linear-gradient(
       135deg,
-      rgba(168, 136, 32, 0.1),
-      rgba(168, 136, 32, 0.025)
+      rgba(122, 31, 61, 0.1),
+      rgba(122, 31, 61, 0.025)
     );
-    border-color: rgba(168, 136, 32, 0.22);
+    border-color: rgba(122, 31, 61, 0.22);
 }
 
 .light .ai-summary-icon {
     color: #ebebeb;
     background: linear-gradient(
     135deg,
-    #84620b,
-    #eabf13
+    #65142e,
+    #a93859
   );
-    box-shadow: 0 8px 22px rgba(168, 136, 32, 0.13);
+    box-shadow: 0 8px 22px rgba(122, 31, 61, 0.13);
 }
 
 .light .ai-summary-label {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .ai-summary-panel h2 {
@@ -2245,22 +2245,22 @@ body {
 }
 
 .light .ai-summary-tags span {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.08);
-    border: 1px solid rgba(168, 136, 32, 0.17);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.08);
+    border: 1px solid rgba(122, 31, 61, 0.17);
 }
 
 .light .open-intelligence-button {
     color: #ebebeb;
     background: linear-gradient(
     135deg,
-    #84600b,
-    #ecc218
+    #65142e,
+    #a93859
   );
 }
 
 .light .open-intelligence-button:hover {
-    box-shadow: 0 10px 25px rgba(168, 136, 32, 0.17);
+    box-shadow: 0 10px 25px rgba(122, 31, 61, 0.17);
 }
 
 .light .intelligence-modal-overlay {
@@ -2271,13 +2271,13 @@ body {
     color: #1a1a1a;
     background: radial-gradient(
       circle at top right,
-      rgba(168, 136, 32, 0.16),
+      rgba(122, 31, 61, 0.16),
       transparent 28%
     ),
     #e8e8e8;
-    border: 1px solid rgba(168, 136, 32, 0.27);
+    border: 1px solid rgba(122, 31, 61, 0.27);
     box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65),
-    0 0 50px rgba(168, 136, 32, 0.05);
+    0 0 50px rgba(122, 31, 61, 0.05);
 }
 
 .light .intelligence-modal::-webkit-scrollbar-track {
@@ -2289,7 +2289,7 @@ body {
 }
 
 .light .intelligence-modal::-webkit-scrollbar-thumb:hover {
-    background: #a88820;
+    background: #7a1f3d;
 }
 
 .light .intelligence-modal-header {
@@ -2297,7 +2297,7 @@ body {
 }
 
 .light .intelligence-report-label {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .intelligence-modal-header h2 {
@@ -2323,20 +2323,20 @@ body {
 .light .intelligence-welcome-card {
     background: linear-gradient(
       135deg,
-      rgba(168, 136, 32, 0.09),
-      rgba(168, 136, 32, 0.025)
+      rgba(122, 31, 61, 0.09),
+      rgba(122, 31, 61, 0.025)
     );
-    border: 1px solid rgba(168, 136, 32, 0.18);
+    border: 1px solid rgba(122, 31, 61, 0.18);
 }
 
 .light .intelligence-avatar {
     color: #ebebeb;
     background: linear-gradient(
     135deg,
-    #84600b,
-    #ecc218
+    #65142e,
+    #a93859
   );
-    box-shadow: 0 9px 22px rgba(168, 136, 32, 0.15);
+    box-shadow: 0 9px 22px rgba(122, 31, 61, 0.15);
 }
 
 .light .intelligence-welcome-card span {
@@ -2363,10 +2363,10 @@ body {
       transparent 58%
     ),
     conic-gradient(
-      #a88820 0deg 302deg,
+      #7a1f3d 0deg 302deg,
       #c9c9c9 302deg 360deg
     );
-    box-shadow: 0 0 25px rgba(168, 136, 32, 0.08);
+    box-shadow: 0 0 25px rgba(122, 31, 61, 0.08);
 }
 
 .light .intelligence-score-circle strong {
@@ -2397,7 +2397,7 @@ body {
 }
 
 .light .intelligence-report-card:hover {
-    border-color: rgba(168, 136, 32, 0.25);
+    border-color: rgba(122, 31, 61, 0.25);
 }
 
 .light .positive-report-card {
@@ -2421,8 +2421,8 @@ body {
 }
 
 .light .report-card-icon {
-    background: rgba(168, 136, 32, 0.08);
-    border: 1px solid rgba(168, 136, 32, 0.17);
+    background: rgba(122, 31, 61, 0.08);
+    border: 1px solid rgba(122, 31, 61, 0.17);
 }
 
 .light .intelligence-report-card > span {
@@ -2434,7 +2434,7 @@ body {
 }
 
 .light .intelligence-report-card > strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .positive-report-card > strong {
@@ -2458,8 +2458,8 @@ body {
     color: #ebebeb;
     background: linear-gradient(
     135deg,
-    #84600b,
-    #ecc218
+    #65142e,
+    #a93859
   );
 }
 
@@ -2477,9 +2477,9 @@ body {
 }
 
 .light .observation-number {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.08);
-    border: 1px solid rgba(168, 136, 32, 0.17);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.08);
+    border: 1px solid rgba(122, 31, 61, 0.17);
 }
 
 .light .observation-item p {
@@ -2487,30 +2487,30 @@ body {
 }
 
 .light .observation-item p strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .intelligence-recommendation {
     background: linear-gradient(
       135deg,
-      rgba(168, 136, 32, 0.12),
-      rgba(168, 136, 32, 0.03)
+      rgba(122, 31, 61, 0.12),
+      rgba(122, 31, 61, 0.03)
     );
-    border: 1px solid rgba(168, 136, 32, 0.23);
+    border: 1px solid rgba(122, 31, 61, 0.23);
 }
 
 .light .recommendation-symbol {
     color: #ebebeb;
     background: linear-gradient(
     135deg,
-    #84600b,
-    #ecc218
+    #65142e,
+    #a93859
   );
-    box-shadow: 0 9px 22px rgba(168, 136, 32, 0.13);
+    box-shadow: 0 9px 22px rgba(122, 31, 61, 0.13);
 }
 
 .light .intelligence-recommendation span {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .intelligence-recommendation h3 {
@@ -2522,24 +2522,24 @@ body {
 }
 
 .light .intelligence-secondary-button {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.07);
-    border: 1px solid rgba(168, 136, 32, 0.25);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.07);
+    border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .light .intelligence-secondary-button:hover {
-    background: rgba(168, 136, 32, 0.13);
+    background: rgba(122, 31, 61, 0.13);
 }
 
 .light .intelligence-done-button {
     color: #ebebeb;
     background: linear-gradient(
     135deg,
-    #84600b,
-    #ecc218
+    #65142e,
+    #a93859
   );
 }
 
 .light .intelligence-done-button:hover {
-    box-shadow: 0 9px 22px rgba(168, 136, 32, 0.16);
+    box-shadow: 0 9px 22px rgba(122, 31, 61, 0.16);
 }

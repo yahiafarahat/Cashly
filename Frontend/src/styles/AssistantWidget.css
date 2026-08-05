@@ -16,17 +16,17 @@
     display: grid;
     place-items: center;
     color: #111111;
-    background: #d4af37;
+    background: #7a1f3d;
     border: none;
     border-radius: 50%;
-    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.35);
+    box-shadow: 0 12px 30px rgba(122, 31, 61, 0.35);
     cursor: pointer;
     transition: 0.2s ease;
 }
 
 .assistant-widget-toggle:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 34px rgba(212, 175, 55, 0.45);
+    box-shadow: 0 14px 34px rgba(122, 31, 61, 0.45);
 }
 
 .assistant-widget-panel {
@@ -60,7 +60,7 @@
 }
 
 .assistant-widget-title svg {
-    color: #d4af37;
+    color: #7a1f3d;
 }
 
 .assistant-widget-close {
@@ -98,7 +98,7 @@
 
 .assistant-widget-empty svg {
     margin-bottom: 10px;
-    color: #d4af37;
+    color: #7a1f3d;
 }
 
 .assistant-widget-empty p {
@@ -133,9 +133,9 @@
 }
 
 .assistant-widget-message-user .assistant-widget-bubble {
-    color: #fbf3de;
-    background: rgba(212, 175, 55, 0.16);
-    border-color: rgba(212, 175, 55, 0.4);
+    color: #d98aa0;
+    background: rgba(122, 31, 61, 0.16);
+    border-color: rgba(122, 31, 61, 0.4);
 }
 
 .assistant-widget-typing {
@@ -204,8 +204,8 @@
 }
 
 .assistant-widget-form input:focus {
-    border-color: #d4af37;
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+    border-color: #7a1f3d;
+    box-shadow: 0 0 0 3px rgba(122, 31, 61, 0.12);
 }
 
 .assistant-widget-form input:disabled {
@@ -219,7 +219,7 @@
     display: grid;
     place-items: center;
     color: #111111;
-    background: #d4af37;
+    background: #7a1f3d;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -227,7 +227,7 @@
 }
 
 .assistant-widget-form button:hover:not(:disabled) {
-    background: #e0bd4d;
+    background: #a93859;
 }
 
 .assistant-widget-form button:disabled {
@@ -261,12 +261,12 @@
    ========================================================= */
 
 .light .assistant-widget-toggle {
-    background: #a88820;
-    box-shadow: 0 12px 30px rgba(168, 136, 32, 0.3);
+    background: #7a1f3d;
+    box-shadow: 0 12px 30px rgba(122, 31, 61, 0.3);
 }
 
 .light .assistant-widget-toggle:hover {
-    box-shadow: 0 14px 34px rgba(168, 136, 32, 0.38);
+    box-shadow: 0 14px 34px rgba(122, 31, 61, 0.38);
 }
 
 .light .assistant-widget-panel {
@@ -285,7 +285,7 @@
 }
 
 .light .assistant-widget-title svg {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .assistant-widget-close {
@@ -303,7 +303,7 @@
 }
 
 .light .assistant-widget-empty svg {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .assistant-widget-bubble {
@@ -313,9 +313,9 @@
 }
 
 .light .assistant-widget-message-user .assistant-widget-bubble {
-    color: #4a3a0c;
-    background: rgba(168, 136, 32, 0.14);
-    border-color: rgba(168, 136, 32, 0.35);
+    color: #65142e;
+    background: rgba(122, 31, 61, 0.14);
+    border-color: rgba(122, 31, 61, 0.35);
 }
 
 .light .assistant-widget-typing span {
@@ -337,16 +337,16 @@
 }
 
 .light .assistant-widget-form input:focus {
-    border-color: #a88820;
-    box-shadow: 0 0 0 3px rgba(168, 136, 32, 0.12);
+    border-color: #7a1f3d;
+    box-shadow: 0 0 0 3px rgba(122, 31, 61, 0.12);
 }
 
 .light .assistant-widget-form button {
-    background: #a88820;
+    background: #7a1f3d;
 }
 
 .light .assistant-widget-form button:hover:not(:disabled) {
-    background: #bd9a2c;
+    background: #a93859;
 }
 
 .light .assistant-widget-scroll::-webkit-scrollbar-thumb {

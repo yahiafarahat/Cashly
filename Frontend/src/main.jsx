@@ -5,11 +5,11 @@ import './styles/SharedShell.css'
 import './styles/Theme.css'
 import App from './App.jsx'
 
-let initialTheme = 'dark'
+let initialTheme = 'light'
 try {
-  initialTheme = JSON.parse(localStorage.getItem('cashlyAppearance'))?.theme || 'dark'
+  initialTheme = JSON.parse(localStorage.getItem('cashlyAppearance'))?.theme || 'light'
 } catch {
-  initialTheme = 'dark'
+  initialTheme = 'light'
 }
 document.documentElement.classList.toggle('dark', initialTheme === 'dark')
 document.documentElement.classList.toggle('light', initialTheme === 'light')

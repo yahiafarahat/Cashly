@@ -1,0 +1,148 @@
+/* Shared sidebar treatment and its expandable dashboard layout. */
+.app-sidebar {
+  overflow: hidden;
+  border-right: 0 !important;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(255, 255, 255, .82), transparent 30%),
+    linear-gradient(155deg, #fffaf2 0%, #f5ecdf 48%, #ebe0cf 100%) !important;
+  box-shadow: 14px 0 34px rgba(74, 48, 29, .08);
+  transition: width 360ms cubic-bezier(.22, .61, .36, 1), padding 360ms cubic-bezier(.22, .61, .36, 1), box-shadow 360ms ease;
+}
+
+.app-sidebar .sidebar-content {
+  display: flex;
+  min-height: calc(100vh - 56px);
+  flex: 1;
+  flex-direction: column;
+  transition: opacity 260ms ease, transform 360ms cubic-bezier(.22, .61, .36, 1);
+}
+
+.app-sidebar .sidebar-logo img,
+.app-sidebar .sidebar-logo h2,
+.app-sidebar .sidebar-link,
+.app-sidebar .logout-link,
+.app-sidebar .sidebar-label {
+  transition: opacity 220ms ease, max-width 300ms ease, margin 300ms ease, padding 360ms cubic-bezier(.22, .61, .36, 1), transform 300ms ease;
+}
+
+.app-sidebar .sidebar-label {
+  width: auto !important;
+  min-width: 0;
+  flex: 1 1 auto;
+  max-width: 160px;
+  overflow: hidden;
+  opacity: 1;
+  white-space: nowrap;
+}
+
+.app-sidebar .sidebar-logo h2 {
+  max-width: 160px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.app-sidebar.is-collapsed {
+  width: 76px !important;
+  padding: 22px 10px !important;
+  box-shadow: none;
+  cursor: e-resize;
+}
+
+.app-sidebar.is-collapsed .sidebar-content {
+  min-height: calc(100vh - 44px);
+}
+
+/* Keep the brand and familiar navigation icons visible in the compact rail. */
+.app-sidebar.is-collapsed .sidebar-logo {
+  justify-content: center;
+  margin-bottom: 34px;
+}
+
+.app-sidebar.is-collapsed .sidebar-logo img {
+  width: 42px;
+  height: 42px;
+}
+
+.app-sidebar.is-collapsed .sidebar-logo h2 {
+  max-width: 0;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+.app-sidebar.is-collapsed .sidebar-link,
+.app-sidebar.is-collapsed .logout-link {
+  justify-content: center;
+  padding: 13px 0;
+  gap: 0;
+}
+
+.app-sidebar.is-collapsed .sidebar-label {
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+.app-sidebar.is-collapsed .sidebar-link svg,
+.app-sidebar.is-collapsed .logout-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* :has keeps the behavior self-contained: every page using AppSidebar expands. */
+.dashboard-page:has(.app-sidebar.is-collapsed) .dashboard-main {
+  width: 100% !important;
+  margin-left: 0 !important;
+  padding-left: clamp(28px, 6vw, 92px);
+  padding-right: clamp(28px, 6vw, 92px);
+  transition: width 280ms ease, margin-left 280ms ease, padding 280ms ease;
+}
+
+/* Analytics does not use the shared .dashboard-main class. */
+.analytics-simple-page:has(.app-sidebar.is-collapsed) .analytics-simple-main {
+  width: 100% !important;
+  margin-left: 0 !important;
+  padding-left: clamp(28px, 6vw, 92px);
+  padding-right: clamp(28px, 6vw, 92px);
+  transition: width 280ms ease, margin-left 280ms ease, padding 280ms ease;
+}
+
+/* Challenges has its own main container, like Analytics. */
+.smart-actions-page:has(.app-sidebar.is-collapsed) .smart-actions-main {
+  width: 100% !important;
+  margin-left: 0 !important;
+  padding-left: clamp(28px, 6vw, 92px);
+  padding-right: clamp(28px, 6vw, 92px);
+  transition: width 280ms ease, margin-left 280ms ease, padding 280ms ease;
+}
+
+/* The Transactions page has a full-width inner layout, so constrain it when expanded. */
+.dashboard-page:has(.app-sidebar.is-collapsed) .transactions-header,
+.dashboard-page:has(.app-sidebar.is-collapsed) .transactions-content {
+  width: min(100% - 56px, 1240px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.dashboard-main {
+  transition: width 280ms ease, margin-left 280ms ease, padding 280ms ease;
+}
+
+.light .app-sidebar {
+  background:
+    radial-gradient(circle at 18% 10%, rgba(255, 255, 255, .86), transparent 30%),
+    linear-gradient(155deg, #fffaf2 0%, #f5ecdf 48%, #ebe0cf 100%) !important;
+}
+
+@media (max-width: 850px) {
+  .dashboard-page:has(.app-sidebar.is-collapsed) .dashboard-main { padding-left: 22px; padding-right: 22px; }
+  .analytics-simple-page:has(.app-sidebar.is-collapsed) .analytics-simple-main { padding-left: 22px; padding-right: 22px; }
+  .smart-actions-page:has(.app-sidebar.is-collapsed) .smart-actions-main { padding-left: 22px; padding-right: 22px; }
+}
+
+@media (max-width: 600px) {
+  .dashboard-page:has(.app-sidebar.is-collapsed) .dashboard-main { padding-left: 18px; padding-right: 18px; }
+  .analytics-simple-page:has(.app-sidebar.is-collapsed) .analytics-simple-main { padding-left: 18px; padding-right: 18px; }
+  .smart-actions-page:has(.app-sidebar.is-collapsed) .smart-actions-main { padding-left: 18px; padding-right: 18px; }
+}
