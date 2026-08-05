@@ -7,115 +7,16 @@ import "../styles/Dashboard.css";
 import "../styles/Transactions.css";
 import AppSidebar from "../components/AppSidebar";
 import UserProfile from "../components/UserProfile";
+import TransactionFormModal from "../components/TransactionFormModal";
 import {
-    createTransaction,
     deleteTransaction as deleteTransactionRequest,
     fetchTransactions,
-    updateTransaction,
 } from "../services/transactions";
-const currencyOptions = {
-    EGP: { label: "Egyptian Pound", symbol: "EGP", rate: 1 },
-    USD: { label: "US Dollar", symbol: "$", rate: 0.0203 },
-    EUR: { label: "Euro", symbol: "€", rate: 0.0175 },
-    GBP: { label: "British Pound", symbol: "£", rate: 0.0152 },
-    SAR: { label: "Saudi Riyal", symbol: "SAR", rate: 0.0761 },
-    AED: { label: "UAE Dirham", symbol: "AED", rate: 0.0746 },
-};
-
-const categories = [
-    "Groceries",
-    "Dining & Coffee",
-    "Transportation",
-    "Fashion",
-    "Beauty & Personal Care",
-    "Fuel & Car",
-    "Bills & Utilities",
-    "Entertainment",
-    "Healthcare",
-    "Education",
-    "Transfers",
-    "Subscriptions",
-    "Other",
-];
-
-const paymentMethods = [
-    "Cash",
-    "Debit Card",
-    "Credit Card",
-    "InstaPay",
-    "Mobile Wallet",
-    "Bank Transfer",
-];
-
-// Keyword-based auto-categorizer. Checked in order, first match wins — no
-// LLM call, just plain substring matching against the typed description.
-const CATEGORY_KEYWORDS = [
-    { category: "Groceries", keywords: ["grocery", "groceries", "spinneys", "carrefour", "seoudi", "gourmet", "kazyon", "hyperone", "supermarket", "market"] },
-    { category: "Dining & Coffee", keywords: ["coffee", "cafe", "café", "restaurant", "starbucks", "costa", "dunkin", "mcdonald", "kfc", "burger", "pizza", "dining", "lunch", "dinner", "breakfast", "talabat", "uber eats", "ubereats", "shawarma", "koshary"] },
-    { category: "Transportation", keywords: ["uber", "careem", "indrive", "taxi", "ride", "bus fare", "train ticket", "metro ticket", "parking"] },
-    { category: "Fuel & Car", keywords: ["shell", "totalenergies", "total energies", "chillout", "fuel", "petrol", "gas station", "car service", "car wash", "tire", "oil change"] },
-    { category: "Fashion", keywords: ["zara", "h&m", "bershka", "pull&bear", "pull & bear", "clothes", "clothing", "shoes", "fashion", "mall", "outfit"] },
-    { category: "Beauty & Personal Care", keywords: ["sephora", "faces", "mazaya", "salon", "spa", "cosmetics", "skincare", "haircut", "barber", "makeup", "perfume"] },
-    { category: "Bills & Utilities", keywords: ["electricity", "water bill", "internet bill", "wifi bill", "phone bill", "utility", "utilities", "rent", "landline"] },
-    { category: "Entertainment", keywords: ["netflix", "cinema", "movie", "concert", "spotify", "game", "playstation", "xbox", "entertainment", "theatre", "theater"] },
-    { category: "Healthcare", keywords: ["pharmacy", "doctor", "hospital", "clinic", "dental", "dentist", "medicine", "prescription", "health"] },
-    { category: "Education", keywords: ["course", "tuition", "school", "university", "udemy", "coursera", "textbook"] },
-    { category: "Transfers", keywords: ["transfer", "instapay", "send money", "remit"] },
-    { category: "Subscriptions", keywords: ["subscription", "membership", "icloud", "prime"] },
-];
-
-function categorizeDescription(description) {
-    const text = description.trim().toLowerCase();
-
-    if (!text) return null;
-
-    const match = CATEGORY_KEYWORDS.find(({ keywords }) =>
-        keywords.some((keyword) => text.includes(keyword))
-    );
-
-    return match ? match.category : null;
-}
-
-function createEmptyForm() {
-    const now = new Date();
-
-    return {
-        description: "",
-        category: "Other",
-        date: now.toISOString().slice(0, 10),
-        time: now.toTimeString().slice(0, 5),
-        paymentMethod: "Debit Card",
-        status: "Completed",
-        currency: "EGP",
-        exchangeRateToEGP: 1,
-        rateUpdatedAt: "",
-        price: "",
-        fees: "",
-        discount: "",
-    };
-}
-
-function getTransactionTotal(transaction) {
-    // Persisted transactions include `amount`, the EGP total calculated at
-    // save time. Use it for history rather than reinterpreting the price
-    // (which may have been entered in USD or another currency).
-    if (Number.isFinite(Number(transaction.amount))) {
-        return Number(transaction.amount);
-    }
-
-    const originalTotal = (
-        Number(transaction.price || 0) +
-        Number(transaction.fees || 0) -
-        Number(transaction.discount || 0)
-    );
-
-    return originalTotal * Number(transaction.exchangeRateToEGP || 1);
-}
-
-function getOriginalTransactionTotal(transaction) {
-    const rate = Number(transaction.exchangeRateToEGP || 1);
-    return getTransactionTotal(transaction) / rate;
-}
+import {
+    currencyOptions,
+    categories,
+    getTransactionTotal,
+} from "../utils/transactionForm";
 
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
@@ -128,10 +29,10 @@ const [transactionError, setTransactionError] = useState("");
     const [currency, setCurrency] = useState("EGP");
 
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [formData, setFormData] = useState(createEmptyForm);
-    const [isCategoryAutoAssigned, setIsCategoryAutoAssigned] = useState(true);
-    const [rateStatus, setRateStatus] = useState("idle");
-    const [rateError, setRateError] = useState("");
+    const [formSeed, setFormSeed] = useState(null);
+    // Bumped every time the form is (re)opened so TransactionFormModal remounts
+    // with a clean slate instead of syncing prop changes through an effect.
+    const [formSessionId, setFormSessionId] = useState(0);
     const [selectedTransaction, setSelectedTransaction] =
         useState(null);
     const [editingTransactionId, setEditingTransactionId] =
@@ -189,139 +90,38 @@ const [transactionError, setTransactionError] = useState("");
         }).format(Number(amount || 0));
     }
 
-    useEffect(() => {
-        if (!isFormOpen) return;
-        if (formData.currency === "EGP") {
-            setFormData((current) => ({ ...current, exchangeRateToEGP: 1, rateUpdatedAt: new Date().toISOString() }));
-            setRateStatus("ready");
-            setRateError("");
-            return;
-        }
-
-        const controller = new AbortController();
-        setRateStatus("loading");
-        setRateError("");
-        fetch(`https://open.er-api.com/v6/latest/${formData.currency}`, { signal: controller.signal })
-            .then((response) => {
-                if (!response.ok) throw new Error("Rate service unavailable");
-                return response.json();
-            })
-            .then((data) => {
-                const rate = Number(data?.rates?.EGP);
-                if (data?.result !== "success" || !Number.isFinite(rate) || rate <= 0) throw new Error("Invalid rate");
-                setFormData((current) => ({ ...current, exchangeRateToEGP: rate, rateUpdatedAt: data.time_last_update_utc || new Date().toISOString() }));
-                setRateStatus("ready");
-            })
-            .catch((error) => {
-                if (error.name === "AbortError") return;
-                setRateStatus("error");
-                setRateError("Current exchange rate could not be loaded. Try again before saving.");
-            });
-        return () => controller.abort();
-    }, [formData.currency, isFormOpen]);
-
-    function updateFormField(event) {
-        const { name, value } = event.target;
-
-        setFormData((currentForm) => ({
-            ...currentForm,
-            [name]: value,
-        }));
-    }
-
-    function updateDescription(event) {
-        const description = event.target.value;
-
-        setFormData((currentForm) => {
-            const suggestedCategory = isCategoryAutoAssigned
-                ? categorizeDescription(description)
-                : null;
-
-            return {
-                ...currentForm,
-                description,
-                category: suggestedCategory || currentForm.category,
-            };
-        });
-    }
-
-    function updateCategory(event) {
-        setIsCategoryAutoAssigned(false);
-        updateFormField(event);
-    }
-
     function openAddForm() {
-        setFormData(createEmptyForm());
-        setIsCategoryAutoAssigned(true);
+        setFormSeed(null);
         setEditingTransactionId(null);
+        setFormSessionId((current) => current + 1);
         setIsFormOpen(true);
     }
 
     function closeAddForm() {
         setIsFormOpen(false);
-        setFormData(createEmptyForm());
-        setIsCategoryAutoAssigned(true);
+        setFormSeed(null);
         setEditingTransactionId(null);
     }
 
     function openEditForm(transaction) {
-        const { amount, ...transactionForm } = transaction;
-        setFormData({
-            ...transactionForm,
-            price: Number(transaction.price),
-        });
-        setIsCategoryAutoAssigned(false);
+        setFormSeed(transaction);
         setEditingTransactionId(transaction.id);
+        setFormSessionId((current) => current + 1);
         setSelectedTransaction(null);
         setIsFormOpen(true);
     }
 
-    async function submitTransaction(event) {
-        event.preventDefault();
-
-        if (formData.currency !== "EGP" && rateStatus !== "ready") {
-            setRateError("A current exchange rate is required before this transaction can be saved.");
-            return;
-        }
-
-        if (formData.description.trim() === "" || !(Number(formData.price) > 0)) {
-            return;
-        }
-
-        const newTransaction = {
-            ...formData,
-            id: Date.now(),
-            price: Number(formData.price),
-            fees: Number(formData.fees || 0),
-            discount: Number(formData.discount || 0),
-        };
-
-        try {
-            setTransactionError("");
-            const savedTransaction = editingTransactionId
-                ? await updateTransaction(
-                    editingTransactionId,
-                    newTransaction,
-                    getTransactionTotal(newTransaction)
+    function handleTransactionSaved(savedTransaction, { isEdit }) {
+        setTransactions((currentTransactions) =>
+            isEdit
+                ? currentTransactions.map((transaction) =>
+                    transaction.id === savedTransaction.id
+                        ? savedTransaction
+                        : transaction
                 )
-                : await createTransaction(
-                    newTransaction,
-                    getTransactionTotal(newTransaction)
-                );
-
-            setTransactions((currentTransactions) =>
-                editingTransactionId
-                    ? currentTransactions.map((transaction) =>
-                        transaction.id === editingTransactionId
-                            ? savedTransaction
-                            : transaction
-                    )
-                    : [savedTransaction, ...currentTransactions]
-            );
-            closeAddForm();
-        } catch (error) {
-            setTransactionError(error.message);
-        }
+                : [savedTransaction, ...currentTransactions]
+        );
+        closeAddForm();
     }
 
     async function deleteTransaction(transactionId) {
@@ -340,15 +140,14 @@ const [transactionError, setTransactionError] = useState("");
     }
 
     function repeatTransaction(transaction) {
-        const { amount, ...transactionForm } = transaction;
-        setFormData({
-            ...transactionForm,
+        setFormSeed({
+            ...transaction,
             date: new Date().toISOString().slice(0, 10),
             time: new Date().toTimeString().slice(0, 5),
         });
 
-        setIsCategoryAutoAssigned(false);
         setEditingTransactionId(null);
+        setFormSessionId((current) => current + 1);
         setSelectedTransaction(null);
         setIsFormOpen(true);
     }
@@ -469,9 +268,6 @@ const [transactionError, setTransactionError] = useState("");
             highest: totals.length === 0 ? 0 : Math.max(...totals),
         };
     }, [transactions]);
-
-    const formTotal = getTransactionTotal(formData);
-    const formOriginalTotal = getOriginalTransactionTotal(formData);
 
     return (
         <div className="dashboard-page transactions-page">
@@ -836,238 +632,14 @@ const [transactionError, setTransactionError] = useState("");
                 </section>
             </main>
 
-            {isFormOpen && (
-                <div
-                    className="transaction-modal-overlay"
-                    onMouseDown={closeAddForm}
-                >
-                    <form
-                        className="transaction-form-modal"
-                        onSubmit={submitTransaction}
-                        onMouseDown={(event) => event.stopPropagation()}
-                    >
-                        <div className="transaction-modal-header">
-                            <div>
-                                <span className="transactions-eyebrow">
-                                    {editingTransactionId
-                                        ? "Edit financial record"
-                                        : "New financial record"}
-                                </span>
-                                <h2>
-                                    {editingTransactionId
-                                        ? "Edit transaction"
-                                        : "Add transaction"}
-                                </h2>
-                                <p>
-                                    Add the description, price, and purchase
-                                    information for this payment.
-                                </p>
-                            </div>
-
-                            <button
-                                className="transaction-close-button"
-                                type="button"
-                                onClick={closeAddForm}
-                            >
-                                ×
-                            </button>
-                        </div>
-
-                        <div className="transaction-form-scroll">
-                            <section className="form-section">
-                                <div className="form-section-heading">
-                                    <span>01</span>
-                                    <div>
-                                        <h3>Transaction details</h3>
-                                        <p>What was this purchase, and when did it happen?</p>
-                                    </div>
-                                </div>
-
-                                <div className="transaction-form-grid">
-                                    <label className="wide-field transaction-currency-field">
-                                        <span>Transaction currency *</span>
-                                        <select name="currency" value={formData.currency} onChange={updateFormField}>
-                                            {Object.entries(currencyOptions).map(([code, option]) => (
-                                                <option value={code} key={code}>{code} — {option.label}</option>
-                                            ))}
-                                        </select>
-                                        <small className={`exchange-rate-note ${rateStatus}`}>
-                                            {formData.currency === "EGP" && "Recorded directly in Egyptian pounds."}
-                                            {formData.currency !== "EGP" && rateStatus === "loading" && "Loading the latest EGP exchange rate…"}
-                                            {formData.currency !== "EGP" && rateStatus === "ready" && `1 ${formData.currency} = ${Number(formData.exchangeRateToEGP).toFixed(4)} EGP`}
-                                            {rateStatus === "error" && rateError}
-                                        </small>
-                                    </label>
-                                    <label className="wide-field">
-                                        <span>Description *</span>
-                                        <input
-                                            name="description"
-                                            placeholder="Example: Groceries at Spinneys"
-                                            value={formData.description}
-                                            onChange={updateDescription}
-                                            required
-                                        />
-                                    </label>
-
-                                    <label>
-                                        <span>Price in {formData.currency} *</span>
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            step="0.01"
-                                            name="price"
-                                            placeholder="0"
-                                            value={formData.price}
-                                            onChange={updateFormField}
-                                            required
-                                        />
-                                    </label>
-
-                                    <label>
-                                        <span>
-                                            Category
-                                            {isCategoryAutoAssigned && formData.description.trim() !== "" && (
-                                                <i className="auto-category-tag">Auto-detected</i>
-                                            )}
-                                        </span>
-                                        <select
-                                            name="category"
-                                            value={formData.category}
-                                            onChange={updateCategory}
-                                        >
-                                            {categories.map((category) => (
-                                                <option value={category} key={category}>
-                                                    {category}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </label>
-
-                                    <label>
-                                        <span>Payment method</span>
-                                        <select
-                                            name="paymentMethod"
-                                            value={formData.paymentMethod}
-                                            onChange={updateFormField}
-                                        >
-                                            {paymentMethods.map((method) => (
-                                                <option value={method} key={method}>
-                                                    {method}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </label>
-
-                                    <label>
-                                        <span>Date of purchase *</span>
-                                        <input
-                                            type="date"
-                                            name="date"
-                                            value={formData.date}
-                                            onChange={updateFormField}
-                                            required
-                                        />
-                                    </label>
-
-                                    <label>
-                                        <span>Time *</span>
-                                        <input
-                                            type="time"
-                                            name="time"
-                                            value={formData.time}
-                                            onChange={updateFormField}
-                                            required
-                                        />
-                                    </label>
-
-                                    <label>
-                                        <span>Status</span>
-                                        <select
-                                            name="status"
-                                            value={formData.status}
-                                            onChange={updateFormField}
-                                        >
-                                            <option value="Completed">Completed</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Refunded">Refunded</option>
-                                            <option value="Cancelled">Cancelled</option>
-                                        </select>
-                                    </label>
-                                </div>
-                            </section>
-
-                            <section className="form-section">
-                                <div className="form-section-heading">
-                                    <span>02</span>
-                                    <div>
-                                        <h3>Additional information</h3>
-                                        <p>
-                                            Include discounts or fees applied to this payment.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="transaction-form-grid">
-                                    <label>
-                                        <span>Additional fees ({formData.currency})</span>
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            step="0.01"
-                                            name="fees"
-                                            placeholder="0"
-                                            value={formData.fees}
-                                            onChange={updateFormField}
-                                        />
-                                    </label>
-
-                                    <label>
-                                        <span>Discount ({formData.currency})</span>
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            step="0.01"
-                                            name="discount"
-                                            placeholder="0"
-                                            value={formData.discount}
-                                            onChange={updateFormField}
-                                        />
-                                    </label>
-                                </div>
-                            </section>
-                        </div>
-
-                        <div className="transaction-form-footer">
-                            <div className="form-total">
-                                <span>Transaction total</span>
-                                <strong>{formatMoney(formOriginalTotal, formData.currency)}</strong>
-                                {formData.currency !== "EGP" && rateStatus === "ready" && <small>About {formatMoney(formTotal)} at the saved rate</small>}
-                            </div>
-
-                            <div className="form-footer-buttons">
-                                <button
-                                    className="cancel-transaction-button"
-                                    type="button"
-                                    onClick={closeAddForm}
-                                >
-                                    Cancel
-                                </button>
-
-                                <button
-                                    className="save-transaction-button"
-                                    type="submit"
-                                    disabled={formData.currency !== "EGP" && rateStatus !== "ready"}
-                                >
-                                    {editingTransactionId
-                                        ? "Save changes"
-                                        : "Save transaction"}
-                                </button>
-                            </div>
-                        </div>
-                        <a className="exchange-rate-attribution" href="https://www.exchangerate-api.com" target="_blank" rel="noreferrer">Rates by ExchangeRate-API</a>
-                    </form>
-                </div>
-            )}
+            <TransactionFormModal
+                key={formSessionId}
+                open={isFormOpen}
+                initialTransaction={formSeed}
+                editingTransactionId={editingTransactionId}
+                onClose={closeAddForm}
+                onSaved={handleTransactionSaved}
+            />
 
             {selectedTransaction && (
                 <div

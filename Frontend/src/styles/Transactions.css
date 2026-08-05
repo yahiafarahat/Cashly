@@ -987,6 +987,9 @@
     font-size: 10px;
     font-weight: 500;}
 
+.form-total small.error {
+    color: #e1847e;}
+
 .save-transaction-button:disabled {
     opacity: .45;
     cursor: not-allowed;}
@@ -1311,6 +1314,9 @@
 
 .light .form-total strong {
     color: #1c1f25;}
+
+.light .form-total small.error {
+    color: #a14343;}
 
 .light .cancel-transaction-button {
     color: #6f727b;
