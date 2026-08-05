@@ -14,6 +14,7 @@ import Transactions from "./pages/Transactions";
 import Settings from "./pages/Settings";
 import BudgetGroups from "./pages/BudgetGroups";
 import AssistantWidget from "./components/AssistantWidget";
+import Welcome from "./pages/Welcome";
 
 const ASSISTANT_HIDDEN_PATHS = ["/", "/login", "/signup"];
 
@@ -24,7 +25,7 @@ function AppShell() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
 
