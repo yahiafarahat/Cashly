@@ -53,7 +53,7 @@ function AppSidebar({ active }) {
           <Link className={`sidebar-link ${active === key ? "active" : ""}`} to={to} key={key} onClick={(event) => handlePageNavigation(event, to)}><ItemIcon size={20}/><span className="sidebar-label">{label}</span></Link>
         ))}
       </nav>
-      <Link className="logout-link" to="/login" onClick={logoutUser}><LogOut size={20}/><span className="sidebar-label">Logout</span></Link>
+      <Link className="logout-link" to="/" onClick={logoutUser}><LogOut size={20}/><span className="sidebar-label">Logout</span></Link>
       </div>
     </aside>
   );

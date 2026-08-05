@@ -1,7 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-
-import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
+import {
+  ArrowUpRight,
+  ChevronRight,
+  Gauge,
+  Hash,
+  Plus,
+  Search,
+  SlidersHorizontal,
+  Trophy,
+  X,
+} from "lucide-react";
 
 import "../styles/Dashboard.css";
 import "../styles/Transactions.css";
@@ -45,10 +53,6 @@ const [transactionError, setTransactionError] = useState("");
     const [maximumPrice, setMaximumPrice] = useState("");
     const [sortBy, setSortBy] = useState("newest");
     const [showMoreFilters, setShowMoreFilters] = useState(false);
-
-    const userName =
-        localStorage.getItem("cashlyUserName") || "Cashly User";
-    const firstLetter = userName.charAt(0).toUpperCase();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -272,47 +276,9 @@ const [transactionError, setTransactionError] = useState("");
     return (
         <div className="dashboard-page transactions-page">
             <AppSidebar active="transactions" />
-            <aside className="legacy-sidebar" aria-hidden="true">
-                <div className="sidebar-logo">
-                    <img src={cashlyLogo} alt="Cashly Logo" />
-                    <h2>Cashly</h2>
-                </div>
-
-                <nav className="sidebar-menu">
-                    <Link className="sidebar-link" to="/dashboard">
-                        <span>⌂</span>
-                        Dashboard
-                    </Link>
-
-                    <Link
-                        className="sidebar-link active"
-                        to="/transactions"
-                    >
-                        <span>↔</span>
-                        Transactions
-                    </Link>
-
-                    <Link className="sidebar-link" to="/analytics">
-                        <span>◫</span>
-                        Analytics
-                    </Link>
-
-                    <Link className="sidebar-link" to="/challenges">
-                        <span>★</span>
-                        Challenges
-                    </Link>
-
-                    <Link className="sidebar-link" to="/settings">
-                        <span>⚙</span>
-                        Settings
-                    </Link>
-                </nav>
-
-                <Link className="logout-link" to="/login">
-                    <span>←</span>
-                    Logout
-                </Link>
-            </aside>
+            <div className="transactions-dot-grid" />
+            <div className="transactions-blob transactions-blob-one" />
+            <div className="transactions-blob transactions-blob-two" />
 
             <main className="dashboard-main transactions-main">
                 <header className="transactions-header">
@@ -351,7 +317,7 @@ const [transactionError, setTransactionError] = useState("");
                             type="button"
                             onClick={openAddForm}
                         >
-                            <span>＋</span>
+                            <span><Plus size={17} /></span>
                             Add Transaction
                         </button>
 
@@ -362,7 +328,7 @@ const [transactionError, setTransactionError] = useState("");
                 <section className="transactions-content">
                     <div className="transaction-summary-grid">
                         <article className="transaction-summary-card">
-                            <div className="summary-card-icon">↗</div>
+                            <div className="summary-card-icon"><ArrowUpRight size={18} /></div>
                             <div>
                                 <span>Total spent</span>
                                 <strong>
@@ -373,7 +339,7 @@ const [transactionError, setTransactionError] = useState("");
                         </article>
 
                         <article className="transaction-summary-card">
-                            <div className="summary-card-icon">#</div>
+                            <div className="summary-card-icon"><Hash size={18} /></div>
                             <div>
                                 <span>Transactions</span>
                                 <strong>
@@ -384,7 +350,7 @@ const [transactionError, setTransactionError] = useState("");
                         </article>
 
                         <article className="transaction-summary-card">
-                            <div className="summary-card-icon">≈</div>
+                            <div className="summary-card-icon"><Gauge size={18} /></div>
                             <div>
                                 <span>Average value</span>
                                 <strong>
@@ -395,7 +361,7 @@ const [transactionError, setTransactionError] = useState("");
                         </article>
 
                         <article className="transaction-summary-card">
-                            <div className="summary-card-icon">↑</div>
+                            <div className="summary-card-icon"><Trophy size={18} /></div>
                             <div>
                                 <span>Highest transaction</span>
                                 <strong>
@@ -426,7 +392,7 @@ const [transactionError, setTransactionError] = useState("");
 
                         <div className="transaction-filter-bar">
                             <div className="transaction-search-box">
-                                <span>⌕</span>
+                                <Search size={16} />
                                 <input
                                     type="text"
                                     placeholder="Search description, category..."
@@ -473,7 +439,7 @@ const [transactionError, setTransactionError] = useState("");
                                     )
                                 }
                             >
-                                ☷ More filters
+                                <SlidersHorizontal size={15} /> More filters
                             </button>
                         </div>
 
@@ -607,7 +573,7 @@ const [transactionError, setTransactionError] = useState("");
                                                     }
                                                     aria-label={`View ${transaction.description} transaction`}
                                                 >
-                                                    ›
+                                                    <ChevronRight size={16} />
                                                 </button>
                                             </td>
                                         </tr>
@@ -617,7 +583,7 @@ const [transactionError, setTransactionError] = useState("");
 
                             {filteredTransactions.length === 0 && (
                                 <div className="empty-transactions-state">
-                                    <div>⌕</div>
+                                    <div><Search size={20} /></div>
                                     <h3>No transactions found</h3>
                                     <p>
                                         Change your filters or record a new transaction.
@@ -673,7 +639,7 @@ const [transactionError, setTransactionError] = useState("");
                                 type="button"
                                 onClick={() => setSelectedTransaction(null)}
                             >
-                                ×
+                                <X size={18} />
                             </button>
                         </div>
 

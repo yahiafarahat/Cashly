@@ -1,6 +1,5 @@
 import { ArrowRight, ArrowUpRight, ChartNoAxesCombined, Sparkles, WalletCards } from "lucide-react";
 import { Link } from "react-router-dom";
-import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 import "../styles/Welcome.css";
 
 function Welcome() {
@@ -11,7 +10,7 @@ function Welcome() {
       <div className="welcome-grid" />
 
       <nav className="welcome-nav" aria-label="Main navigation">
-        <Link to="/" className="welcome-brand"><img src={cashlyLogo} alt="Cashly" /><span>Cashly</span></Link>
+        <Link to="/" className="welcome-brand"><span>Cashly</span></Link>
         <div className="welcome-nav-actions"><Link to="/login" className="welcome-sign-in">Log in</Link><Link to="/signup" className="welcome-nav-cta">Create account <ArrowRight size={17} /></Link></div>
       </nav>
 

@@ -63,15 +63,7 @@ function Challenges() {
           </div>
         </Card>
 
-        <Card className={`today-action ${todayComplete ? "complete" : ""}`}>
-          <div className="today-action-copy">
-            <Badge className="today-badge"><i /> TODAY&apos;S FOCUS</Badge>
-            <h2>{focus ? (todayComplete ? `You set aside ${formatMoney(focus.saving)} today.` : `Reduce ${focus.category.toLowerCase()} spending today.`) : "Record a transaction to get your first focus."}</h2>
-            <p>{focus ? `${focus.category} represents ${analytics?.category_breakdown?.[0]?.percent ?? 0}% of your spending this month. A 10% reduction could keep ${formatMoney(focus.saving)} available.` : "Cashly will create tailored actions once there is spending data to analyse."}</p>
-            {focus && <Button type="button" onClick={toggleTodayComplete}>{todayComplete ? <><Check size={18} />Completed</> : "I'll do this"}</Button>}
-          </div>
-          <div className="today-impact"><span>{todayComplete ? "Potential saving" : "Could keep"}</span><strong>{formatMoney(focus?.saving)}</strong><small>10% of your largest category</small></div>
-        </Card>
+        
 
         <section className="suggestions-section">
           <div className="actions-section-heading"><div><span><Sparkles size={15} />CASHLY NOTICED</span><h2>Suggestions made for you</h2></div><p>Updated from your latest transactions</p></div>

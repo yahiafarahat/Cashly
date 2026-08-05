@@ -14,7 +14,7 @@ import RecentTransactions from "../components/RecentTransactions";
 import TransactionFormModal from "../components/TransactionFormModal";
 import RadialProgress from "../components/ui/radial-progress";
 
-const POSITIVE_COLOR = "#6fcf97";
+const POSITIVE_COLOR = "#097969";
 const NEGATIVE_COLOR = "#eb7676";
 const ACCENT_COLOR = "#7a1f3d";
 
@@ -108,6 +108,10 @@ function Dashboard() {
   return (
     <div className="dashboard-page my-day-page">
       <AppSidebar active="day" />
+      <div className="my-day-dot-grid" />
+      <div className="my-day-blob my-day-blob-one" />
+      <div className="my-day-blob my-day-blob-two" />
+
       <main className="dashboard-main my-day-main">
         <header className="my-day-header">
           <div><span className="today-label">{todayLabel}</span><h1>Good afternoon, {firstName}.</h1><p>Here&apos;s what matters for your money today.</p></div>
@@ -136,12 +140,12 @@ function Dashboard() {
         <section className="summary-cards my-day-metrics">
           <article className="summary-card my-day-radial-card">
             <div className="summary-card-top">
-              <span>Total Daily Spent</span>
+              <span>Total daily spent</span>
             </div>
             <div className="flex justify-center py-2">
-              <RadialProgress percent={dailySpentPercent} color={dailySpentColor} size={184} thickness={16}>
-                <strong className="text-base font-semibold tracking-tight text-foreground">{formatMoney(todaySpent)}</strong>
-                <span className="text-[10px] uppercase tracking-wide text-muted-foreground">spent today</span>
+              <RadialProgress percent={dailySpentPercent} color={dailySpentColor} trackColor="var(--my-day-ring-track)" size={208} thickness={17}>
+                <strong className="text-[28px] font-bold tracking-tight text-foreground">{formatMoney(todaySpent)}</strong>
+                <span className="text-[11px] uppercase tracking-wide text-muted-foreground">spent today</span>
               </RadialProgress>
             </div>
             <p>{dailyBudget > 0 ? `${Math.round(dailySpentPercent)}% of your ${formatMoney(dailyBudget)} daily budget` : "Spent so far today"}</p>
@@ -149,12 +153,12 @@ function Dashboard() {
 
           <article className="summary-card my-day-radial-card">
             <div className="summary-card-top">
-              <span>Total Balance</span>
+              <span>Total balance</span>
             </div>
             <div className="flex justify-center py-2">
-              <RadialProgress percent={Math.abs(balancePercent)} color={balanceColor} size={184} thickness={16}>
-                <strong className="text-base font-semibold tracking-tight text-foreground">{formatMoney(totalBalance)}</strong>
-                <span className="text-[10px] uppercase tracking-wide text-muted-foreground">balance</span>
+              <RadialProgress percent={Math.abs(balancePercent)} color={balanceColor} trackColor="var(--my-day-ring-track)" size={208} thickness={17}>
+                <strong className="text-[28px] font-bold tracking-tight text-foreground">{formatMoney(totalBalance)}</strong>
+                <span className="text-[11px] uppercase tracking-wide text-muted-foreground">balance</span>
               </RadialProgress>
             </div>
             <p>{monthlyIncome === null ? "Add your monthly income in Settings" : "Monthly income minus expenses"}</p>
@@ -162,7 +166,7 @@ function Dashboard() {
 
           <article className="summary-card">
             <div className="summary-card-top">
-              <span>Financial Health Score</span>
+              <span>Financial health score</span>
             </div>
             <h2>{healthScore}<small> / 100</small></h2>
             <p>{healthStatus}</p>

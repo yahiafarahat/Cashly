@@ -396,6 +396,9 @@ function Analytics() {
   return (
     <div className="analytics-simple-page">
       <AppSidebar active="analytics" />
+      <div className="analytics-dot-grid" />
+      <div className="analytics-blob analytics-blob-one" />
+      <div className="analytics-blob analytics-blob-two" />
 
       <main className="analytics-simple-main">
         <header className="analytics-simple-header">
@@ -409,7 +412,7 @@ function Analytics() {
             </h1>
 
             <p>
-              A clear look at what changed —
+              A clear look at what changed,
               and what deserves your attention.
             </p>
           </div>

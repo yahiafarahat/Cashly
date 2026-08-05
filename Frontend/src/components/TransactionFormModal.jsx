@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { X } from "lucide-react";
 import { createTransaction, updateTransaction } from "../services/transactions";
 import { predictCategory } from "../services/categorization";
 import {
@@ -186,7 +187,7 @@ function TransactionFormModal({ open, initialTransaction = null, editingTransact
                     </div>
 
                     <button className="transaction-close-button" type="button" onClick={onClose}>
-                        ×
+                        <X size={18} />
                     </button>
                 </div>
 

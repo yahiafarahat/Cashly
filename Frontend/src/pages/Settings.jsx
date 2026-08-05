@@ -7,7 +7,7 @@ import "../styles/Dashboard.css";
 import "../styles/Settings.css";
 import AppSidebar from "../components/AppSidebar";
 import UserProfile from "../components/UserProfile";
-import { getCurrentUser, updateCurrentUserProfile } from "../services/auth";
+import { getCurrentUser, logoutUser, updateCurrentUserProfile } from "../services/auth";
 import { Bell, Database, Languages, Moon, Palette, ShieldCheck, Sun, UserRound, WalletCards } from "lucide-react";
 
 const settingsNavigationIcons = {
@@ -1059,7 +1059,7 @@ function Settings() {
                     </Link>
                 </nav>
 
-                <Link className="logout-link" to="/login">
+                <Link className="logout-link" to="/" onClick={logoutUser}>
                     <span>←</span>
                     {t.common.logout}
                 </Link>

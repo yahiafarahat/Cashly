@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 import cashlyLogo from "../assets/cashly-img-removebg-preview.png";
 import { registerUser } from "../services/auth";
@@ -8,7 +9,7 @@ import {
   validatePassword
 } from "../utils/validators";
 
-import "../styles/SignUp.css";
+import "../styles/Auth.css";
 
 
 function SignUp() {
@@ -19,6 +20,8 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] =
     useState("");
+  const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +59,11 @@ function SignUp() {
       return;
     }
 
+    if (!agreedToPrivacy || !agreedToTerms) {
+      setError("Please agree to the Privacy Policy and Terms & Conditions.");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -78,105 +86,116 @@ function SignUp() {
 
 
   return (
-    <div className="signup-page">
-      <div className="signup-card">
-        <img
-          className="signup-logo"
-          src={cashlyLogo}
-          alt="Cashly Logo"
-        />
+    <div className="auth-page">
+      <div className="auth-dot-grid" />
+      <div className="auth-blob auth-blob-one" />
+      <div className="auth-blob auth-blob-two" />
+      <div className="auth-blob auth-blob-three" />
 
-        <h1>Cashly</h1>
+      <div className="auth-card auth-card-wide">
+        <div className="auth-logo">
+          <img src={cashlyLogo} alt="Cashly" />
+        </div>
 
-        <p className="signup-welcome-text">
-          Create your account to get started
+        <h1 className="auth-title">Cashly</h1>
+
+        <p className="auth-subtitle">
+          Start your free space in under a minute.
         </p>
 
         {error && (
-          <p className="signup-error">
+          <p className="auth-error">
             {error}
           </p>
         )}
 
-        <form onSubmit={handleSignUp}>
-          <div className="signup-inputs">
-            <label htmlFor="signup-name">
-              Name
-            </label>
+        <form className="auth-form" onSubmit={handleSignUp}>
+          <div className="auth-field-row">
+            <div className="auth-field">
+              <label htmlFor="signup-name">
+                Name
+              </label>
 
-            <input
-              id="signup-name"
-              type="text"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(event) =>
-                setName(event.target.value)
-              }
-              disabled={isLoading}
-              required
-            />
+              <input
+                id="signup-name"
+                type="text"
+                placeholder="Your name"
+                value={name}
+                onChange={(event) =>
+                  setName(event.target.value)
+                }
+                disabled={isLoading}
+                required
+              />
+            </div>
+
+            <div className="auth-field">
+              <label htmlFor="signup-email">
+                Email
+              </label>
+
+              <input
+                id="signup-email"
+                type="email"
+                placeholder="name@example.com"
+                value={email}
+                onChange={(event) =>
+                  setEmail(event.target.value)
+                }
+                disabled={isLoading}
+                required
+              />
+            </div>
           </div>
 
-          <div className="signup-inputs">
-            <label htmlFor="signup-email">
-              Email
-            </label>
+          <div className="auth-field-row">
+            <div className="auth-field">
+              <label htmlFor="signup-password">
+                Password
+              </label>
 
-            <input
-              id="signup-email"
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(event) =>
-                setEmail(event.target.value)
-              }
-              disabled={isLoading}
-              required
-            />
+              <input
+                id="signup-password"
+                type="password"
+                placeholder="Create password"
+                value={password}
+                onChange={(event) =>
+                  setPassword(event.target.value)
+                }
+                disabled={isLoading}
+                required
+              />
+            </div>
+
+            <div className="auth-field">
+              <label htmlFor="confirm-password">
+                Confirm
+              </label>
+
+              <input
+                id="confirm-password"
+                type="password"
+                placeholder="Repeat password"
+                value={confirmPassword}
+                onChange={(event) =>
+                  setConfirmPassword(
+                    event.target.value
+                  )
+                }
+                disabled={isLoading}
+                required
+              />
+            </div>
           </div>
 
-          <div className="signup-inputs">
-            <label htmlFor="signup-password">
-              Password
-            </label>
-
-            <input
-              id="signup-password"
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(event) =>
-                setPassword(event.target.value)
-              }
-              disabled={isLoading}
-              required
-            />
-          </div>
-
-          <div className="signup-inputs">
-            <label htmlFor="confirm-password">
-              Confirm Password
-            </label>
-
-            <input
-              id="confirm-password"
-              type="password"
-              placeholder="Confirm your password"
-              value={confirmPassword}
-              onChange={(event) =>
-                setConfirmPassword(
-                  event.target.value
-                )
-              }
-              disabled={isLoading}
-              required
-            />
-          </div>
-
-          <div className="agreement">
+          <div className="auth-agreement">
             <input
               id="privacy-agreement"
               type="checkbox"
+              checked={agreedToPrivacy}
+              onChange={(event) =>
+                setAgreedToPrivacy(event.target.checked)
+              }
               disabled={isLoading}
               required
             />
@@ -184,15 +203,19 @@ function SignUp() {
             <label htmlFor="privacy-agreement">
               I agree to the{" "}
               <Link to="/privacy-policy">
-                Privacy Policy
+                privacy policy
               </Link>
             </label>
           </div>
 
-          <div className="agreement">
+          <div className="auth-agreement">
             <input
               id="terms-agreement"
               type="checkbox"
+              checked={agreedToTerms}
+              onChange={(event) =>
+                setAgreedToTerms(event.target.checked)
+              }
               disabled={isLoading}
               required
             />
@@ -200,68 +223,55 @@ function SignUp() {
             <label htmlFor="terms-agreement">
               I agree to the{" "}
               <Link to="/terms">
-                Terms &amp; Conditions
+                terms and conditions
               </Link>
             </label>
           </div>
 
           <button
-            className="signup-button"
+            className="auth-submit"
             type="submit"
             disabled={isLoading}
           >
-            {isLoading
-              ? "Creating account..."
-              : "Sign Up"}
+            {isLoading ? "Creating account..." : "Sign up"}
+            {!isLoading && <ArrowRight size={17} />}
           </button>
+
+          <div className="auth-divider">
+            <span>or continue with</span>
+          </div>
+
+          <div className="auth-social-row">
+            <button
+              className="auth-social-button"
+              type="button"
+              aria-label="Continue with Google"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
+                alt=""
+              />
+              Google
+            </button>
+
+            <button
+              className="auth-social-button"
+              type="button"
+              aria-label="Continue with Facebook"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
+                alt=""
+              />
+              Facebook
+            </button>
+          </div>
         </form>
 
-        <div className="continue-with">
-          <span>or continue with</span>
-        </div>
-
-        <div className="social-login">
-          <button
-            className="social-btn"
-            type="button"
-            aria-label="Continue with Google"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
-              alt="Google"
-            />
-          </button>
-
-          <button
-            className="social-btn"
-            type="button"
-            aria-label="Continue with Facebook"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
-              alt="Facebook"
-            />
-          </button>
-        </div>
-
-        <p className="signup-footer">
-          <Link to="/privacy-policy">
-            Privacy Policy
-          </Link>
-          {" | "}
-          <Link to="/terms">
-            Terms
-          </Link>
-          {" | "}
-          <Link to="/cookies">
-            Cookies
-          </Link>
-        </p>
-
-        <p className="login-text">
+        <p className="auth-switch">
           Already have an account?{" "}
           <Link to="/login">
-            Login
+            Log in
           </Link>
         </p>
       </div>

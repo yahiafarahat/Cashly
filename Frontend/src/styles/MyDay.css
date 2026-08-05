@@ -1,9 +1,13 @@
-.my-day-page { background: #0b0b0c; }
+.my-day-page { position: relative; overflow: hidden; isolation: isolate; background: #0b0b0c; }
 .my-day-page .dashboard-sidebar { z-index: 10; }
 .my-day-page .sidebar-link svg, .my-day-page .logout-link svg { flex: 0 0 auto; color: #7a1f3d; }
-.my-day-main { padding: 46px clamp(28px, 5vw, 76px) 64px; background: radial-gradient(circle at 82% -10%, rgba(122, 31, 61, .11), transparent 31%), #0b0b0c; }
+.my-day-dot-grid { position: absolute; inset: 0; z-index: 0; opacity: .1; background-image: radial-gradient(rgba(122, 31, 61, .4) 1px, transparent 1.5px); background-size: 26px 26px; pointer-events: none; }
+.my-day-blob { position: absolute; z-index: 0; border-radius: 50%; pointer-events: none; }
+.my-day-blob-one { width: 26vw; height: 26vw; top: -8vw; left: -6vw; background: rgba(122, 31, 61, .14); }
+.my-day-blob-two { width: 22vw; height: 22vw; bottom: -8vw; right: -4vw; background: rgba(217, 120, 146, .1); }
+.my-day-main { position: relative; z-index: 1; padding: 46px clamp(28px, 5vw, 76px) 64px; background: radial-gradient(circle at 82% -10%, rgba(122, 31, 61, .11), transparent 31%); }
 .my-day-header { max-width: 1120px; margin: 0 auto 38px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.my-day-header h1 { margin: 8px 0 8px; font-size: clamp(28px, 3vw, 42px); letter-spacing: -.04em; font-weight: 650; }
+.my-day-header h1 { margin: 8px 0 8px; font-family: Georgia, serif; font-size: clamp(28px, 3vw, 42px); letter-spacing: -.02em; font-weight: 400; }
 .my-day-header p { margin: 0; color: #8e8e94; font-size: 15px; }
 .today-label { color: #8e2949; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
 .my-day-header-actions { display: flex; align-items: center; gap: 14px; }
@@ -17,16 +21,16 @@
 .bills-section { max-width: 1120px; margin: 0 auto; }
 .section-heading { margin-bottom: 20px; display: flex; align-items: end; justify-content: space-between; }
 .section-kicker { display: flex; align-items: center; gap: 8px; color: #8e2949; font-size: 10px; font-weight: 750; letter-spacing: .17em; }
-.section-heading h2 { margin: 8px 0 0; font-size: 27px; letter-spacing: -.025em; }
+.section-heading h2 { margin: 8px 0 0; font-family: Georgia, serif; font-size: 27px; font-weight: 400; letter-spacing: -.01em; }
 .bills-total { display: flex; align-items: baseline; gap: 13px; }
 .bills-total span { color: #77777d; font-size: 12px; }
 .bills-total strong { color: #d98aa0; font-size: 17px; }
-.bills-list { overflow: hidden; border: 1px solid #29292c; border-radius: 18px; background: #141415; }
+.bills-list { overflow: hidden; border: 1px solid #303030; border-radius: 22px; background: rgba(24, 24, 24, .96); }
 .bill-row { min-height: 88px; padding: 15px 20px; display: grid; grid-template-columns: 50px minmax(150px, 1fr) 120px 125px 94px; align-items: center; gap: 16px; border-bottom: 1px solid #272729; transition: background .2s, opacity .2s; }
 .bill-row:last-child { border-bottom: 0; }
 .bill-row:hover { background: #181819; }
 .bill-row.paid { opacity: .48; }
-.bill-mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; font-weight: 800; }
+.bill-mark { width: 42px; height: 42px; display: grid; place-items: center; color: #d97892; background: rgba(217, 120, 146, .14); border-radius: 12px; font-weight: 800; }
 .bill-n { color: #e53935; background: rgba(229,57,53,.12); }
 .bill-e { color: #a93859; background: rgba(122, 31, 61,.11); }
 .bill-i { color: #64aeea; background: rgba(71,154,222,.12); }
@@ -43,9 +47,22 @@
 @media (max-width: 640px) { .my-day-header { margin-bottom: 28px; } .today-label { font-size: 9px; } .my-day-profile { display: none; } .section-heading { align-items: flex-start; gap: 14px; } .bills-total { align-items: flex-end; flex-direction: column; gap: 3px; } .bill-row { padding: 15px; grid-template-columns: 44px 1fr auto; gap: 11px; } .bill-amount { font-size: 12px; } .mark-paid { padding: 7px; } }
 
 /* My Day metric cards (Total Daily Spent / Total Balance / Financial Health) */
-.my-day-page .summary-cards.my-day-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1120px; margin: 0 auto 40px; }
-.my-day-page .summary-card .health-progress { margin-top: 10px; margin-bottom: 0; }
-.my-day-page .summary-card h2 small { color: #8e8e94; font-size: 13px; font-weight: 600; }
+.my-day-page { --my-day-ring-track: #2a2521; }
+.my-day-page .summary-cards.my-day-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1120px; margin: 0 auto 40px; gap: 24px; }
+.my-day-page .summary-card { padding: 32px; background: rgba(24, 24, 24, .96); border: 1px solid #303030; border-radius: 26px; }
+.my-day-page .summary-card:hover { border-color: rgba(217, 120, 146, .4); box-shadow: 0 16px 34px rgba(0, 0, 0, .28); }
+.my-day-page .summary-card-top span { font-size: 15px; color: #d6d3cd; }
+.my-day-page .summary-card p { margin-top: 14px; font-size: 14px; text-align: center; }
+.my-day-page .summary-card .health-progress { height: 9px; margin-top: 14px; margin-bottom: 0; background: var(--my-day-ring-track); }
+.my-day-page .summary-card .health-progress-fill { background: #a93859; }
+.my-day-page .summary-card h2 { font-size: 56px; font-weight: 700; line-height: 1; }
+.my-day-page .summary-card h2 small { color: #8e8e94; font-size: 15px; font-weight: 600; }
+.light .my-day-page { --my-day-ring-track: #e7dcc4; }
+.light .my-day-page .summary-card { background: #f5f0e6; border: 1px solid rgba(122, 31, 61, .14); box-shadow: 0 20px 50px rgba(70, 45, 31, .1); }
+.light .my-day-page .summary-card:hover { border-color: rgba(122, 31, 61, .3); box-shadow: 0 16px 34px rgba(70, 45, 31, .14); }
+.light .my-day-page .summary-card-top span { color: #3d3730; }
+.light .my-day-page .summary-card p { color: #57524b; }
+.light .my-day-page .summary-card .health-progress-fill { background: #7a1f3d; }
 @media (max-width: 1150px) { .my-day-page .summary-cards.my-day-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .my-day-page .my-day-header-actions { flex-wrap: wrap; justify-content: flex-end; } }
 @media (max-width: 600px) { .my-day-page .summary-cards.my-day-metrics { grid-template-columns: 1fr; } }
@@ -59,13 +76,26 @@
     background: #ebe6dc;
 }
 
+.light .my-day-dot-grid {
+    opacity: .28;
+    background-image: radial-gradient(rgba(122, 31, 61, .28) 1px, transparent 1.5px);
+}
+
+.light .my-day-blob-one {
+    background: rgba(122, 31, 61, .09);
+}
+
+.light .my-day-blob-two {
+    background: rgba(209, 173, 142, .32);
+}
+
 .light .my-day-page .sidebar-link svg,
 .light .my-day-page .logout-link svg {
     color: #7a1f3d;
 }
 
 .light .my-day-main {
-    background: radial-gradient(circle at 82% -10%, rgba(122, 31, 61, .11), transparent 31%), #ebe6dc;
+    background: radial-gradient(circle at 82% -10%, rgba(122, 31, 61, .11), transparent 31%);
 }
 
 .light .streak-badge {
@@ -114,8 +144,9 @@
 }
 
 .light .bills-list {
-    border: 1px solid #d3d3d6;
-    background: #ebe6dc;
+    border: 1px solid rgba(122, 31, 61, .14);
+    background: #f5f0e6;
+    box-shadow: 0 20px 50px rgba(70, 45, 31, .1);
 }
 
 .light .bill-row {
