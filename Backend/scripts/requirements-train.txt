@@ -1,0 +1,6 @@
+# Only needed to run train_categorization_model.py — a one-off offline
+# training tool, not a runtime dependency of the running backend. The
+# backend itself only needs scikit-learn + joblib (already in
+# Backend/requirements.txt) to load and serve the model this produces.
+datasets>=2.19
+huggingface_hub>=0.23

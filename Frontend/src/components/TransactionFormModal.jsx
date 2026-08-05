@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createTransaction, updateTransaction } from "../services/transactions";
+import { predictCategory } from "../services/categorization";
 import {
     currencyOptions,
     categories,
     paymentMethods,
-    categorizeDescription,
     createEmptyForm,
     getTransactionTotal,
     getOriginalTransactionTotal,
 } from "../utils/transactionForm";
+
+// Wait for a short pause in typing before predicting — avoids firing a
+// prediction (and re-render) on every keystroke while still feeling instant.
+const CATEGORY_PREDICTION_DEBOUNCE_MS = 300;
 
 function buildFormFromSeed(seedTransaction) {
     if (!seedTransaction) return createEmptyForm();
@@ -38,6 +42,22 @@ function TransactionFormModal({ open, initialTransaction = null, editingTransact
     const [rateStatus, setRateStatus] = useState("idle");
     const [rateError, setRateError] = useState("");
     const [submitError, setSubmitError] = useState("");
+
+    // Mirrors isCategoryAutoAssigned so the debounced prediction callback
+    // below always sees the latest value instead of the one captured when
+    // the timer was scheduled — a manual category change should always win,
+    // even if it happens while a prediction is still in flight.
+    const isCategoryAutoAssignedRef = useRef(isCategoryAutoAssigned);
+
+    useEffect(() => {
+        isCategoryAutoAssignedRef.current = isCategoryAutoAssigned;
+    }, [isCategoryAutoAssigned]);
+
+    const predictionTimeoutRef = useRef(null);
+
+    useEffect(() => {
+        return () => clearTimeout(predictionTimeoutRef.current);
+    }, []);
 
     useEffect(() => {
         if (!open) return;
@@ -85,17 +105,28 @@ function TransactionFormModal({ open, initialTransaction = null, editingTransact
     function updateDescription(event) {
         const description = event.target.value;
 
-        setFormData((currentForm) => {
-            const suggestedCategory = isCategoryAutoAssigned
-                ? categorizeDescription(description)
-                : null;
+        setFormData((currentForm) => ({ ...currentForm, description }));
 
-            return {
-                ...currentForm,
-                description,
-                category: suggestedCategory || currentForm.category,
-            };
-        });
+        clearTimeout(predictionTimeoutRef.current);
+
+        if (!isCategoryAutoAssigned) {
+            // The user already picked a category manually — never fight that.
+            return;
+        }
+
+        predictionTimeoutRef.current = setTimeout(async () => {
+            const prediction = await predictCategory(description);
+
+            if (!prediction || !isCategoryAutoAssignedRef.current) return;
+
+            setFormData((currentForm) => {
+                // The description kept changing after this prediction was
+                // requested — a newer prediction is already on the way.
+                if (currentForm.description !== description) return currentForm;
+
+                return { ...currentForm, category: prediction.category };
+            });
+        }, CATEGORY_PREDICTION_DEBOUNCE_MS);
     }
 
     function updateCategory(event) {

@@ -128,3 +128,14 @@ class AssistantAskRequest(BaseModel):
 
 class AssistantAskResponse(BaseModel):
     reply: str
+
+
+# ---------- Categorization Schemas ----------
+
+class CategorizeRequest(BaseModel):
+    description: str = Field(min_length=1, max_length=500)
+
+
+class CategorizeResponse(BaseModel):
+    category: str | None
+    confidence: float | None
