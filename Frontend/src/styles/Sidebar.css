@@ -6,7 +6,7 @@
     radial-gradient(circle at 18% 10%, rgba(255, 255, 255, .82), transparent 30%),
     linear-gradient(155deg, #fffaf2 0%, #f5ecdf 48%, #ebe0cf 100%) !important;
   box-shadow: 14px 0 34px rgba(74, 48, 29, .08);
-  transition: width 360ms cubic-bezier(.22, .61, .36, 1), padding 360ms cubic-bezier(.22, .61, .36, 1), box-shadow 360ms ease;
+  transition: width 200ms cubic-bezier(.22, .61, .36, 1), padding 200ms cubic-bezier(.22, .61, .36, 1), box-shadow 200ms ease;
 }
 
 .app-sidebar .sidebar-content {
@@ -14,7 +14,7 @@
   min-height: calc(100vh - 56px);
   flex: 1;
   flex-direction: column;
-  transition: opacity 260ms ease, transform 360ms cubic-bezier(.22, .61, .36, 1);
+  transition: opacity 160ms ease, transform 200ms cubic-bezier(.22, .61, .36, 1);
 }
 
 .app-sidebar .sidebar-logo img,
@@ -22,7 +22,7 @@
 .app-sidebar .sidebar-link,
 .app-sidebar .logout-link,
 .app-sidebar .sidebar-label {
-  transition: opacity 220ms ease, max-width 300ms ease, margin 300ms ease, padding 360ms cubic-bezier(.22, .61, .36, 1), transform 300ms ease;
+  transition: opacity 140ms ease, max-width 180ms ease, margin 180ms ease, padding 200ms cubic-bezier(.22, .61, .36, 1), transform 180ms ease;
 }
 
 .app-sidebar .sidebar-label {
@@ -32,6 +32,12 @@
   max-width: 160px;
   overflow: hidden;
   opacity: 1;
+  color: inherit;
+  font-family: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px !important;
+  font-weight: 620;
+  letter-spacing: -.015em;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
@@ -39,6 +45,21 @@
   max-width: 160px;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.app-sidebar .sidebar-link,
+.app-sidebar .logout-link {
+  min-height: 46px;
+}
+
+.app-sidebar .sidebar-link svg,
+.app-sidebar .logout-link svg {
+  width: 19px;
+  height: 19px;
+}
+
+.app-sidebar .sidebar-link.active .sidebar-label {
+  font-weight: 720;
 }
 
 .app-sidebar.is-collapsed {
@@ -92,29 +113,37 @@
 
 /* :has keeps the behavior self-contained: every page using AppSidebar expands. */
 .dashboard-page:has(.app-sidebar.is-collapsed) .dashboard-main {
-  width: 100% !important;
-  margin-left: 0 !important;
-  padding-left: clamp(28px, 6vw, 92px);
-  padding-right: clamp(28px, 6vw, 92px);
-  transition: width 280ms ease, margin-left 280ms ease, padding 280ms ease;
+  width: calc(100% - 76px) !important;
+  margin-left: 76px !important;
+  padding-left: clamp(28px, 4vw, 64px);
+  padding-right: clamp(28px, 4vw, 64px);
+  transition: width 200ms cubic-bezier(.22, .61, .36, 1), margin-left 200ms cubic-bezier(.22, .61, .36, 1), padding 200ms cubic-bezier(.22, .61, .36, 1);
 }
 
 /* Analytics does not use the shared .dashboard-main class. */
 .analytics-simple-page:has(.app-sidebar.is-collapsed) .analytics-simple-main {
-  width: 100% !important;
-  margin-left: 0 !important;
-  padding-left: clamp(28px, 6vw, 92px);
-  padding-right: clamp(28px, 6vw, 92px);
-  transition: width 280ms ease, margin-left 280ms ease, padding 280ms ease;
+  width: calc(100% - 76px) !important;
+  margin-left: 76px !important;
+  padding-left: clamp(28px, 4vw, 64px);
+  padding-right: clamp(28px, 4vw, 64px);
+  transition: width 200ms cubic-bezier(.22, .61, .36, 1), margin-left 200ms cubic-bezier(.22, .61, .36, 1), padding 200ms cubic-bezier(.22, .61, .36, 1);
 }
 
 /* Challenges has its own main container, like Analytics. */
 .smart-actions-page:has(.app-sidebar.is-collapsed) .smart-actions-main {
-  width: 100% !important;
-  margin-left: 0 !important;
-  padding-left: clamp(28px, 6vw, 92px);
-  padding-right: clamp(28px, 6vw, 92px);
-  transition: width 280ms ease, margin-left 280ms ease, padding 280ms ease;
+  width: calc(100% - 76px) !important;
+  margin-left: 76px !important;
+  padding-left: clamp(28px, 4vw, 64px);
+  padding-right: clamp(28px, 4vw, 64px);
+  transition: width 200ms cubic-bezier(.22, .61, .36, 1), margin-left 200ms cubic-bezier(.22, .61, .36, 1), padding 200ms cubic-bezier(.22, .61, .36, 1);
+}
+
+.budget-groups-page:has(.app-sidebar.is-collapsed) .budget-groups-main {
+  width: calc(100% - 76px) !important;
+  margin-left: 76px !important;
+  padding-left: clamp(28px, 4vw, 64px);
+  padding-right: clamp(28px, 4vw, 64px);
+  transition: width 200ms cubic-bezier(.22, .61, .36, 1), margin-left 200ms cubic-bezier(.22, .61, .36, 1), padding 200ms cubic-bezier(.22, .61, .36, 1);
 }
 
 /* The Transactions page has a full-width inner layout, so constrain it when expanded. */
@@ -126,7 +155,7 @@
 }
 
 .dashboard-main {
-  transition: width 280ms ease, margin-left 280ms ease, padding 280ms ease;
+  transition: width 200ms cubic-bezier(.22, .61, .36, 1), margin-left 200ms cubic-bezier(.22, .61, .36, 1), padding 200ms cubic-bezier(.22, .61, .36, 1);
 }
 
 .light .app-sidebar {
@@ -135,14 +164,22 @@
     linear-gradient(155deg, #fffaf2 0%, #f5ecdf 48%, #ebe0cf 100%) !important;
 }
 
+/* In dark mode, the navigation becomes the same quiet charcoal as the app cards. */
+.dark .app-sidebar {
+  background: #1b1b1d !important;
+  box-shadow: 14px 0 34px rgba(0, 0, 0, .22);
+}
+
 @media (max-width: 850px) {
   .dashboard-page:has(.app-sidebar.is-collapsed) .dashboard-main { padding-left: 22px; padding-right: 22px; }
   .analytics-simple-page:has(.app-sidebar.is-collapsed) .analytics-simple-main { padding-left: 22px; padding-right: 22px; }
   .smart-actions-page:has(.app-sidebar.is-collapsed) .smart-actions-main { padding-left: 22px; padding-right: 22px; }
+  .budget-groups-page:has(.app-sidebar.is-collapsed) .budget-groups-main { padding-left: 22px; padding-right: 22px; }
 }
 
 @media (max-width: 600px) {
   .dashboard-page:has(.app-sidebar.is-collapsed) .dashboard-main { padding-left: 18px; padding-right: 18px; }
   .analytics-simple-page:has(.app-sidebar.is-collapsed) .analytics-simple-main { padding-left: 18px; padding-right: 18px; }
   .smart-actions-page:has(.app-sidebar.is-collapsed) .smart-actions-main { padding-left: 18px; padding-right: 18px; }
+  .budget-groups-page:has(.app-sidebar.is-collapsed) .budget-groups-main { padding-left: 18px; padding-right: 18px; }
 }

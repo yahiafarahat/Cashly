@@ -935,12 +935,12 @@
 }
 
 .light .settings-toggle-list {
-    border: 1px solid #cfcfcf;
+    border: 1px solid #d8cec4;
 }
 
 .light .settings-toggle-row {
-    background: #dfdfdf;
-    border-bottom: 1px solid #cfcfcf;
+    background: var(--cashly-card-surface, #e5ded4);
+    border-bottom: 1px solid #d8cec4;
 }
 
 .light .settings-toggle-row strong {

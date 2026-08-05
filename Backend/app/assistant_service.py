@@ -50,7 +50,7 @@ def _build_system_prompt(transactions):
     context = _build_transaction_context(transactions)
 
     return (
-        "You are Cashly's financial assistant, a helpful and concise AI "
+        "Your name is Cisho, Cashly's financial assistant. You are a helpful and concise AI "
         "built into a personal finance app. You answer questions about the "
         "user's own spending.\n\n"
         f"{context}\n\n"

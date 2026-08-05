@@ -12,6 +12,7 @@ import Analytics from "./pages/Analytics";
 import Challenges from "./pages/Challenges";
 import Transactions from "./pages/Transactions";
 import Settings from "./pages/Settings";
+import BudgetGroups from "./pages/BudgetGroups";
 import AssistantWidget from "./components/AssistantWidget";
 
 const ASSISTANT_HIDDEN_PATHS = ["/", "/login", "/signup"];
@@ -59,6 +60,8 @@ function AppShell() {
           path="/settings"
           element={<Settings />}
         />
+
+        <Route path="/groups" element={<BudgetGroups />} />
       </Routes>
 
       {showAssistant && <AssistantWidget />}
