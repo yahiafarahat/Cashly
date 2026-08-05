@@ -4,7 +4,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import auth, transactions, analytics, assistant
+from app.routers import auth, transactions, analytics, assistant, categorization
 from app.database import DATABASE_PATH
 
 
@@ -75,6 +75,7 @@ app.include_router(auth.router)
 app.include_router(transactions.router)
 app.include_router(analytics.router)
 app.include_router(assistant.router)
+app.include_router(categorization.router)
 
 
 @app.on_event("startup")

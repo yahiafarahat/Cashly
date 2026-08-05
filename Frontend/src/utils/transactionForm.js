@@ -12,6 +12,7 @@ export const categories = [
     "Dining & Coffee",
     "Transportation",
     "Fashion",
+    "Shopping",
     "Beauty & Personal Care",
     "Fuel & Car",
     "Bills & Utilities",
@@ -31,35 +32,6 @@ export const paymentMethods = [
     "Mobile Wallet",
     "Bank Transfer",
 ];
-
-// Keyword-based auto-categorizer. Checked in order, first match wins — no
-// LLM call, just plain substring matching against the typed description.
-const CATEGORY_KEYWORDS = [
-    { category: "Groceries", keywords: ["grocery", "groceries", "spinneys", "carrefour", "seoudi", "gourmet", "kazyon", "hyperone", "supermarket", "market"] },
-    { category: "Dining & Coffee", keywords: ["coffee", "cafe", "café", "restaurant", "starbucks", "costa", "dunkin", "mcdonald", "kfc", "burger", "pizza", "dining", "lunch", "dinner", "breakfast", "talabat", "uber eats", "ubereats", "shawarma", "koshary"] },
-    { category: "Transportation", keywords: ["uber", "careem", "indrive", "taxi", "ride", "bus fare", "train ticket", "metro ticket", "parking"] },
-    { category: "Fuel & Car", keywords: ["shell", "totalenergies", "total energies", "chillout", "fuel", "petrol", "gas station", "car service", "car wash", "tire", "oil change"] },
-    { category: "Fashion", keywords: ["zara", "h&m", "bershka", "pull&bear", "pull & bear", "clothes", "clothing", "shoes", "fashion", "mall", "outfit"] },
-    { category: "Beauty & Personal Care", keywords: ["sephora", "faces", "mazaya", "salon", "spa", "cosmetics", "skincare", "haircut", "barber", "makeup", "perfume"] },
-    { category: "Bills & Utilities", keywords: ["electricity", "water bill", "internet bill", "wifi bill", "phone bill", "utility", "utilities", "rent", "landline"] },
-    { category: "Entertainment", keywords: ["netflix", "cinema", "movie", "concert", "spotify", "game", "playstation", "xbox", "entertainment", "theatre", "theater"] },
-    { category: "Healthcare", keywords: ["pharmacy", "doctor", "hospital", "clinic", "dental", "dentist", "medicine", "prescription", "health"] },
-    { category: "Education", keywords: ["course", "tuition", "school", "university", "udemy", "coursera", "textbook"] },
-    { category: "Transfers", keywords: ["transfer", "instapay", "send money", "remit"] },
-    { category: "Subscriptions", keywords: ["subscription", "membership", "icloud", "prime"] },
-];
-
-export function categorizeDescription(description) {
-    const text = description.trim().toLowerCase();
-
-    if (!text) return null;
-
-    const match = CATEGORY_KEYWORDS.find(({ keywords }) =>
-        keywords.some((keyword) => text.includes(keyword))
-    );
-
-    return match ? match.category : null;
-}
 
 export function createEmptyForm() {
     const now = new Date();
