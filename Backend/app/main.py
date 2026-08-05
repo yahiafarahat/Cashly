@@ -42,15 +42,7 @@ def init_db():
     conn.execute("""
         UPDATE transactions
         SET description = COALESCE(NULLIF(description, ''), merchant_name, 'Transaction'),
-            price = COALESCE(
-                price,
-                (
-                    SELECT COALESCE(SUM(item_price), 0)
-                    FROM items
-                    WHERE items.transaction_id = transactions.transaction_id
-                ),
-                0
-            ),
+            price = COALESCE(price, 0),
             category = COALESCE(NULLIF(category, ''), 'Other')
     """)
 
