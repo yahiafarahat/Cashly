@@ -1,29 +1,29 @@
 .smart-actions-page { min-height: 100vh; display: flex; color: #f4f3ef; background: #0b0b0c; }
-.smart-actions-page .dashboard-sidebar { z-index: 10; }.smart-actions-page .sidebar-link svg,.smart-actions-page .logout-link svg { flex: 0 0 auto; color: #d4af37; }
-.smart-actions-main { width: calc(100% - 250px); min-width: 0; margin-left: 250px; padding: 46px clamp(28px,5vw,76px) 70px; background: radial-gradient(circle at 85% 0,rgba(208,168,46,.1),transparent 25%),#0b0b0c; }
+.smart-actions-page .dashboard-sidebar { z-index: 10; }.smart-actions-page .sidebar-link svg,.smart-actions-page .logout-link svg { flex: 0 0 auto; color: #7a1f3d; }
+.smart-actions-main { width: calc(100% - 250px); min-width: 0; margin-left: 250px; padding: 46px clamp(28px,5vw,76px) 70px; background: radial-gradient(circle at 85% 0,rgba(122, 31, 61,.1),transparent 25%),#0b0b0c; }
 .smart-actions-header,.today-action,.suggestions-section,.money-move,.impact-footer,.smart-actions-page .dashboard-panel { max-width: 1120px; margin-left: auto; margin-right: auto; }
 .smart-actions-page .dashboard-panel { margin-bottom: 32px; }
 .smart-actions-page .health-score-circle { min-width: 110px; width: 110px; height: 110px; }
 .smart-actions-page .health-score-circle strong { font-size: 28px; }
-.smart-actions-header { margin-bottom: 38px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }.actions-kicker,.actions-section-heading span,.money-move > div > span,.impact-footer > div > span { color: #b99738; font-size: 10px; font-weight: 800; letter-spacing: .16em; }.smart-actions-header h1 { margin: 8px 0; font-size: clamp(33px,4vw,47px); letter-spacing: -.045em; }.smart-actions-header p { margin: 0; color: #85858a; font-size: 14px; }.actions-profile { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; color: #17130a; background: linear-gradient(145deg,#efd16c,#a97809); font-weight: 800; box-shadow: 0 0 0 5px rgba(212,175,55,.06); }
-.today-action { position: relative; min-height: 280px; margin-bottom: 52px; padding: 38px 42px; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 40px; border: 1px solid rgba(220,180,56,.35); border-radius: 24px; background: radial-gradient(circle at 90% 20%,rgba(218,177,48,.16),transparent 34%),linear-gradient(125deg,#242017,#151516 65%); box-shadow: 0 24px 65px rgba(0,0,0,.28); }.today-action::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.11) .6px,transparent .6px); background-size: 18px 18px; opacity: .14; pointer-events: none; }.today-action-copy,.today-impact { position: relative; z-index: 1; }.today-action-copy { max-width: 670px; }.today-badge { display: flex; align-items: center; gap: 8px; color: #e7c85e; font-size: 10px; font-weight: 800; letter-spacing: .15em; }.today-badge i { width: 7px; height: 7px; border-radius: 50%; background: #70c494; box-shadow: 0 0 12px #70c494; }.today-action h2 { margin: 22px 0 12px; font-size: clamp(34px,4vw,52px); letter-spacing: -.04em; }.today-action p { margin: 0; color: #aaa69e; font-size: 14px; line-height: 1.65; }.today-action button,.suggestion-impact button,.money-move-action button { font-family: inherit; cursor: pointer; }.today-action button { margin-top: 26px; padding: 12px 18px; display: inline-flex; align-items: center; gap: 8px; color: #181309; background: linear-gradient(135deg,#edd06b,#c69722); border: 0; border-radius: 10px; font-weight: 750; }.today-action.complete { border-color: rgba(91,188,136,.36); background: radial-gradient(circle at 90% 20%,rgba(70,175,118,.14),transparent 34%),linear-gradient(125deg,#17231d,#151516 65%); }.today-action.complete button { color: #9dd9b7; background: rgba(74,177,117,.12); border: 1px solid rgba(91,188,136,.25); }.today-impact { min-width: 180px; padding-left: 30px; border-left: 1px solid rgba(225,193,92,.23); }.today-impact span,.today-impact small { display: block; color: #88847b; font-size: 11px; }.today-impact strong { display: block; margin: 8px 0; color: #e7ca69; font-size: 29px; }
-.suggestions-section { margin-bottom: 28px; }.actions-section-heading { margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }.actions-section-heading span { display: flex; align-items: center; gap: 7px; }.actions-section-heading h2 { margin: 8px 0 0; font-size: 25px; letter-spacing: -.025em; }.actions-section-heading > p { margin: 0; color: #6f6f74; font-size: 11px; }.suggestion-list { overflow: hidden; border: 1px solid #29292c; border-radius: 19px; background: #141415; }.suggestion-card { min-height: 156px; padding: 22px 24px; display: grid; grid-template-columns: 54px minmax(300px,1fr) 210px; align-items: center; gap: 24px; border-bottom: 1px solid #29292c; transition: background .2s,opacity .2s; }.suggestion-card:last-child { border-bottom: 0; }.suggestion-card:hover { background: #181819; }.suggestion-card.accepted { opacity: .55; }.suggestion-icon { width: 50px; height: 50px; display: grid; place-items: center; color: #e5c45f; background: rgba(212,175,55,.1); border-radius: 14px; font-size: 21px; }.suggestion-copy > span,.suggestion-impact > span { color: #7b7b80; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }.suggestion-copy h3 { margin: 5px 0 8px; font-size: 15px; }.suggestion-copy strong { display: block; margin-top: 5px; color: #cfcdc7; font-size: 14px; }.suggestion-copy small { display: block; margin-top: 10px; color: #5f5f64; font-size: 10px; }.suggestion-arrow { margin: -2px 0; color: #927a31; }.suggestion-impact { padding-left: 26px; border-left: 1px solid #2b2b2e; }.suggestion-impact strong { display: block; margin: 6px 0 2px; color: #e0c15d; font-size: 22px; }.suggestion-impact small { color: #747479; font-size: 10px; }.suggestion-impact button { width: 100%; margin-top: 15px; padding: 9px 11px; display: flex; align-items: center; justify-content: center; gap: 7px; color: #d7bd65; background: transparent; border: 1px solid #5f5127; border-radius: 8px; font-size: 11px; }.suggestion-impact button:hover { background: rgba(212,175,55,.08); transform: none; box-shadow: none; }.suggestion-impact button:disabled { color: #79bd96; border-color: rgba(82,177,124,.3); cursor: default; }
+.smart-actions-header { margin-bottom: 38px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }.actions-kicker,.actions-section-heading span,.money-move > div > span,.impact-footer > div > span { color: #8e2949; font-size: 10px; font-weight: 800; letter-spacing: .16em; }.smart-actions-header h1 { margin: 8px 0; font-size: clamp(33px,4vw,47px); letter-spacing: -.045em; }.smart-actions-header p { margin: 0; color: #85858a; font-size: 14px; }.actions-profile { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; color: #65142e; background: linear-gradient(145deg,#df91a7,#65142e); font-weight: 800; box-shadow: 0 0 0 5px rgba(122,31,61,.06); }
+.today-action { position: relative; min-height: 280px; margin-bottom: 52px; padding: 38px 42px; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 40px; border: 1px solid rgba(161,47,80,.35); border-radius: 24px; background: radial-gradient(circle at 90% 20%,rgba(122, 31, 61,.16),transparent 34%),linear-gradient(125deg,#242017,#151516 65%); box-shadow: 0 24px 65px rgba(0,0,0,.28); }.today-action::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.11) .6px,transparent .6px); background-size: 18px 18px; opacity: .14; pointer-events: none; }.today-action-copy,.today-impact { position: relative; z-index: 1; }.today-action-copy { max-width: 670px; }.today-badge { display: flex; align-items: center; gap: 8px; color: #d97892; font-size: 10px; font-weight: 800; letter-spacing: .15em; }.today-badge i { width: 7px; height: 7px; border-radius: 50%; background: #70c494; box-shadow: 0 0 12px #70c494; }.today-action h2 { margin: 22px 0 12px; font-size: clamp(34px,4vw,52px); letter-spacing: -.04em; }.today-action p { margin: 0; color: #aaa69e; font-size: 14px; line-height: 1.65; }.today-action button,.suggestion-impact button,.money-move-action button { font-family: inherit; cursor: pointer; }.today-action button { margin-top: 26px; padding: 12px 18px; display: inline-flex; align-items: center; gap: 8px; color: #65142e; background: linear-gradient(135deg,#df91a7,#8e2949); border: 0; border-radius: 10px; font-weight: 750; }.today-action.complete { border-color: rgba(91,188,136,.36); background: radial-gradient(circle at 90% 20%,rgba(70,175,118,.14),transparent 34%),linear-gradient(125deg,#17231d,#151516 65%); }.today-action.complete button { color: #9dd9b7; background: rgba(74,177,117,.12); border: 1px solid rgba(91,188,136,.25); }.today-impact { min-width: 180px; padding-left: 30px; border-left: 1px solid rgba(122, 31, 61,.23); }.today-impact span,.today-impact small { display: block; color: #88847b; font-size: 11px; }.today-impact strong { display: block; margin: 8px 0; color: #a93859; font-size: 29px; }
+.suggestions-section { margin-bottom: 28px; }.actions-section-heading { margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }.actions-section-heading span { display: flex; align-items: center; gap: 7px; }.actions-section-heading h2 { margin: 8px 0 0; font-size: 25px; letter-spacing: -.025em; }.actions-section-heading > p { margin: 0; color: #6f6f74; font-size: 11px; }.suggestion-list { overflow: hidden; border: 1px solid #29292c; border-radius: 19px; background: #141415; }.suggestion-card { min-height: 156px; padding: 22px 24px; display: grid; grid-template-columns: 54px minmax(300px,1fr) 210px; align-items: center; gap: 24px; border-bottom: 1px solid #29292c; transition: background .2s,opacity .2s; }.suggestion-card:last-child { border-bottom: 0; }.suggestion-card:hover { background: #181819; }.suggestion-card.accepted { opacity: .55; }.suggestion-icon { width: 50px; height: 50px; display: grid; place-items: center; color: #d0708a; background: rgba(122,31,61,.1); border-radius: 14px; font-size: 21px; }.suggestion-copy > span,.suggestion-impact > span { color: #7b7b80; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }.suggestion-copy h3 { margin: 5px 0 8px; font-size: 15px; }.suggestion-copy strong { display: block; margin-top: 5px; color: #cfcdc7; font-size: 14px; }.suggestion-copy small { display: block; margin-top: 10px; color: #5f5f64; font-size: 10px; }.suggestion-arrow { margin: -2px 0; color: #7a1f3d; }.suggestion-impact { padding-left: 26px; border-left: 1px solid #2b2b2e; }.suggestion-impact strong { display: block; margin: 6px 0 2px; color: #d0708a; font-size: 22px; }.suggestion-impact small { color: #747479; font-size: 10px; }.suggestion-impact button { width: 100%; margin-top: 15px; padding: 9px 11px; display: flex; align-items: center; justify-content: center; gap: 7px; color: #c4627d; background: transparent; border: 1px solid #65142e; border-radius: 8px; font-size: 11px; }.suggestion-impact button:hover { background: rgba(122,31,61,.08); transform: none; box-shadow: none; }.suggestion-impact button:disabled { color: #79bd96; border-color: rgba(82,177,124,.3); cursor: default; }
 .money-move { margin-bottom: 28px; padding: 26px 28px; display: grid; grid-template-columns: 54px 1fr 180px; align-items: center; gap: 22px; border: 1px solid rgba(83,176,127,.25); border-radius: 18px; background: linear-gradient(120deg,rgba(62,139,98,.1),#151516 60%); }.money-move-icon { width: 50px; height: 50px; display: grid; place-items: center; color: #6dc090; background: rgba(72,172,118,.1); border-radius: 14px; font-size: 23px; }.money-move h2 { margin: 7px 0; font-size: 18px; }.money-move p { margin: 0; color: #79797f; font-size: 12px; line-height: 1.55; }.money-move-action { padding-left: 25px; border-left: 1px solid #2c3430; }.money-move-action strong,.money-move-action span { display: block; }.money-move-action strong { color: #70c393; font-size: 20px; }.money-move-action span { margin: 3px 0 12px; color: #707075; font-size: 10px; }.money-move-action button { width: 100%; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 7px; color: #a8d7bb; background: rgba(71,170,116,.1); border: 1px solid rgba(81,181,128,.3); border-radius: 8px; font-size: 11px; }.money-move-action button:hover { transform: none; box-shadow: none; }.money-move-action button:disabled { cursor: default; }.money-move.moved { opacity: .65; }
-.impact-footer { padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 30px; border: 1px solid #29292c; border-radius: 17px; background: #141415; }.impact-footer > div { display: flex; align-items: baseline; gap: 12px; }.impact-footer strong { color: #e2c663; font-size: 24px; }.impact-footer small,.impact-footer p { color: #737378; font-size: 11px; }.impact-footer p { margin: 0; }
-@media(max-width:900px){.today-action{align-items:flex-start;flex-direction:column}.today-impact{padding:18px 0 0;border-left:0;border-top:1px solid rgba(225,193,92,.23)}.suggestion-card{grid-template-columns:50px 1fr}.suggestion-impact{grid-column:2;padding:15px 0 0;border-left:0;border-top:1px solid #2b2b2e}.suggestion-impact button{width:auto}.money-move{grid-template-columns:50px 1fr}.money-move-action{grid-column:2;padding:15px 0 0;border-left:0;border-top:1px solid #2c3430}.money-move-action button{width:auto;padding-inline:20px}}
+.impact-footer { padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 30px; border: 1px solid #29292c; border-radius: 17px; background: #141415; }.impact-footer > div { display: flex; align-items: baseline; gap: 12px; }.impact-footer strong { color: #a93859; font-size: 24px; }.impact-footer small,.impact-footer p { color: #737378; font-size: 11px; }.impact-footer p { margin: 0; }
+@media(max-width:900px){.today-action{align-items:flex-start;flex-direction:column}.today-impact{padding:18px 0 0;border-left:0;border-top:1px solid rgba(122, 31, 61,.23)}.suggestion-card{grid-template-columns:50px 1fr}.suggestion-impact{grid-column:2;padding:15px 0 0;border-left:0;border-top:1px solid #2b2b2e}.suggestion-impact button{width:auto}.money-move{grid-template-columns:50px 1fr}.money-move-action{grid-column:2;padding:15px 0 0;border-left:0;border-top:1px solid #2c3430}.money-move-action button{width:auto;padding-inline:20px}}
 @media(max-width:768px){.smart-actions-main{width:100%;margin-left:0;padding:30px 18px 55px}.smart-actions-page .dashboard-sidebar{display:none}.today-action{padding:28px 24px}.suggestion-card{padding:20px 17px;gap:15px}.impact-footer{align-items:flex-start;flex-direction:column}.actions-profile{display:none}}
 @media(max-width:520px){.actions-section-heading{align-items:flex-start;flex-direction:column}.suggestion-card{grid-template-columns:1fr}.suggestion-icon{width:42px;height:42px}.suggestion-impact{grid-column:1}.money-move{grid-template-columns:1fr}.money-move-action{grid-column:1}.impact-footer>div{align-items:flex-start;flex-direction:column;gap:5px}}
 
 /* Keep the focus card layout isolated from generic Card component styles. */
 .smart-actions-page .today-action { min-height: 320px; padding: 42px 44px; display: grid; grid-template-columns: minmax(0, 1fr) 220px; align-items: center; justify-content: initial; column-gap: 54px; row-gap: 0; }
 .smart-actions-page .today-action-copy { width: 100%; max-width: 690px; display: block; }
-.smart-actions-page .today-badge { width: fit-content; min-height: 32px; padding: 7px 11px; display: inline-flex; align-items: center; gap: 8px; color: #edce66; background: rgba(212,175,55,.1); border: 1px solid rgba(212,175,55,.24); border-radius: 8px; box-shadow: none; }
-.smart-actions-page .today-action h2 { max-width: 670px; margin: 25px 0 14px; color: #f7f5ef; font-size: clamp(36px, 4vw, 52px); line-height: 1.08; font-weight: 620; letter-spacing: -.045em; }
+.smart-actions-page .today-badge { width: fit-content; min-height: 32px; padding: 7px 11px; display: inline-flex; align-items: center; gap: 8px; color: #a93859; background: rgba(122,31,61,.1); border: 1px solid rgba(122,31,61,.24); border-radius: 8px; box-shadow: none; }
+.smart-actions-page .today-action h2 { max-width: 670px; margin: 25px 0 14px; color: #d98aa0; font-size: clamp(36px, 4vw, 52px); line-height: 1.08; font-weight: 620; letter-spacing: -.045em; }
 .smart-actions-page .today-action p { max-width: 650px; color: #a9a69f; font-size: 14px; line-height: 1.7; }
-.smart-actions-page .today-action button { width: fit-content; min-height: 44px; margin-top: 27px; padding: 11px 18px; justify-content: center; color: #171309; background: linear-gradient(135deg,#edd06b,#c69722); white-space: nowrap; }
-.smart-actions-page .today-impact { min-width: 0; padding: 24px; display: block; border: 1px solid rgba(218,181,67,.16); border-radius: 15px; background: rgba(8,8,8,.17); }
+.smart-actions-page .today-action button { width: fit-content; min-height: 44px; margin-top: 27px; padding: 11px 18px; justify-content: center; color: #65142e; background: linear-gradient(135deg,#df91a7,#8e2949); white-space: nowrap; }
+.smart-actions-page .today-impact { min-width: 0; padding: 24px; display: block; border: 1px solid rgba(122, 31, 61,.16); border-radius: 15px; background: rgba(8,8,8,.17); }
 .smart-actions-page .today-impact span { color: #8f8b82; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-.smart-actions-page .today-impact strong { margin: 9px 0 7px; color: #edcd65; font-size: 31px; line-height: 1; letter-spacing: -.03em; }
+.smart-actions-page .today-impact strong { margin: 9px 0 7px; color: #dc8ca3; font-size: 31px; line-height: 1; letter-spacing: -.03em; }
 .smart-actions-page .today-impact small { color: #76736d; font-size: 10px; line-height: 1.45; }
 .smart-actions-page .today-action.complete .today-impact { border-color: rgba(91,188,136,.2); background: rgba(55,143,95,.08); }
 @media(max-width:900px){.smart-actions-page .today-action{padding:34px;grid-template-columns:1fr;row-gap:28px}.smart-actions-page .today-impact{width:100%;max-width:360px}}
@@ -36,23 +36,23 @@
 
 .light .smart-actions-page {
     color: #1e1c15;
-    background: #eaeaeb;
+    background: #ebe6dc;
 }
 
 .light .smart-actions-page .sidebar-link svg,
 .light .smart-actions-page .logout-link svg {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .smart-actions-main {
-    background: radial-gradient(circle at 85% 0,rgba(159, 128, 31, .1),transparent 25%),#eaeaeb;
+    background: radial-gradient(circle at 85% 0,rgba(122, 31, 61, .1),transparent 25%),#ebe6dc;
 }
 
 .light .actions-kicker,
 .light .actions-section-heading span,
 .light .money-move > div > span,
 .light .impact-footer > div > span {
-    color: #8d7228;
+    color: #65142e;
 }
 
 .light .smart-actions-header p {
@@ -60,18 +60,18 @@
 }
 
 .light .actions-profile {
-    color: #f3eee3;
-    background: linear-gradient(145deg,#ecbb19,#845f0b);
-    box-shadow: 0 0 0 5px rgba(168, 136, 32, .06);
+    color: #d98aa0;
+    background: linear-gradient(145deg,#a93859,#521024);
+    box-shadow: 0 0 0 5px rgba(122, 31, 61, .06);
 }
 
 .light .today-action {
-    border: 1px solid rgba(180, 143, 27, .35);
-    background: radial-gradient(circle at 90% 20%,rgba(173, 138, 27, .16),transparent 34%),linear-gradient(125deg,#e8e4db,#e9e9ea 65%);
+    border: 1px solid rgba(122, 31, 61, .35);
+    background: radial-gradient(circle at 90% 20%,rgba(122, 31, 61, .16),transparent 34%),linear-gradient(125deg,#e8e4db,#e9e9ea 65%);
 }
 
 .light .today-badge {
-    color: #d9ae1b;
+    color: #a93859;
 }
 
 .light .today-badge i {
@@ -84,8 +84,8 @@
 }
 
 .light .today-action button {
-    color: #f4eee1;
-    background: linear-gradient(135deg,#e9ba19,#987316);
+    color: #d98aa0;
+    background: linear-gradient(135deg,#a93859,#65142e);
 }
 
 .light .today-action.complete {
@@ -100,7 +100,7 @@
 }
 
 .light .today-impact {
-    border-left: 1px solid rgba(205, 163, 33, .23);
+    border-left: 1px solid rgba(122, 31, 61, .23);
 }
 
 .light .today-impact span,
@@ -109,7 +109,7 @@
 }
 
 .light .today-impact strong {
-    color: #deb21e;
+    color: #a93859;
 }
 
 .light .actions-section-heading > p {
@@ -118,7 +118,7 @@
 
 .light .suggestion-list {
     border: 1px solid #d3d3d6;
-    background: #eaeaeb;
+    background: #ebe6dc;
 }
 
 .light .suggestion-card {
@@ -130,8 +130,8 @@
 }
 
 .light .suggestion-icon {
-    color: #d5a81e;
-    background: rgba(168, 136, 32, .1);
+    color: #a93859;
+    background: rgba(122, 31, 61, .1);
 }
 
 .light .suggestion-copy > span,
@@ -148,7 +148,7 @@
 }
 
 .light .suggestion-arrow {
-    color: #6f5c23;
+    color: #65142e;
 }
 
 .light .suggestion-impact {
@@ -156,7 +156,7 @@
 }
 
 .light .suggestion-impact strong {
-    color: #cca322;
+    color: #a93859;
 }
 
 .light .suggestion-impact small {
@@ -164,12 +164,12 @@
 }
 
 .light .suggestion-impact button {
-    color: #c09e2d;
-    border: 1px solid #675728;
+    color: #a93859;
+    border: 1px solid #65142e;
 }
 
 .light .suggestion-impact button:hover {
-    background: rgba(168, 136, 32, .08);
+    background: rgba(122, 31, 61, .08);
 }
 
 .light .suggestion-impact button:disabled {
@@ -211,11 +211,11 @@
 
 .light .impact-footer {
     border: 1px solid #d3d3d6;
-    background: #eaeaeb;
+    background: #ebe6dc;
 }
 
 .light .impact-footer strong {
-    color: #d2ab22;
+    color: #a93859;
 }
 
 .light .impact-footer small,
@@ -225,7 +225,7 @@
 
 @media(max-width:900px) {
 .light .today-impact {
-    border-top: 1px solid rgba(205, 163, 33, .23);
+    border-top: 1px solid rgba(122, 31, 61, .23);
 }
 
 .light .suggestion-impact {
@@ -238,13 +238,13 @@
 }
 
 .light .smart-actions-page .today-badge {
-    color: #e9b816;
-    background: rgba(168, 136, 32, .1);
-    border: 1px solid rgba(168, 136, 32, .24);
+    color: #a93859;
+    background: rgba(122, 31, 61, .1);
+    border: 1px solid rgba(122, 31, 61, .24);
 }
 
 .light .smart-actions-page .today-action h2 {
-    color: #221e11;
+    color: #65142e;
 }
 
 .light .smart-actions-page .today-action p {
@@ -252,12 +252,12 @@
 }
 
 .light .smart-actions-page .today-action button {
-    color: #f4eee2;
-    background: linear-gradient(135deg,#e9ba19,#987316);
+    color: #d98aa0;
+    background: linear-gradient(135deg,#a93859,#65142e);
 }
 
 .light .smart-actions-page .today-impact {
-    border: 1px solid rgba(182, 145, 32, .16);
+    border: 1px solid rgba(122, 31, 61, .16);
     background: rgba(235, 235, 235, .17);
 }
 
@@ -266,7 +266,7 @@
 }
 
 .light .smart-actions-page .today-impact strong {
-    color: #e8b616;
+    color: #a93859;
 }
 
 .light .smart-actions-page .today-impact small {

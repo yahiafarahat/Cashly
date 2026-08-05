@@ -17,7 +17,7 @@
 .settings-eyebrow {
     display: block;
     margin-bottom: 7px;
-    color: #d4af37;
+    color: #7a1f3d;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -54,13 +54,13 @@
     height: 44px;
     padding: 0 18px;
     color: #111111;
-    background: linear-gradient(135deg, #b8860b, #f1d66a);
+    background: linear-gradient(135deg, #65142e, #d98aa0);
     border: 0;
     border-radius: 11px;
     font-size: 12px;
     font-weight: 800;
     cursor: pointer;
-    box-shadow: 0 9px 24px rgba(212, 175, 55, 0.16);
+    box-shadow: 0 9px 24px rgba(122, 31, 61, 0.16);
 }
 
 .settings-save-button:hover {
@@ -117,29 +117,29 @@
     width: 18px;
     height: 18px;
     flex: 0 0 auto;
-    color: #d4af37;
+    color: #7a1f3d;
     stroke-width: 1.7;
     transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .settings-inner-navigation button:hover .settings-nav-icon,
 .settings-inner-navigation button.active .settings-nav-icon {
-    color: #f0cf65;
+    color: #a93859;
     transform: scale(1.04);
 }
 
 .settings-inner-navigation button:hover,
 .settings-inner-navigation button.active {
     color: #ffffff;
-    background: rgba(212, 175, 55, 0.1);
+    background: rgba(122, 31, 61, 0.1);
 }
 
 .settings-inner-navigation button.active {
-    box-shadow: inset 3px 0 0 #d4af37;
+    box-shadow: inset 3px 0 0 #7a1f3d;
 }
 
 [dir="rtl"] .settings-inner-navigation button.active {
-    box-shadow: inset -3px 0 0 #d4af37;
+    box-shadow: inset -3px 0 0 #7a1f3d;
 }
 
 .settings-content-card {
@@ -160,7 +160,7 @@
 .settings-section-heading>div:first-child>span {
     display: block;
     margin-bottom: 6px;
-    color: #d4af37;
+    color: #7a1f3d;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1px;
@@ -186,7 +186,7 @@
 
 .profile-completion strong {
     display: block;
-    color: #d4af37;
+    color: #7a1f3d;
     font-size: 23px;
 }
 
@@ -203,9 +203,9 @@
     align-items: center;
     gap: 14px;
     background: linear-gradient(135deg,
-            rgba(212, 175, 55, 0.12),
-            rgba(212, 175, 55, 0.025));
-    border: 1px solid rgba(212, 175, 55, 0.25);
+            rgba(122, 31, 61, 0.12),
+            rgba(122, 31, 61, 0.025));
+    border: 1px solid rgba(122, 31, 61, 0.25);
     border-radius: 15px;
 }
 
@@ -215,7 +215,7 @@
     display: grid;
     place-items: center;
     color: #111111;
-    background: linear-gradient(135deg, #b8860b, #f1d66a);
+    background: linear-gradient(135deg, #65142e, #d98aa0);
     border-radius: 50%;
     font-size: 20px;
     font-weight: 900;
@@ -247,7 +247,7 @@
 
 .profile-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #b8860b, #f1d66a);
+    background: linear-gradient(90deg, #65142e, #d98aa0);
     border-radius: inherit;
     transition: width 0.35s ease;
 }
@@ -293,8 +293,8 @@
 
 .settings-form-grid input:focus,
 .settings-form-grid select:focus {
-    border-color: #d4af37;
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08);
+    border-color: #7a1f3d;
+    box-shadow: 0 0 0 3px rgba(122, 31, 61, 0.08);
 }
 
 .settings-form-grid option {
@@ -332,9 +332,9 @@
     grid-row: 1 / 3;
     display: grid;
     place-items: center;
-    color: #d4af37;
-    background: rgba(212, 175, 55, 0.09);
-    border: 1px solid rgba(212, 175, 55, 0.23);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.09);
+    border: 1px solid rgba(122, 31, 61, 0.23);
     border-radius: 11px;
     font-size: 12px;
     font-weight: 900;
@@ -351,9 +351,9 @@
 }
 
 .language-choice-grid button.selected {
-    border-color: rgba(212, 175, 55, 0.7);
-    background: rgba(212, 175, 55, 0.08);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.05);
+    border-color: rgba(122, 31, 61, 0.7);
+    background: rgba(122, 31, 61, 0.08);
+    box-shadow: 0 0 0 3px rgba(122, 31, 61, 0.05);
 }
 
 .settings-toggle-list {
@@ -416,12 +416,12 @@
 }
 
 .settings-switch.active {
-    background: rgba(212, 175, 55, 0.35);
+    background: rgba(122, 31, 61, 0.35);
 }
 
 .settings-switch.active span {
     transform: translateX(20px);
-    background: #d4af37;
+    background: #7a1f3d;
 }
 
 [dir="rtl"] .settings-switch.active span {
@@ -436,9 +436,9 @@
     align-items: center;
     gap: 13px;
     background: linear-gradient(135deg,
-            rgba(212, 175, 55, 0.11),
-            rgba(212, 175, 55, 0.025));
-    border: 1px solid rgba(212, 175, 55, 0.25);
+            rgba(122, 31, 61, 0.11),
+            rgba(122, 31, 61, 0.025));
+    border: 1px solid rgba(122, 31, 61, 0.25);
     border-radius: 14px;
 }
 
@@ -448,7 +448,7 @@
     display: grid;
     place-items: center;
     color: #111111;
-    background: linear-gradient(135deg, #b8860b, #f1d66a);
+    background: linear-gradient(135deg, #65142e, #d98aa0);
     border-radius: 12px;
     font-size: 19px;
 }
@@ -467,7 +467,7 @@
 }
 
 .theme-preview-card>span {
-    color: #d4af37;
+    color: #7a1f3d;
     font-size: 9px;
     font-weight: 900;
     letter-spacing: 0.7px;
@@ -495,8 +495,8 @@
 
 .security-action-grid button:hover,
 .data-action-list button:hover {
-    border-color: rgba(212, 175, 55, 0.5);
-    background: rgba(212, 175, 55, 0.055);
+    border-color: rgba(122, 31, 61, 0.5);
+    background: rgba(122, 31, 61, 0.055);
 }
 
 .security-action-grid button>span,
@@ -506,8 +506,8 @@
     flex: 0 0 36px;
     display: grid;
     place-items: center;
-    color: #d4af37;
-    background: rgba(212, 175, 55, 0.09);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.09);
     border-radius: 10px;
     font-weight: 800;
 }
@@ -535,7 +535,7 @@
 
 .security-action-grid b,
 .data-action-list b {
-    color: #d4af37;
+    color: #7a1f3d;
     font-size: 10px;
 }
 
@@ -763,7 +763,7 @@
 }
 
 .legacy-theme-preview { display:none }
-.theme-choice-grid{margin-bottom:18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.theme-choice-grid button{min-height:92px;padding:16px;display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:12px;color:#aaa;background:#202020;border:1px solid #343434;border-radius:14px;text-align:left;cursor:pointer;transition:.2s ease}.theme-choice-grid button:hover{transform:translateY(-1px);border-color:rgba(212,175,55,.4)}.theme-choice-grid button.selected{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.65);box-shadow:0 0 0 3px rgba(212,175,55,.05)}.theme-choice-icon{width:42px;height:42px;display:grid;place-items:center;color:#d4af37;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.2);border-radius:11px}.theme-choice-icon svg{width:19px;height:19px}.theme-choice-grid button>span:nth-child(2) strong,.theme-choice-grid button>span:nth-child(2) small{display:block}.theme-choice-grid button>span:nth-child(2) strong{margin-bottom:5px;color:#eee;font-size:13px}.theme-choice-grid button>span:nth-child(2) small{color:#777;font-size:9px;line-height:1.4}.theme-choice-grid button i{color:#d4af37;font-size:9px;font-style:normal;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.light .theme-choice-grid button{color:#555;background:#fafafa;border-color:#ddd}.light .theme-choice-grid button.selected{background:#fffaf0;border-color:#b18a25}.light .theme-choice-grid button>span:nth-child(2) strong{color:#26262a}.light .theme-choice-grid button>span:nth-child(2) small{color:#777}@media(max-width:600px){.theme-choice-grid{grid-template-columns:1fr}}
+.theme-choice-grid{margin-bottom:18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.theme-choice-grid button{min-height:92px;padding:16px;display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:12px;color:#aaa;background:#202020;border:1px solid #343434;border-radius:14px;text-align:left;cursor:pointer;transition:.2s ease}.theme-choice-grid button:hover{transform:translateY(-1px);border-color:rgba(122,31,61,.4)}.theme-choice-grid button.selected{background:rgba(122,31,61,.08);border-color:rgba(122,31,61,.65);box-shadow:0 0 0 3px rgba(122,31,61,.05)}.theme-choice-icon{width:42px;height:42px;display:grid;place-items:center;color:#7a1f3d;background:rgba(122,31,61,.1);border:1px solid rgba(122,31,61,.2);border-radius:11px}.theme-choice-icon svg{width:19px;height:19px}.theme-choice-grid button>span:nth-child(2) strong,.theme-choice-grid button>span:nth-child(2) small{display:block}.theme-choice-grid button>span:nth-child(2) strong{margin-bottom:5px;color:#eee;font-size:13px}.theme-choice-grid button>span:nth-child(2) small{color:#777;font-size:9px;line-height:1.4}.theme-choice-grid button i{color:#7a1f3d;font-size:9px;font-style:normal;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.light .theme-choice-grid button{color:#555;background:#fafafa;border-color:#ddd}.light .theme-choice-grid button.selected{background:#d98aa0;border-color:#65142e}.light .theme-choice-grid button>span:nth-child(2) strong{color:#26262a}.light .theme-choice-grid button>span:nth-child(2) small{color:#777}@media(max-width:600px){.theme-choice-grid{grid-template-columns:1fr}}
 .settings-page > .legacy-sidebar { display: none; }
 
 
@@ -772,7 +772,7 @@
    ========================================================= */
 
 .light .settings-eyebrow {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .settings-page-header h1 {
@@ -789,8 +789,8 @@
 
 .light .settings-save-button {
     color: #ebebeb;
-    background: linear-gradient(135deg, #87630b, #ecc218);
-    box-shadow: 0 9px 24px rgba(168, 136, 32, 0.16);
+    background: linear-gradient(135deg, #65142e, #a93859);
+    box-shadow: 0 9px 24px rgba(122, 31, 61, 0.16);
 }
 
 .light .settings-inner-navigation,
@@ -808,26 +808,26 @@
 }
 
 .light .settings-inner-navigation .settings-nav-icon {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .settings-inner-navigation button:hover .settings-nav-icon,
 .light .settings-inner-navigation button.active .settings-nav-icon {
-    color: #ecb914;
+    color: #a93859;
 }
 
 .light .settings-inner-navigation button:hover,
 .light .settings-inner-navigation button.active {
     color: #1a1a1a;
-    background: rgba(168, 136, 32, 0.1);
+    background: rgba(122, 31, 61, 0.1);
 }
 
 .light .settings-inner-navigation button.active {
-    box-shadow: inset 3px 0 0 #a88820;
+    box-shadow: inset 3px 0 0 #7a1f3d;
 }
 
 .light [dir="rtl"] .settings-inner-navigation button.active {
-    box-shadow: inset -3px 0 0 #a88820;
+    box-shadow: inset -3px 0 0 #7a1f3d;
 }
 
 .light .settings-section-heading {
@@ -835,7 +835,7 @@
 }
 
 .light .settings-section-heading>div:first-child>span {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .settings-section-heading h2 {
@@ -847,7 +847,7 @@
 }
 
 .light .profile-completion strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .profile-completion span {
@@ -856,14 +856,14 @@
 
 .light .profile-overview-card {
     background: linear-gradient(135deg,
-            rgba(168, 136, 32, 0.12),
-            rgba(168, 136, 32, 0.025));
-    border: 1px solid rgba(168, 136, 32, 0.25);
+            rgba(122, 31, 61, 0.12),
+            rgba(122, 31, 61, 0.025));
+    border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .light .settings-profile-avatar {
     color: #ebebeb;
-    background: linear-gradient(135deg, #87630b, #ecc218);
+    background: linear-gradient(135deg, #65142e, #a93859);
 }
 
 .light .profile-overview-card h3 {
@@ -880,7 +880,7 @@
 }
 
 .light .profile-progress-fill {
-    background: linear-gradient(90deg, #87630b, #ecc218);
+    background: linear-gradient(90deg, #65142e, #a93859);
 }
 
 .light .settings-form-grid label>span {
@@ -900,8 +900,8 @@
 
 .light .settings-form-grid input:focus,
 .light .settings-form-grid select:focus {
-    border-color: #a88820;
-    box-shadow: 0 0 0 3px rgba(168, 136, 32, 0.08);
+    border-color: #7a1f3d;
+    box-shadow: 0 0 0 3px rgba(122, 31, 61, 0.08);
 }
 
 .light .settings-form-grid option {
@@ -915,9 +915,9 @@
 }
 
 .light .language-choice-grid button>span {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.09);
-    border: 1px solid rgba(168, 136, 32, 0.23);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.09);
+    border: 1px solid rgba(122, 31, 61, 0.23);
 }
 
 .light .language-choice-grid button strong {
@@ -929,9 +929,9 @@
 }
 
 .light .language-choice-grid button.selected {
-    border-color: rgba(168, 136, 32, 0.7);
-    background: rgba(168, 136, 32, 0.08);
-    box-shadow: 0 0 0 3px rgba(168, 136, 32, 0.05);
+    border-color: rgba(122, 31, 61, 0.7);
+    background: rgba(122, 31, 61, 0.08);
+    box-shadow: 0 0 0 3px rgba(122, 31, 61, 0.05);
 }
 
 .light .settings-toggle-list {
@@ -960,23 +960,23 @@
 }
 
 .light .settings-switch.active {
-    background: rgba(168, 136, 32, 0.35);
+    background: rgba(122, 31, 61, 0.35);
 }
 
 .light .settings-switch.active span {
-    background: #a88820;
+    background: #7a1f3d;
 }
 
 .light .theme-preview-card {
     background: linear-gradient(135deg,
-            rgba(168, 136, 32, 0.11),
-            rgba(168, 136, 32, 0.025));
-    border: 1px solid rgba(168, 136, 32, 0.25);
+            rgba(122, 31, 61, 0.11),
+            rgba(122, 31, 61, 0.025));
+    border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .light .theme-preview-icon {
     color: #ebebeb;
-    background: linear-gradient(135deg, #87630b, #ecc218);
+    background: linear-gradient(135deg, #65142e, #a93859);
 }
 
 .light .theme-preview-card strong {
@@ -988,7 +988,7 @@
 }
 
 .light .theme-preview-card>span {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .security-action-grid button,
@@ -1000,14 +1000,14 @@
 
 .light .security-action-grid button:hover,
 .light .data-action-list button:hover {
-    border-color: rgba(168, 136, 32, 0.5);
-    background: rgba(168, 136, 32, 0.055);
+    border-color: rgba(122, 31, 61, 0.5);
+    background: rgba(122, 31, 61, 0.055);
 }
 
 .light .security-action-grid button>span,
 .light .data-action-list button>span {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.09);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.09);
 }
 
 .light .security-action-grid strong,
@@ -1022,7 +1022,7 @@
 
 .light .security-action-grid b,
 .light .data-action-list b {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .settings-information-note {
@@ -1094,15 +1094,15 @@
 }
 
 .light .theme-choice-grid button:hover {
-    border-color: rgba(168, 136, 32, .4);
+    border-color: rgba(122, 31, 61, .4);
 }
 
 .light .theme-choice-icon {
-    color: #a88820;
-    background: rgba(168, 136, 32, .1);
-    border: 1px solid rgba(168, 136, 32, .2);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, .1);
+    border: 1px solid rgba(122, 31, 61, .2);
 }
 
 .light .theme-choice-grid button i {
-    color: #a88820;
+    color: #7a1f3d;
 }

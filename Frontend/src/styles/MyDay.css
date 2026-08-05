@@ -1,26 +1,26 @@
 .my-day-page { background: #0b0b0c; }
 .my-day-page .dashboard-sidebar { z-index: 10; }
-.my-day-page .sidebar-link svg, .my-day-page .logout-link svg { flex: 0 0 auto; color: #d4af37; }
-.my-day-main { padding: 46px clamp(28px, 5vw, 76px) 64px; background: radial-gradient(circle at 82% -10%, rgba(208, 167, 51, .11), transparent 31%), #0b0b0c; }
+.my-day-page .sidebar-link svg, .my-day-page .logout-link svg { flex: 0 0 auto; color: #7a1f3d; }
+.my-day-main { padding: 46px clamp(28px, 5vw, 76px) 64px; background: radial-gradient(circle at 82% -10%, rgba(122, 31, 61, .11), transparent 31%), #0b0b0c; }
 .my-day-header { max-width: 1120px; margin: 0 auto 38px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .my-day-header h1 { margin: 8px 0 8px; font-size: clamp(28px, 3vw, 42px); letter-spacing: -.04em; font-weight: 650; }
 .my-day-header p { margin: 0; color: #8e8e94; font-size: 15px; }
-.today-label { color: #b99738; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
+.today-label { color: #8e2949; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
 .my-day-header-actions { display: flex; align-items: center; gap: 14px; }
-.streak-badge { display: flex; align-items: center; gap: 6px; height: 38px; padding: 0 13px; flex: 0 0 auto; color: #f0d26c; background: rgba(212, 175, 55, .1); border: 1px solid rgba(212, 175, 55, .28); border-radius: 999px; font-size: 14px; font-weight: 800; }
-.streak-badge svg { color: #e7c85e; }
+.streak-badge { display: flex; align-items: center; gap: 6px; height: 38px; padding: 0 13px; flex: 0 0 auto; color: #df91a7; background: rgba(122, 31, 61, .1); border: 1px solid rgba(122, 31, 61, .28); border-radius: 999px; font-size: 14px; font-weight: 800; }
+.streak-badge svg { color: #d97892; }
 .my-day-profile { display: flex; align-items: center; gap: 12px; }
-.my-day-profile-avatar { width: 46px; height: 46px; display: grid; place-items: center; flex: 0 0 auto; border: 1px solid rgba(232, 197, 93, .48); border-radius: 50%; color: #111; background: linear-gradient(145deg, #f0d270, #a9780a); font-weight: 800; box-shadow: 0 0 0 5px rgba(212, 175, 55, .06); }
+.my-day-profile-avatar { width: 46px; height: 46px; display: grid; place-items: center; flex: 0 0 auto; border: 1px solid rgba(122, 31, 61, .48); border-radius: 50%; color: #111; background: linear-gradient(145deg, #d98aa0, #65142e); font-weight: 800; box-shadow: 0 0 0 5px rgba(122, 31, 61, .06); }
 .my-day-profile-copy strong, .my-day-profile-copy span { display: block; }
 .my-day-profile-copy strong { max-width: 190px; overflow: hidden; color: #e9e7e1; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
 .my-day-profile-copy span { max-width: 190px; margin-top: 4px; overflow: hidden; color: #6f6f75; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
 .bills-section { max-width: 1120px; margin: 0 auto; }
 .section-heading { margin-bottom: 20px; display: flex; align-items: end; justify-content: space-between; }
-.section-kicker { display: flex; align-items: center; gap: 8px; color: #b99738; font-size: 10px; font-weight: 750; letter-spacing: .17em; }
+.section-kicker { display: flex; align-items: center; gap: 8px; color: #8e2949; font-size: 10px; font-weight: 750; letter-spacing: .17em; }
 .section-heading h2 { margin: 8px 0 0; font-size: 27px; letter-spacing: -.025em; }
 .bills-total { display: flex; align-items: baseline; gap: 13px; }
 .bills-total span { color: #77777d; font-size: 12px; }
-.bills-total strong { color: #e0d8c4; font-size: 17px; }
+.bills-total strong { color: #d98aa0; font-size: 17px; }
 .bills-list { overflow: hidden; border: 1px solid #29292c; border-radius: 18px; background: #141415; }
 .bill-row { min-height: 88px; padding: 15px 20px; display: grid; grid-template-columns: 50px minmax(150px, 1fr) 120px 125px 94px; align-items: center; gap: 16px; border-bottom: 1px solid #272729; transition: background .2s, opacity .2s; }
 .bill-row:last-child { border-bottom: 0; }
@@ -28,16 +28,16 @@
 .bill-row.paid { opacity: .48; }
 .bill-mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; font-weight: 800; }
 .bill-n { color: #e53935; background: rgba(229,57,53,.12); }
-.bill-e { color: #f0bc4c; background: rgba(240,188,76,.11); }
+.bill-e { color: #a93859; background: rgba(122, 31, 61,.11); }
 .bill-i { color: #64aeea; background: rgba(71,154,222,.12); }
 .bill-name strong, .bill-name span { display: block; }
 .bill-name strong { margin-bottom: 6px; font-size: 15px; }
 .bill-name span { color: #69696f; font-size: 12px; }
 .bill-due { width: fit-content; padding: 6px 9px; color: #9b9ba0; background: #202023; border-radius: 7px; font-size: 12px; }
-.bill-due.urgent { color: #e9c85d; background: rgba(212,175,55,.1); }
+.bill-due.urgent { color: #a93859; background: rgba(122,31,61,.1); }
 .bill-amount { color: #cfccd0; font-size: 14px; text-align: right; }
 .mark-paid { padding: 9px 10px; color: #8c8c91; background: transparent; border: 1px solid #333337; border-radius: 8px; font-size: 12px; }
-.mark-paid:hover { color: #e8ca66; border-color: #7b672b; transform: none; box-shadow: none; }
+.mark-paid:hover { color: #a93859; border-color: #65142e; transform: none; box-shadow: none; }
 .bill-reassurance { margin: 14px 4px 0; display: flex; justify-content: flex-end; align-items: center; gap: 7px; color: #6f987f; font-size: 12px; }
 @media (max-width: 900px) { .my-day-main { padding: 34px 22px 54px; } .bill-row { grid-template-columns: 48px 1fr auto; } .bill-due { grid-column: 2; } .bill-amount { grid-column: 3; grid-row: 1; } .mark-paid { grid-column: 3; grid-row: 2; } }
 @media (max-width: 640px) { .my-day-header { margin-bottom: 28px; } .today-label { font-size: 9px; } .my-day-profile { display: none; } .section-heading { align-items: flex-start; gap: 14px; } .bills-total { align-items: flex-end; flex-direction: column; gap: 3px; } .bill-row { padding: 15px; grid-template-columns: 44px 1fr auto; gap: 11px; } .bill-amount { font-size: 12px; } .mark-paid { padding: 7px; } }
@@ -56,26 +56,26 @@
    ========================================================= */
 
 .light .my-day-page {
-    background: #eaeaeb;
+    background: #ebe6dc;
 }
 
 .light .my-day-page .sidebar-link svg,
 .light .my-day-page .logout-link svg {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .my-day-main {
-    background: radial-gradient(circle at 82% -10%, rgba(161, 128, 33, .11), transparent 31%), #eaeaeb;
+    background: radial-gradient(circle at 82% -10%, rgba(122, 31, 61, .11), transparent 31%), #ebe6dc;
 }
 
 .light .streak-badge {
-    color: #8a6c14;
-    background: rgba(168, 136, 32, .1);
-    border-color: rgba(168, 136, 32, .3);
+    color: #65142e;
+    background: rgba(122, 31, 61, .1);
+    border-color: rgba(122, 31, 61, .3);
 }
 
 .light .streak-badge svg {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .my-day-header p {
@@ -83,14 +83,14 @@
 }
 
 .light .today-label {
-    color: #8d7228;
+    color: #65142e;
 }
 
 .light .my-day-profile-avatar {
-    border: 1px solid rgba(218, 170, 26, .48);
+    border: 1px solid rgba(122, 31, 61, .48);
     color: #ebebeb;
-    background: linear-gradient(145deg, #edbc1b, #845f0b);
-    box-shadow: 0 0 0 5px rgba(168, 136, 32, .06);
+    background: linear-gradient(145deg, #d97892, #521024);
+    box-shadow: 0 0 0 5px rgba(122, 31, 61, .06);
 }
 
 .light .my-day-profile-copy strong {
@@ -102,7 +102,7 @@
 }
 
 .light .section-kicker {
-    color: #8d7228;
+    color: #65142e;
 }
 
 .light .bills-total span {
@@ -110,12 +110,12 @@
 }
 
 .light .bills-total strong {
-    color: #b29c67;
+    color: #a06477;
 }
 
 .light .bills-list {
     border: 1px solid #d3d3d6;
-    background: #eaeaeb;
+    background: #ebe6dc;
 }
 
 .light .bill-row {
@@ -132,8 +132,8 @@
 }
 
 .light .bill-e {
-    color: #db9b12;
-    background: rgba(219, 155, 18, .11);
+    color: #b63c60;
+    background: rgba(122, 31, 61, .11);
 }
 
 .light .bill-i {
@@ -151,8 +151,8 @@
 }
 
 .light .bill-due.urgent {
-    color: #dcae19;
-    background: rgba(168, 136, 32, .1);
+    color: #b63c60;
+    background: rgba(122, 31, 61, .1);
 }
 
 .light .bill-amount {
@@ -165,8 +165,8 @@
 }
 
 .light .mark-paid:hover {
-    color: #deb21c;
-    border-color: #6c5923;
+    color: #b63c60;
+    border-color: #65142e;
 }
 
 .light .bill-reassurance {

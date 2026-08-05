@@ -8,7 +8,7 @@
 
   background:
     radial-gradient(circle at top right,
-      rgba(212, 175, 55, 0.1),
+      rgba(122, 31, 61, 0.1),
       transparent 28%),
     linear-gradient(135deg, #080808, #121212);
 }
@@ -28,7 +28,7 @@
   flex-direction: column;
 
   background: rgba(15, 15, 15, 0.98);
-  border-right: 1px solid rgba(212, 175, 55, 0.25);
+  border-right: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .sidebar-logo {
@@ -46,7 +46,7 @@
 }
 
 .sidebar-logo h2 {
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 27px;
 }
 
@@ -77,7 +77,7 @@
 .logout-link span {
   width: 22px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 20px;
   text-align: center;
 }
@@ -85,11 +85,11 @@
 .sidebar-link:hover,
 .sidebar-link.active {
   color: #ffffff;
-  background: rgba(212, 175, 55, 0.12);
+  background: rgba(122, 31, 61, 0.12);
 }
 
 .sidebar-link.active {
-  border-left: 3px solid #d4af37;
+  border-left: 3px solid #7a1f3d;
 }
 
 .logout-link {
@@ -152,7 +152,7 @@
 }
 
 .dashboard-search:focus {
-  border-color: #d4af37;
+  border-color: #7a1f3d;
 }
 
 .notification-button {
@@ -171,7 +171,7 @@
 
 .notification-button:hover {
   transform: none;
-  border-color: #d4af37;
+  border-color: #7a1f3d;
   box-shadow: none;
 }
 
@@ -190,7 +190,7 @@
   align-items: center;
 
   color: #101010;
-  background: linear-gradient(135deg, #b8860b, #f1d66a);
+  background: linear-gradient(135deg, #65142e, #d98aa0);
 
   border-radius: 50%;
 
@@ -238,7 +238,7 @@
 .summary-card:hover {
   transform: translateY(-4px);
 
-  border-color: rgba(212, 175, 55, 0.65);
+  border-color: rgba(122, 31, 61, 0.65);
 
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
@@ -264,8 +264,8 @@
   justify-content: center;
   align-items: center;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.1);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.1);
 
   border-radius: 10px;
 }
@@ -334,10 +334,10 @@
   width: auto;
   padding: 8px 13px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   background: transparent;
 
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(122, 31, 61, 0.4);
   border-radius: 8px;
 
   font-size: 12px;
@@ -347,7 +347,7 @@
 .small-action-button:hover {
   transform: none;
 
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(122, 31, 61, 0.1);
   box-shadow: none;
 }
 
@@ -370,7 +370,7 @@
 
   background:
     radial-gradient(circle, #181818 56%, transparent 58%),
-    conic-gradient(#d4af37 0deg var(--score-angle, 302deg), #333333 var(--score-angle, 302deg) 360deg);
+    conic-gradient(#7a1f3d 0deg var(--score-angle, 302deg), #333333 var(--score-angle, 302deg) 360deg);
 
   border-radius: 50%;
 }
@@ -388,7 +388,7 @@
 .health-information h3 {
   margin-bottom: 8px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 22px;
 }
 
@@ -415,7 +415,7 @@
   width: 84%;
   height: 100%;
 
-  background: linear-gradient(90deg, #b8860b, #f1d66a);
+  background: linear-gradient(90deg, #65142e, #d98aa0);
 }
 
 .health-information small {
@@ -440,10 +440,10 @@
   justify-content: center;
   align-items: center;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.1);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.1);
 
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(122, 31, 61, 0.25);
   border-radius: 15px;
 
   font-size: 27px;
@@ -458,7 +458,7 @@
 .insight-content h3 {
   margin: 6px 0 9px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 21px;
 }
 
@@ -488,7 +488,7 @@
 /* Transactions */
 
 .view-all-link {
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 13px;
   font-weight: bold;
   text-decoration: none;
@@ -532,7 +532,7 @@
   justify-content: center;
   align-items: center;
 
-  color: #d4af37;
+  color: #7a1f3d;
   background: #282828;
 
   border-radius: 12px;
@@ -598,16 +598,16 @@
   color: #ffffff;
   background:
     radial-gradient(circle at top right,
-      rgba(212, 175, 55, 0.14),
+      rgba(122, 31, 61, 0.14),
       transparent 28%),
     #171717;
 
-  border: 1px solid rgba(212, 175, 55, 0.38);
+  border: 1px solid rgba(122, 31, 61, 0.38);
   border-radius: 22px;
 
   box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.65),
-    0 0 35px rgba(212, 175, 55, 0.08);
+    0 0 35px rgba(122, 31, 61, 0.08);
 
   animation: modalOpen 0.3s ease;
 }
@@ -626,7 +626,7 @@
 }
 
 .health-modal::-webkit-scrollbar-thumb:hover {
-  background: #d4af37;
+  background: #7a1f3d;
 }
 
 .health-modal-header {
@@ -642,7 +642,7 @@
   display: block;
   margin-bottom: 7px;
 
-  color: #d4af37;
+  color: #7a1f3d;
 
   font-size: 11px;
   font-weight: bold;
@@ -704,9 +704,9 @@
   align-items: center;
   gap: 25px;
 
-  background: rgba(212, 175, 55, 0.055);
+  background: rgba(122, 31, 61, 0.055);
 
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(122, 31, 61, 0.2);
   border-radius: 18px;
 }
 
@@ -721,11 +721,11 @@
 
   background:
     radial-gradient(circle, #181818 55%, transparent 57%),
-    conic-gradient(#d4af37 0deg 302deg, #333333 302deg 360deg);
+    conic-gradient(#7a1f3d 0deg 302deg, #333333 302deg 360deg);
 
   border-radius: 50%;
 
-  box-shadow: 0 0 28px rgba(212, 175, 55, 0.08);
+  box-shadow: 0 0 28px rgba(122, 31, 61, 0.08);
 }
 
 .modal-score-circle strong {
@@ -747,10 +747,10 @@
   margin-bottom: 9px;
   padding: 6px 11px;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.12);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.12);
 
-  border: 1px solid rgba(212, 175, 55, 0.23);
+  border: 1px solid rgba(122, 31, 61, 0.23);
   border-radius: 20px;
 
   font-size: 11px;
@@ -878,10 +878,10 @@
 
   background:
     linear-gradient(135deg,
-      rgba(212, 175, 55, 0.14),
-      rgba(212, 175, 55, 0.035));
+      rgba(122, 31, 61, 0.14),
+      rgba(122, 31, 61, 0.035));
 
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(122, 31, 61, 0.3);
   border-radius: 16px;
 }
 
@@ -895,7 +895,7 @@
   align-items: center;
 
   color: #111111;
-  background: linear-gradient(135deg, #b8860b, #f1d66a);
+  background: linear-gradient(135deg, #65142e, #d98aa0);
 
   border-radius: 12px;
 
@@ -907,7 +907,7 @@
   display: block;
   margin-bottom: 5px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 10px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -953,7 +953,7 @@
 }
 
 .target-score-section strong {
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 17px;
 }
 
@@ -972,7 +972,7 @@
   width: 84%;
   height: 100%;
 
-  background: linear-gradient(90deg, #b8860b, #f1d66a);
+  background: linear-gradient(90deg, #65142e, #d98aa0);
 
   border-radius: 20px;
 }
@@ -987,7 +987,7 @@
   padding: 13px;
 
   color: #111111;
-  background: linear-gradient(135deg, #b8860b, #f1d66a);
+  background: linear-gradient(135deg, #65142e, #d98aa0);
 
   border: none;
   border-radius: 11px;
@@ -1002,7 +1002,7 @@
 .modal-done-button:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 8px 22px rgba(122, 31, 61, 0.2);
 }
 
 /* Popup animations */
@@ -1147,15 +1147,15 @@
 
   background:
     linear-gradient(135deg,
-      rgba(212, 175, 55, 0.15),
-      rgba(212, 175, 55, 0.035));
+      rgba(122, 31, 61, 0.15),
+      rgba(122, 31, 61, 0.035));
 
-  border: 1px solid rgba(212, 175, 55, 0.38);
+  border: 1px solid rgba(122, 31, 61, 0.38);
   border-radius: 18px;
 
   box-shadow:
     0 12px 35px rgba(0, 0, 0, 0.22),
-    0 0 25px rgba(212, 175, 55, 0.05);
+    0 0 25px rgba(122, 31, 61, 0.05);
 }
 
 .coach-icon {
@@ -1168,7 +1168,7 @@
   align-items: center;
 
   color: #111111;
-  background: linear-gradient(135deg, #b8860b, #f1d66a);
+  background: linear-gradient(135deg, #65142e, #d98aa0);
 
   border-radius: 16px;
 
@@ -1183,7 +1183,7 @@
   display: block;
   margin-bottom: 5px;
 
-  color: #d4af37;
+  color: #7a1f3d;
 
   font-size: 10px;
   font-weight: bold;
@@ -1208,10 +1208,10 @@
   width: auto;
   padding: 10px 15px;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.08);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.08);
 
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(122, 31, 61, 0.4);
   border-radius: 9px;
 
   font-size: 12px;
@@ -1221,7 +1221,7 @@
 .new-advice-button:hover {
   transform: translateY(-1px);
 
-  background: rgba(212, 175, 55, 0.15);
+  background: rgba(122, 31, 61, 0.15);
   box-shadow: none;
 }
 
@@ -1230,10 +1230,10 @@
 .insight-category {
   padding: 6px 10px;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.09);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.09);
 
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(122, 31, 61, 0.25);
   border-radius: 20px;
 
   font-size: 10px;
@@ -1257,10 +1257,10 @@
 .personality-confidence {
   padding: 6px 10px;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.1);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.1);
 
-  border: 1px solid rgba(212, 175, 55, 0.28);
+  border: 1px solid rgba(122, 31, 61, 0.28);
   border-radius: 20px;
 
   font-size: 10px;
@@ -1283,7 +1283,7 @@
 .personality-main h3 {
   margin: 6px 0 8px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 21px;
 }
 
@@ -1316,7 +1316,7 @@
 }
 
 .confidence-heading strong {
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 13px;
 }
 
@@ -1335,8 +1335,8 @@
   height: 100%;
 
   background: linear-gradient(90deg,
-      #b8860b,
-      #f1d66a);
+      #65142e,
+      #d98aa0);
 
   border-radius: 20px;
 
@@ -1385,10 +1385,10 @@
 }
 
 .warning-trait>span {
-  color: #f1c75b;
-  background: rgba(241, 199, 91, 0.1);
+  color: #a93859;
+  background: rgba(122, 31, 61, 0.1);
 
-  border: 1px solid rgba(241, 199, 91, 0.25);
+  border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .personality-trait strong {
@@ -1425,9 +1425,9 @@
   justify-content: space-between;
   align-items: center;
 
-  background: rgba(212, 175, 55, 0.045);
+  background: rgba(122, 31, 61, 0.045);
 
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(122, 31, 61, 0.15);
   border-radius: 11px;
 }
 
@@ -1484,7 +1484,7 @@
 
   background:
     radial-gradient(circle at top right,
-      rgba(212, 175, 55, 0.16),
+      rgba(122, 31, 61, 0.16),
       transparent 35%),
     rgba(24, 24, 24, 0.96);
 }
@@ -1502,7 +1502,7 @@
   display: block;
   margin-bottom: 7px;
 
-  color: #d4af37;
+  color: #7a1f3d;
 
   font-size: 10px;
   font-weight: bold;
@@ -1535,14 +1535,14 @@
   align-items: center;
 
   background: linear-gradient(135deg,
-      #b8860b,
-      #f1d66a);
+      #65142e,
+      #d98aa0);
 
   border-radius: 16px;
 
   font-size: 27px;
 
-  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 10px 25px rgba(122, 31, 61, 0.15);
 }
 
 .challenge-progress-information {
@@ -1566,7 +1566,7 @@
 }
 
 .challenge-progress-heading strong {
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 14px;
 }
 
@@ -1585,8 +1585,8 @@
   height: 100%;
 
   background: linear-gradient(90deg,
-      #b8860b,
-      #f1d66a);
+      #65142e,
+      #d98aa0);
 
   border-radius: 20px;
 
@@ -1640,9 +1640,9 @@
   align-items: flex-start;
   gap: 12px;
 
-  background: rgba(212, 175, 55, 0.07);
+  background: rgba(122, 31, 61, 0.07);
 
-  border: 1px solid rgba(212, 175, 55, 0.18);
+  border: 1px solid rgba(122, 31, 61, 0.18);
   border-radius: 13px;
 }
 
@@ -1657,8 +1657,8 @@
 
   color: #111111;
   background: linear-gradient(135deg,
-      #b8860b,
-      #f1d66a);
+      #65142e,
+      #d98aa0);
 
   border-radius: 9px;
 }
@@ -1667,7 +1667,7 @@
   display: block;
   margin-bottom: 5px;
 
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 11px;
 }
 
@@ -1683,8 +1683,8 @@
 
   color: #111111;
   background: linear-gradient(135deg,
-      #b8860b,
-      #f1d66a);
+      #65142e,
+      #d98aa0);
 
   border: none;
   border-radius: 11px;
@@ -1697,7 +1697,7 @@
 .challenge-check-button:hover {
   transform: translateY(-2px);
 
-  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.16);
+  box-shadow: 0 8px 22px rgba(122, 31, 61, 0.16);
 }
 
 .challenge-check-button.checked-in {
@@ -1719,10 +1719,10 @@
 .achievement-count {
   padding: 6px 10px;
 
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.09);
+  color: #7a1f3d;
+  background: rgba(122, 31, 61, 0.09);
 
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(122, 31, 61, 0.25);
   border-radius: 20px;
 
   font-size: 10px;
@@ -1755,10 +1755,10 @@
 .unlocked-achievement {
   background:
     linear-gradient(135deg,
-      rgba(212, 175, 55, 0.09),
-      rgba(212, 175, 55, 0.025));
+      rgba(122, 31, 61, 0.09),
+      rgba(122, 31, 61, 0.025));
 
-  border: 1px solid rgba(212, 175, 55, 0.23);
+  border: 1px solid rgba(122, 31, 61, 0.23);
 }
 
 .locked-achievement {
@@ -1786,10 +1786,10 @@
 
 .unlocked-achievement .achievement-badge {
   background: linear-gradient(135deg,
-      #9c7208,
-      #e7c34d);
+      #65142e,
+      #a93859);
 
-  box-shadow: 0 7px 18px rgba(212, 175, 55, 0.13);
+  box-shadow: 0 7px 18px rgba(122, 31, 61, 0.13);
 }
 
 .achievement-status {
@@ -1804,7 +1804,7 @@
 }
 
 .unlocked-achievement .achievement-status {
-  color: #d4af37;
+  color: #7a1f3d;
 }
 
 .achievement-card h3 {
@@ -1856,7 +1856,7 @@
 }
 
 .next-achievement-top>span {
-  color: #d4af37;
+  color: #7a1f3d;
   font-size: 12px;
   font-weight: bold;
 }
@@ -1877,8 +1877,8 @@
   height: 100%;
 
   background: linear-gradient(90deg,
-      #b8860b,
-      #f1d66a);
+      #65142e,
+      #d98aa0);
 
   border-radius: 20px;
 
@@ -2177,18 +2177,18 @@
 .light .dashboard-page {
     color: #1a1a1a;
     background: radial-gradient(circle at top right,
-      rgba(168, 136, 32, 0.1),
+      rgba(122, 31, 61, 0.1),
       transparent 28%),
     linear-gradient(135deg, #ebebeb, #ebebeb);
 }
 
 .light .dashboard-sidebar {
     background: rgba(235, 235, 235, 0.98);
-    border-right: 1px solid rgba(168, 136, 32, 0.25);
+    border-right: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .light .sidebar-logo h2 {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .sidebar-link,
@@ -2198,17 +2198,17 @@
 
 .light .sidebar-link span,
 .light .logout-link span {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .sidebar-link:hover,
 .light .sidebar-link.active {
     color: #1a1a1a;
-    background: rgba(168, 136, 32, 0.12);
+    background: rgba(122, 31, 61, 0.12);
 }
 
 .light .sidebar-link.active {
-    border-left: 3px solid #a88820;
+    border-left: 3px solid #7a1f3d;
 }
 
 .light .logout-link:hover {
@@ -2231,7 +2231,7 @@
 }
 
 .light .dashboard-search:focus {
-    border-color: #a88820;
+    border-color: #7a1f3d;
 }
 
 .light .notification-button {
@@ -2241,12 +2241,12 @@
 }
 
 .light .notification-button:hover {
-    border-color: #a88820;
+    border-color: #7a1f3d;
 }
 
 .light .profile-circle {
     color: #ebebeb;
-    background: linear-gradient(135deg, #87630b, #ecc218);
+    background: linear-gradient(135deg, #65142e, #a93859);
 }
 
 .light .user-profile strong {
@@ -2263,7 +2263,7 @@
 }
 
 .light .summary-card:hover {
-    border-color: rgba(168, 136, 32, 0.65);
+    border-color: rgba(122, 31, 61, 0.65);
 }
 
 .light .summary-card-top span {
@@ -2271,8 +2271,8 @@
 }
 
 .light .summary-icon {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.1);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.1);
 }
 
 .light .summary-card h2 {
@@ -2301,17 +2301,17 @@
 }
 
 .light .small-action-button {
-    color: #a88820;
-    border: 1px solid rgba(168, 136, 32, 0.4);
+    color: #7a1f3d;
+    border: 1px solid rgba(122, 31, 61, 0.4);
 }
 
 .light .small-action-button:hover {
-    background: rgba(168, 136, 32, 0.1);
+    background: rgba(122, 31, 61, 0.1);
 }
 
 .light .health-score-circle {
     background: radial-gradient(circle, #e7e7e7 56%, transparent 58%),
-    conic-gradient(#a88820 0deg var(--score-angle, 302deg), #cccccc var(--score-angle, 302deg) 360deg);
+    conic-gradient(#7a1f3d 0deg var(--score-angle, 302deg), #cccccc var(--score-angle, 302deg) 360deg);
 }
 
 .light .health-score-circle strong {
@@ -2323,7 +2323,7 @@
 }
 
 .light .health-information h3 {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .health-information p {
@@ -2335,7 +2335,7 @@
 }
 
 .light .health-progress-fill {
-    background: linear-gradient(90deg, #87630b, #ecc218);
+    background: linear-gradient(90deg, #65142e, #a93859);
 }
 
 .light .health-information small {
@@ -2344,9 +2344,9 @@
 
 .light .personality-icon,
 .light .insight-icon {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.1);
-    border: 1px solid rgba(168, 136, 32, 0.25);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.1);
+    border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .light .personality-label {
@@ -2355,7 +2355,7 @@
 
 .light .personality-content h3,
 .light .insight-content h3 {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .personality-content p,
@@ -2368,7 +2368,7 @@
 }
 
 .light .view-all-link {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .transaction-item {
@@ -2376,7 +2376,7 @@
 }
 
 .light .transaction-icon {
-    color: #a88820;
+    color: #7a1f3d;
     background: #d7d7d7;
 }
 
@@ -2403,12 +2403,12 @@
 .light .health-modal {
     color: #1a1a1a;
     background: radial-gradient(circle at top right,
-      rgba(168, 136, 32, 0.14),
+      rgba(122, 31, 61, 0.14),
       transparent 28%),
     #e8e8e8;
-    border: 1px solid rgba(168, 136, 32, 0.38);
+    border: 1px solid rgba(122, 31, 61, 0.38);
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65),
-    0 0 35px rgba(168, 136, 32, 0.08);
+    0 0 35px rgba(122, 31, 61, 0.08);
 }
 
 .light .health-modal::-webkit-scrollbar-thumb {
@@ -2416,11 +2416,11 @@
 }
 
 .light .health-modal::-webkit-scrollbar-thumb:hover {
-    background: #a88820;
+    background: #7a1f3d;
 }
 
 .light .modal-small-title {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .health-modal-header h2 {
@@ -2444,14 +2444,14 @@
 }
 
 .light .modal-score-section {
-    background: rgba(168, 136, 32, 0.055);
-    border: 1px solid rgba(168, 136, 32, 0.2);
+    background: rgba(122, 31, 61, 0.055);
+    border: 1px solid rgba(122, 31, 61, 0.2);
 }
 
 .light .modal-score-circle {
     background: radial-gradient(circle, #e7e7e7 55%, transparent 57%),
-    conic-gradient(#a88820 0deg 302deg, #cccccc 302deg 360deg);
-    box-shadow: 0 0 28px rgba(168, 136, 32, 0.08);
+    conic-gradient(#7a1f3d 0deg 302deg, #cccccc 302deg 360deg);
+    box-shadow: 0 0 28px rgba(122, 31, 61, 0.08);
 }
 
 .light .modal-score-circle strong {
@@ -2463,9 +2463,9 @@
 }
 
 .light .modal-status {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.12);
-    border: 1px solid rgba(168, 136, 32, 0.23);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.12);
+    border: 1px solid rgba(122, 31, 61, 0.23);
 }
 
 .light .modal-score-information h3 {
@@ -2514,18 +2514,18 @@
 
 .light .health-recommendation {
     background: linear-gradient(135deg,
-      rgba(168, 136, 32, 0.14),
-      rgba(168, 136, 32, 0.035));
-    border: 1px solid rgba(168, 136, 32, 0.3);
+      rgba(122, 31, 61, 0.14),
+      rgba(122, 31, 61, 0.035));
+    border: 1px solid rgba(122, 31, 61, 0.3);
 }
 
 .light .recommendation-icon {
     color: #ebebeb;
-    background: linear-gradient(135deg, #87630b, #ecc218);
+    background: linear-gradient(135deg, #65142e, #a93859);
 }
 
 .light .health-recommendation span {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .health-recommendation h3 {
@@ -2546,7 +2546,7 @@
 }
 
 .light .target-score-section strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .target-progress {
@@ -2554,7 +2554,7 @@
 }
 
 .light .target-progress-fill {
-    background: linear-gradient(90deg, #87630b, #ecc218);
+    background: linear-gradient(90deg, #65142e, #a93859);
 }
 
 .light .target-score-section p {
@@ -2563,29 +2563,29 @@
 
 .light .modal-done-button {
     color: #ebebeb;
-    background: linear-gradient(135deg, #87630b, #ecc218);
+    background: linear-gradient(135deg, #65142e, #a93859);
 }
 
 .light .modal-done-button:hover {
-    box-shadow: 0 8px 22px rgba(168, 136, 32, 0.2);
+    box-shadow: 0 8px 22px rgba(122, 31, 61, 0.2);
 }
 
 .light .cashly-coach {
     background: linear-gradient(135deg,
-      rgba(168, 136, 32, 0.15),
-      rgba(168, 136, 32, 0.035));
-    border: 1px solid rgba(168, 136, 32, 0.38);
+      rgba(122, 31, 61, 0.15),
+      rgba(122, 31, 61, 0.035));
+    border: 1px solid rgba(122, 31, 61, 0.38);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22),
-    0 0 25px rgba(168, 136, 32, 0.05);
+    0 0 25px rgba(122, 31, 61, 0.05);
 }
 
 .light .coach-icon {
     color: #ebebeb;
-    background: linear-gradient(135deg, #87630b, #ecc218);
+    background: linear-gradient(135deg, #65142e, #a93859);
 }
 
 .light .coach-label {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .coach-message h2 {
@@ -2597,29 +2597,29 @@
 }
 
 .light .new-advice-button {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.08);
-    border: 1px solid rgba(168, 136, 32, 0.4);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.08);
+    border: 1px solid rgba(122, 31, 61, 0.4);
 }
 
 .light .new-advice-button:hover {
-    background: rgba(168, 136, 32, 0.15);
+    background: rgba(122, 31, 61, 0.15);
 }
 
 .light .insight-category {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.09);
-    border: 1px solid rgba(168, 136, 32, 0.25);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.09);
+    border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .light .personality-confidence {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.1);
-    border: 1px solid rgba(168, 136, 32, 0.28);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.1);
+    border: 1px solid rgba(122, 31, 61, 0.28);
 }
 
 .light .personality-main h3 {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .personality-main p {
@@ -2636,7 +2636,7 @@
 }
 
 .light .confidence-heading strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .confidence-progress {
@@ -2645,8 +2645,8 @@
 
 .light .confidence-progress-fill {
     background: linear-gradient(90deg,
-      #87630b,
-      #ecc218);
+      #65142e,
+      #a93859);
 }
 
 .light .personality-trait {
@@ -2661,9 +2661,9 @@
 }
 
 .light .warning-trait>span {
-    color: #e6ab13;
-    background: rgba(230, 171, 19, 0.1);
-    border: 1px solid rgba(230, 171, 19, 0.25);
+    color: #a93859;
+    background: rgba(122, 31, 61, 0.1);
+    border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .light .personality-trait strong {
@@ -2679,8 +2679,8 @@
 }
 
 .light .comparison-card {
-    background: rgba(168, 136, 32, 0.045);
-    border: 1px solid rgba(168, 136, 32, 0.15);
+    background: rgba(122, 31, 61, 0.045);
+    border: 1px solid rgba(122, 31, 61, 0.15);
 }
 
 .light .comparison-card span {
@@ -2697,13 +2697,13 @@
 
 .light .monthly-challenge-panel {
     background: radial-gradient(circle at top right,
-      rgba(168, 136, 32, 0.16),
+      rgba(122, 31, 61, 0.16),
       transparent 35%),
     rgba(231, 231, 231, 0.96);
 }
 
 .light .challenge-small-label {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .challenge-top h2 {
@@ -2716,9 +2716,9 @@
 
 .light .challenge-trophy {
     background: linear-gradient(135deg,
-      #87630b,
-      #ecc218);
-    box-shadow: 0 10px 25px rgba(168, 136, 32, 0.15);
+      #65142e,
+      #a93859);
+    box-shadow: 0 10px 25px rgba(122, 31, 61, 0.15);
 }
 
 .light .challenge-progress-heading span {
@@ -2726,7 +2726,7 @@
 }
 
 .light .challenge-progress-heading strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .challenge-progress-bar {
@@ -2735,8 +2735,8 @@
 
 .light .challenge-progress-fill {
     background: linear-gradient(90deg,
-      #87630b,
-      #ecc218);
+      #65142e,
+      #a93859);
 }
 
 .light .challenge-numbers span {
@@ -2757,19 +2757,19 @@
 }
 
 .light .challenge-tip {
-    background: rgba(168, 136, 32, 0.07);
-    border: 1px solid rgba(168, 136, 32, 0.18);
+    background: rgba(122, 31, 61, 0.07);
+    border: 1px solid rgba(122, 31, 61, 0.18);
 }
 
 .light .challenge-tip-icon {
     color: #ebebeb;
     background: linear-gradient(135deg,
-      #87630b,
-      #ecc218);
+      #65142e,
+      #a93859);
 }
 
 .light .challenge-tip strong {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .challenge-tip p {
@@ -2779,12 +2779,12 @@
 .light .challenge-check-button {
     color: #ebebeb;
     background: linear-gradient(135deg,
-      #87630b,
-      #ecc218);
+      #65142e,
+      #a93859);
 }
 
 .light .challenge-check-button:hover {
-    box-shadow: 0 8px 22px rgba(168, 136, 32, 0.16);
+    box-shadow: 0 8px 22px rgba(122, 31, 61, 0.16);
 }
 
 .light .challenge-check-button.checked-in {
@@ -2794,16 +2794,16 @@
 }
 
 .light .achievement-count {
-    color: #a88820;
-    background: rgba(168, 136, 32, 0.09);
-    border: 1px solid rgba(168, 136, 32, 0.25);
+    color: #7a1f3d;
+    background: rgba(122, 31, 61, 0.09);
+    border: 1px solid rgba(122, 31, 61, 0.25);
 }
 
 .light .unlocked-achievement {
     background: linear-gradient(135deg,
-      rgba(168, 136, 32, 0.09),
-      rgba(168, 136, 32, 0.025));
-    border: 1px solid rgba(168, 136, 32, 0.23);
+      rgba(122, 31, 61, 0.09),
+      rgba(122, 31, 61, 0.025));
+    border: 1px solid rgba(122, 31, 61, 0.23);
 }
 
 .light .locked-achievement {
@@ -2817,9 +2817,9 @@
 
 .light .unlocked-achievement .achievement-badge {
     background: linear-gradient(135deg,
-      #84620b,
-      #d0a517);
-    box-shadow: 0 7px 18px rgba(168, 136, 32, 0.13);
+      #65142e,
+      #a93859);
+    box-shadow: 0 7px 18px rgba(122, 31, 61, 0.13);
 }
 
 .light .achievement-status {
@@ -2827,7 +2827,7 @@
 }
 
 .light .unlocked-achievement .achievement-status {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .achievement-card h3 {
@@ -2852,7 +2852,7 @@
 }
 
 .light .next-achievement-top>span {
-    color: #a88820;
+    color: #7a1f3d;
 }
 
 .light .next-achievement-progress {
@@ -2861,8 +2861,8 @@
 
 .light .next-achievement-fill {
     background: linear-gradient(90deg,
-      #87630b,
-      #ecc218);
+      #65142e,
+      #a93859);
 }
 
 .light .next-achievement p {

@@ -16,7 +16,7 @@ import RadialProgress from "../components/ui/radial-progress";
 
 const POSITIVE_COLOR = "#6fcf97";
 const NEGATIVE_COLOR = "#eb7676";
-const ACCENT_COLOR = "#d4af37";
+const ACCENT_COLOR = "#7a1f3d";
 
 const formatMoney = (amount) => `EGP ${Number(amount || 0).toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
 

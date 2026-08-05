@@ -35,11 +35,11 @@ import "../styles/AnalyticsSimple.css";
 
 const CATEGORY_STYLES = {
   Food: {
-    color: "#e8c45b",
+    color: "#a93859",
     icon: "🍔"
   },
   Groceries: {
-    color: "#e8c45b",
+    color: "#a93859",
     icon: "🛒"
   },
   Bills: {
@@ -71,7 +71,7 @@ const CATEGORY_STYLES = {
 
 const FALLBACK_STYLES = [
   {
-    color: "#e8c45b",
+    color: "#a93859",
     icon: "•"
   },
   {
@@ -436,11 +436,12 @@ function Analytics() {
           <div className="breakdown-grid">
             {frequencyData.length > 0 ? (
               <>
-                <ChartContainer
-                  config={frequencyChartConfig}
-                  className="frequency-chart"
-                >
-                  <PieChart accessibilityLayer>
+                <div className="frequency-chart-wrap">
+                  <ChartContainer
+                    config={frequencyChartConfig}
+                    className="frequency-chart"
+                  >
+                    <PieChart accessibilityLayer>
                     <ChartTooltip
                       content={
                         <ChartTooltipContent
@@ -474,15 +475,16 @@ function Analytics() {
                         <Cell key={entry.name} fill={entry.fill} />
                       ))}
                     </Pie>
-                  </PieChart>
-                </ChartContainer>
+                    </PieChart>
+                  </ChartContainer>
 
-                <div className="donut-center frequency-center">
-                  <span>Transactions</span>
-                  <strong>{totalTransactionCount}</strong>
-                  <small>
-                    EGP {formatCurrency(analytics.total_spent)} spent
-                  </small>
+                  <div className="donut-center frequency-center">
+                    <span>Transactions</span>
+                    <strong>{totalTransactionCount}</strong>
+                    <small>
+                      EGP {formatCurrency(analytics.total_spent)} spent
+                    </small>
+                  </div>
                 </div>
 
                 <div className="breakdown-legend">
