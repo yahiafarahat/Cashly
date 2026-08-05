@@ -370,7 +370,7 @@
 
   background:
     radial-gradient(circle, #181818 56%, transparent 58%),
-    conic-gradient(#d4af37 0deg 302deg, #333333 302deg 360deg);
+    conic-gradient(#d4af37 0deg var(--score-angle, 302deg), #333333 var(--score-angle, 302deg) 360deg);
 
   border-radius: 50%;
 }
@@ -2311,7 +2311,7 @@
 
 .light .health-score-circle {
     background: radial-gradient(circle, #e7e7e7 56%, transparent 58%),
-    conic-gradient(#a88820 0deg 302deg, #cccccc 302deg 360deg);
+    conic-gradient(#a88820 0deg var(--score-angle, 302deg), #cccccc var(--score-angle, 302deg) 360deg);
 }
 
 .light .health-score-circle strong {

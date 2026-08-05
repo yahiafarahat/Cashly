@@ -33,7 +33,7 @@ const t = {
     settings: {
         eyebrow: "ACCOUNT CONTROL CENTER", title: "Settings", subtitle: "Manage your profile, preferences, security, and Cashly data.",
         navigation: { profile: "Personal information", language: "Language & region", notifications: "Notifications", appearance: "Appearance", preferences: "Financial preferences", security: "Security", data: "Data management" },
-        profile: { title: "Personal information", subtitle: "Keep your account details accurate and up to date.", profileCompletion: "Profile complete", completionHint: "Complete your profile to personalize your Cashly experience.", firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone", birthdate: "Birthdate", gender: "Gender", female: "Female", male: "Male", preferNotToSay: "Prefer not to say", country: "Country" },
+        profile: { title: "Personal information", subtitle: "Keep your account details accurate and up to date.", profileCompletion: "Profile complete", completionHint: "Complete your profile to personalize your Cashly experience.", firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone", birthdate: "Birthdate", gender: "Gender", female: "Female", male: "Male", preferNotToSay: "Prefer not to say", country: "Country", monthlyIncome: "Monthly Income", monthlyIncomePlaceholder: "Enter your monthly income" },
         language: { title: "Language & region", subtitle: "Choose how dates, currency, and regional information are displayed.", english: "English", arabic: "Arabic — Coming soon", currency: "Currency", dateFormat: "Date format", monthStart: "Financial month starts on", monthStartHint: "Choose a day between 1 and 28." },
         notifications: { title: "Notifications", subtitle: "Control which Cashly updates you receive.", monthlySummary: "Monthly financial summary", budgetWarnings: "Budget warnings", budgetDescription: "Get notified when spending approaches your limits.", largeTransactions: "Large transaction alerts", challengeReminders: "Challenge reminders", weeklyInsights: "Weekly financial insights", goalUpdates: "Savings goal updates", coachAdvice: "Financial coach advice" },
         appearance: { title: "Appearance", subtitle: "Adjust how Cashly looks and feels.", darkTheme: "Cashly dark theme", darkThemeDescription: "The premium dark theme is currently active.", hideValues: "Hide financial values", hideValuesDescription: "Mask balances and transaction amounts for privacy.", reduceMotion: "Reduce motion", compactLayout: "Compact layout", largerText: "Larger text" },
@@ -51,6 +51,7 @@ const profileDefaults = {
     birthdate: "",
     gender: "",
     country: "Egypt",
+    monthlyIncome: "",
 };
 
 const notificationDefaults = {
@@ -264,6 +265,21 @@ function Settings() {
         setProfile((current) => ({
             ...current,
             [name]: value,
+        }));
+    }
+
+    function updateMonthlyIncome(event) {
+        const { value } = event.target;
+
+        // Reject negative input outright rather than clamping, so a stray
+        // "-" while typing doesn't silently rewrite what the user meant to type.
+        if (value !== "" && Number(value) < 0) {
+            return;
+        }
+
+        setProfile((current) => ({
+            ...current,
+            monthlyIncome: value,
         }));
     }
 
@@ -487,6 +503,20 @@ function Settings() {
                                 United States
                             </option>
                         </select>
+                    </label>
+
+                    <label className="settings-wide-field">
+                        <span>{t.settings.profile.monthlyIncome}</span>
+                        <input
+                            name="monthlyIncome"
+                            type="number"
+                            inputMode="decimal"
+                            min="0"
+                            step="0.01"
+                            placeholder={t.settings.profile.monthlyIncomePlaceholder}
+                            value={profile.monthlyIncome}
+                            onChange={updateMonthlyIncome}
+                        />
                     </label>
                 </div>
             </>

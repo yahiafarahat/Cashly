@@ -14,24 +14,6 @@
 .my-day-profile-copy strong, .my-day-profile-copy span { display: block; }
 .my-day-profile-copy strong { max-width: 190px; overflow: hidden; color: #e9e7e1; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
 .my-day-profile-copy span { max-width: 190px; margin-top: 4px; overflow: hidden; color: #6f6f75; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
-.ai-insight-card { position: relative; max-width: 1120px; min-height: 390px; margin: 0 auto 60px; padding: 30px 34px 34px; overflow: hidden; border: 1px solid rgba(218, 181, 66, .3); border-radius: 26px; background: linear-gradient(125deg, rgba(33, 31, 25, .97), rgba(20, 20, 21, .98) 60%, #181611); box-shadow: 0 28px 80px rgba(0, 0, 0, .34), inset 0 1px rgba(255,255,255,.04); }
-.ai-insight-card::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.09) .6px, transparent .6px); background-size: 18px 18px; opacity: .18; pointer-events: none; }
-.insight-glow { position: absolute; width: 410px; height: 410px; right: -100px; top: -170px; border-radius: 50%; background: rgba(216, 171, 41, .14); filter: blur(3px); }
-.insight-topline { position: relative; display: flex; align-items: center; justify-content: space-between; }
-.ai-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 11px; color: #f0d26c; background: rgba(212,175,55,.1); border: 1px solid rgba(212,175,55,.21); border-radius: 8px; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
-.fresh-label { display: flex; align-items: center; gap: 8px; color: #7f7f81; font-size: 12px; }
-.fresh-label i { width: 7px; height: 7px; border-radius: 50%; background: #73c89c; box-shadow: 0 0 12px #73c89c; }
-.my-day-page .insight-content { position: relative; z-index: 1; width: min(760px, calc(100% - 90px)); padding: 58px 0 0 16px; display: block; }
-.my-day-page .insight-content h2 { max-width: 760px; margin: 0 0 20px; font-size: clamp(34px, 4vw, 58px); line-height: 1.07; letter-spacing: -.045em; font-weight: 620; }
-.my-day-page .insight-content p { max-width: 640px; margin: 0; color: #aaa7a0; font-size: 16px; line-height: 1.7; }
-.my-day-page .insight-actions { margin-top: 28px; display: flex; align-items: center; gap: 20px; }
-.insight-action, .next-insight, .mark-paid { font-family: inherit; cursor: pointer; }
-.insight-action { min-height: 44px; display: inline-flex; align-items: center; gap: 10px; padding: 12px 17px; color: #17130a; background: linear-gradient(135deg, #ecd26f, #c89b26); border: 0; border-radius: 10px; font-weight: 750; white-space: nowrap; }
-.insight-action:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(205,161,39,.2); }
-.next-insight { min-height: 44px; padding: 8px 2px; color: #aaa69d; background: none; border: 0; border-bottom: 1px solid #5c5749; font-size: 13px; white-space: nowrap; }
-.next-insight:hover { color: #ecd26f; box-shadow: none; transform: none; }
-.insight-number { position: absolute; right: 32px; bottom: 28px; color: rgba(238,211,116,.78); font-size: 23px; font-weight: 650; letter-spacing: .04em; }
-.insight-number span { color: #5e5c56; font-size: 12px; }
 .bills-section { max-width: 1120px; margin: 0 auto; }
 .section-heading { margin-bottom: 20px; display: flex; align-items: end; justify-content: space-between; }
 .section-kicker { display: flex; align-items: center; gap: 8px; color: #b99738; font-size: 10px; font-weight: 750; letter-spacing: .17em; }
@@ -57,8 +39,16 @@
 .mark-paid { padding: 9px 10px; color: #8c8c91; background: transparent; border: 1px solid #333337; border-radius: 8px; font-size: 12px; }
 .mark-paid:hover { color: #e8ca66; border-color: #7b672b; transform: none; box-shadow: none; }
 .bill-reassurance { margin: 14px 4px 0; display: flex; justify-content: flex-end; align-items: center; gap: 7px; color: #6f987f; font-size: 12px; }
-@media (max-width: 900px) { .my-day-main { padding: 34px 22px 54px; } .ai-insight-card { min-height: 420px; } .insight-content { width: 100%; padding-left: 0; } .bill-row { grid-template-columns: 48px 1fr auto; } .bill-due { grid-column: 2; } .bill-amount { grid-column: 3; grid-row: 1; } .mark-paid { grid-column: 3; grid-row: 2; } }
-@media (max-width: 640px) { .my-day-header { margin-bottom: 28px; } .today-label { font-size: 9px; } .my-day-profile { display: none; } .ai-insight-card { padding: 22px; border-radius: 20px; } .fresh-label { display: none; } .insight-content { padding-top: 46px; } .insight-content h2 { font-size: 34px; } .insight-actions { align-items: flex-start; flex-direction: column; } .insight-number { right: 20px; bottom: 20px; } .section-heading { align-items: flex-start; gap: 14px; } .bills-total { align-items: flex-end; flex-direction: column; gap: 3px; } .bill-row { padding: 15px; grid-template-columns: 44px 1fr auto; gap: 11px; } .bill-amount { font-size: 12px; } .mark-paid { padding: 7px; } }
+@media (max-width: 900px) { .my-day-main { padding: 34px 22px 54px; } .bill-row { grid-template-columns: 48px 1fr auto; } .bill-due { grid-column: 2; } .bill-amount { grid-column: 3; grid-row: 1; } .mark-paid { grid-column: 3; grid-row: 2; } }
+@media (max-width: 640px) { .my-day-header { margin-bottom: 28px; } .today-label { font-size: 9px; } .my-day-profile { display: none; } .section-heading { align-items: flex-start; gap: 14px; } .bills-total { align-items: flex-end; flex-direction: column; gap: 3px; } .bill-row { padding: 15px; grid-template-columns: 44px 1fr auto; gap: 11px; } .bill-amount { font-size: 12px; } .mark-paid { padding: 7px; } }
+
+/* My Day metric cards (Total Daily Spent / Total Balance / Financial Health) */
+.my-day-page .summary-cards.my-day-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1120px; margin: 0 auto 40px; }
+.my-day-page .summary-card .health-progress { margin-top: 10px; margin-bottom: 0; }
+.my-day-page .summary-card h2 small { color: #8e8e94; font-size: 13px; font-weight: 600; }
+@media (max-width: 1150px) { .my-day-page .summary-cards.my-day-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .my-day-page .my-day-header-actions { flex-wrap: wrap; justify-content: flex-end; } }
+@media (max-width: 600px) { .my-day-page .summary-cards.my-day-metrics { grid-template-columns: 1fr; } }
 
 
 /* =========================================================
@@ -109,61 +99,6 @@
 
 .light .my-day-profile-copy span {
     color: #8a8a90;
-}
-
-.light .ai-insight-card {
-    border: 1px solid rgba(182, 145, 31, .3);
-    background: linear-gradient(125deg, rgba(230, 228, 222, .97), rgba(234, 234, 235, .98) 60%, #eeece7);
-    box-shadow: 0 28px 80px rgba(0, 0, 0, .34), inset 0 1px rgba(26, 26, 26, .04);
-}
-
-.light .insight-glow {
-    background: rgba(166, 130, 26, .14);
-}
-
-.light .ai-badge {
-    color: #ecbc19;
-    background: rgba(168, 136, 32, .1);
-    border: 1px solid rgba(168, 136, 32, .21);
-}
-
-.light .fresh-label {
-    color: #7e7e80;
-}
-
-.light .fresh-label i {
-    background: #40ac74;
-    box-shadow: 0 0 12px #40ac74;
-}
-
-.light .my-day-page .insight-content p {
-    color: #5f5c55;
-}
-
-.light .insight-action {
-    color: #f3eee3;
-    background: linear-gradient(135deg, #e7bd1e, #997619);
-}
-
-.light .insight-action:hover {
-    box-shadow: 0 8px 24px rgba(157, 122, 26, .2);
-}
-
-.light .next-insight {
-    color: #625e55;
-    border-bottom: 1px solid #b6b1a3;
-}
-
-.light .next-insight:hover {
-    color: #e7bd1e;
-}
-
-.light .insight-number {
-    color: rgba(233, 189, 32, .78);
-}
-
-.light .insight-number span {
-    color: #a9a7a1;
 }
 
 .light .section-kicker {
@@ -236,4 +171,8 @@
 
 .light .bill-reassurance {
     color: #51745f;
+}
+
+.light .my-day-page .summary-card h2 small {
+    color: #7a7a80;
 }
